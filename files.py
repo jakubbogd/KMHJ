@@ -20,6 +20,8 @@ def read_cities(file):
         return False
     elif any(data.duplicated(subset=["x_coordinate","y_coordinate"])):
         return False
+    elif len(data)==0:
+        return False
     else:
         return True
     
@@ -33,6 +35,8 @@ def read_prod(file):
         return False
     elif any(data.duplicated(subset=["city1","city2"])):
         return False
+    elif len(data)==0:
+        return False
     else:
         for index, row in data.iterrows():
             if row["city1"]==row["city2"]:
@@ -43,8 +47,8 @@ def read_worker_time(file):
     data=pd.read_csv(file)
     if list(data.columns.values)!=['time']:
         return False
-    elif len(data)>1:
-        print(len(data))
+    elif len(data)!=1:
+        return False
     elif len(list(filter(lambda x: x<0,data["time"])))>0:
         return False
     else:
@@ -56,6 +60,8 @@ def read_solution(file4,file1):
     if list(data4.columns.values)!=['solution']:
         return False
     elif not all(data4["solution"].isin(data1["city_name"])):
+        return False
+    elif len(data)==0:
         return False
     else:
         return True
