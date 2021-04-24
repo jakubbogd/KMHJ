@@ -2,12 +2,13 @@
 Wersja testowa, tu musi byc GUI i cała apka
 """
 
-# Przyklad ze rysowanie grafow dziala
+
 from backend.classes.DetailedEdge import DetailedEdge
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.Graph import Graph
 
 if __name__ == "__main__":
+    # Przyklad ze rysowanie grafow dziala
     vert_1 = DetailedNode("Marta", 1, 1, 20)
     vert_2 = DetailedNode("Kuba", 7, 7, 10)
     vert_3 = DetailedNode("Krzysio", 10, 12, 10)
