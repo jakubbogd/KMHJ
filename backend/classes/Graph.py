@@ -3,8 +3,8 @@
 @author: HG
 """
 
-from backend.classes.DetailedNode import DetailedNode
-from backend.classes.DetailedEdge import DetailedEdge
+from KMHJ.backend.classes.DetailedNode import DetailedNode
+from KMHJ.backend.classes.DetailedEdge import DetailedEdge
 import matplotlib.pyplot as plt
 
 class Graph:
@@ -17,7 +17,49 @@ class Graph:
         self.__worker_time = worker_time
         self.__correct_edges = correct_edges
 
-    # Do uzupelnienia gettery i settery
+    # uzupełnione gettery i settery
+    def get_nodes(self):
+        return self.__nodes
+
+    def get_detailed_nodes(self):
+        return self.__detailed_nodes
+
+    def get_edges(self):
+        return self.__edges
+
+    def get_detailed_edges(self):
+        return self.__detailed_edges
+
+    def get_worker_time(self):
+        return self.__worker_time
+
+    def get_correct_edges(self):
+        return self.__correct_edges
+
+    def set_nodes(self, nodes):
+        self.__nodes = nodes
+
+    def set_detailed_nodes(self, detailed_nodes):
+        self.__detailed_nodes = detailed_nodes
+
+    def set_edges(self, edges):
+        self.__edges = edges
+
+    def set_detailed_edges(self, detailed_edges):
+        self.__detailed_edges = detailed_edges
+
+    def set_worker_time(self, worker_time):
+        self.__worker_time = worker_time
+
+    def set_correct_edges(self, correct_edges):
+        self.__correct_edges = correct_edges
+
+    def get_starting_node(self):
+        node = DetailedNode("Zero", 1, 1, 0)
+        for n in self.__detailed_nodes:
+            if node.get_products() < n.get_products():
+                node = n
+        return node
 
     def check_correct_edges(self, edge_1, edge_2):
         """

@@ -6,6 +6,7 @@ Wersja testowa, tu musi byc GUI i cała apka
 from backend.classes.DetailedEdge import DetailedEdge
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.Graph import Graph
+from backend.MathFuncs.MathFunctions import solve_salesman_problem
 
 if __name__ == "__main__":
     # Przyklad ze rysowanie grafow dziala
@@ -29,5 +30,6 @@ if __name__ == "__main__":
 
     next = input("Jeśli chcesz wyswietlic graf ze sciezka wcisnij litere a i kliknij enter. Jesli nie - wcisnij cokolwiek innego i zatwierdz")
     if next == "a":
-        path = [edge_1, edge_2, edge_3]
+        #path = [edge_1, edge_2, edge_3]
+        path = solve_salesman_problem(graph)
         graph.plot_graph_with_path(path)
