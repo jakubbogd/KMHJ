@@ -6,7 +6,7 @@ Wersja testowa, tu musi byc GUI i cała apka
 from backend.classes.DetailedEdge import DetailedEdge
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.Graph import Graph
-from backend.MathFuncs.MathFunctions import solve_salesman_problem
+from backend.MathFuncs.MathFunctions import solve_salesman_problem, dijkstra_algorithm
 
 if __name__ == "__main__":
     # Przyklad ze rysowanie grafow dziala
@@ -17,19 +17,30 @@ if __name__ == "__main__":
     vert_5 = DetailedNode("Legia", -5, 7, 22)
 
     detailed_nodes = [vert_1, vert_2, vert_3, vert_4, vert_5]
-    edge_1 = DetailedEdge(vert_1.get_label(), vert_2.get_label(), 2, vert_1.get_products(), vert_2.get_products(), 1, 1)
-    edge_2 = DetailedEdge(vert_2.get_label(), vert_3.get_label(), 2, vert_2.get_products(), vert_3.get_products(), 1, 1)
-    edge_3 = DetailedEdge(vert_3.get_label(), vert_4.get_label(), 2, vert_3.get_products(), vert_4.get_products(), 1, 1)
-    edge_4 = DetailedEdge(vert_4.get_label(), vert_1.get_label(), 2, vert_4.get_products(), vert_1.get_products(), 1, 1)
-    edge_5 = DetailedEdge(vert_1.get_label(), vert_3.get_label(), 2, vert_1.get_products(), vert_3.get_products(), 1, 1)
+    edge_1 = DetailedEdge(vert_1.get_label(), vert_2.get_label(), vert_1, vert_2, 25, vert_1.get_products(), vert_2.get_products(), 1, 1)
+    edge_2 = DetailedEdge(vert_2.get_label(), vert_3.get_label(), vert_2, vert_3, 20, vert_2.get_products(), vert_3.get_products(), 1, 1)
+    edge_3 = DetailedEdge(vert_3.get_label(), vert_4.get_label(), vert_3, vert_4, 10, vert_3.get_products(), vert_4.get_products(), 1, 1)
+    edge_4 = DetailedEdge(vert_4.get_label(), vert_1.get_label(), vert_4, vert_1, 20, vert_4.get_products(), vert_1.get_products(), 1, 2)
+    edge_5 = DetailedEdge(vert_1.get_label(), vert_3.get_label(), vert_1, vert_3, 50, vert_1.get_products(), vert_3.get_products(), 1, 5)
+    edge_6 = DetailedEdge(vert_5.get_label(), vert_4.get_label(), vert_5, vert_4, 20, vert_5.get_products(), vert_4.get_products(), 1, 2)
+    edge_7 = DetailedEdge(vert_5.get_label(), vert_3.get_label(), vert_5, vert_3, 2, vert_5.get_products(), vert_3.get_products(), 1, 2)
 
-    detailed_edges = [edge_1, edge_2, edge_3, edge_4, edge_5]
+    detailed_edges = [edge_1, edge_2, edge_3, edge_4, edge_5, edge_6, edge_7]
 
     graph = Graph(None, detailed_nodes, None, detailed_edges, 3049390, True)
     graph.plot_graph(True)
 
-    next = input("Jeśli chcesz wyswietlic graf ze sciezka wcisnij litere a i kliknij enter. Jesli nie - wcisnij cokolwiek innego i zatwierdz")
-    if next == "a":
+    #next = input("Jeśli chcesz wyswietlic graf ze sciezka wcisnij litere a i kliknij enter. Jesli nie - wcisnij cokolwiek innego i zatwierdz")
+    """if next == "a":
         #path = [edge_1, edge_2, edge_3]
         path = solve_salesman_problem(graph)
-        graph.plot_graph_with_path(path)
+        graph.plot_graph_with_path(path)"""
+
+    #Sprawdzam czy dziala dijkstra na grafie
+    #na przykladzie Legia -- Krzysio. Powinno zwrocic najdrozsza jaka jest czyli Legia -- Hubi -- Marta -- Krzysio
+    # sorki Kuba
+
+    path = dijkstra_algorithm(graph, vert_5, vert_3)
+    graph.plot_graph_with_path(path)
+
+    # jeeeee bangla

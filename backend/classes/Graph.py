@@ -3,9 +3,11 @@
 @author: HG
 """
 
-from KMHJ.backend.classes.DetailedNode import DetailedNode
-from KMHJ.backend.classes.DetailedEdge import DetailedEdge
+from backend.classes.DetailedNode import DetailedNode
+from backend.classes.DetailedEdge import DetailedEdge
 import matplotlib.pyplot as plt
+
+plt.style.use("ggplot")
 
 class Graph:
 
@@ -88,16 +90,10 @@ class Graph:
     def plot_graph(self, show):
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
-        print(xs)
-        print(ys)
         for node in self.__detailed_nodes:
             plt.text(xs[node.get_label()], ys[node.get_label()], node.get_label(),fontsize=12, c="black")
             plt.plot(xs[node.get_label()], ys[node.get_label()], "bo")
         for edge in self.__detailed_edges:
-            print(edge.get_node_1(), edge.get_node_2())
-            print([xs[edge.get_node_1()], xs[edge.get_node_2()]])
-            print( [ys[edge.get_node_1()], ys[edge.get_node_2()]])
-            print("--------")
             plt.plot([xs[edge.get_node_1()], xs[edge.get_node_2()]],
                      [ys[edge.get_node_1()], ys[edge.get_node_2()]], 'o--', color = "blue")
         plt.grid(True)
@@ -112,3 +108,21 @@ class Graph:
             plt.plot([xs[edge.get_node_1()], xs[edge.get_node_2()]],
                  [ys[edge.get_node_1()], ys[edge.get_node_2()]], 'ro-')
         plt.show()
+
+    def get_neighbours(self, node):
+        """
+
+        :param node: node which neighbours we are looking for
+        :return: neighbours of node
+        """
+        # zwrot te krawedzie, ktore zawieraja node w sobie
+        edges_with_node = [edge for edge in self.__detailed_edges if node.get_label() in [edge.get_node_1(), edge.get_node_2()] ]
+        # zwroc liste tych wierzcholkow, ktore tworza krawedzie z node
+        nodes_1 = {edge.get_detailed_node_1(): edge.get_travel_time() for edge in edges_with_node if node == edge.get_detailed_node_2()}
+        nodes_2 = {edge.get_detailed_node_2(): edge.get_travel_time() for edge in edges_with_node if node == edge.get_detailed_node_1()}
+        return dict(list(nodes_1.items()) + list(nodes_2.items()))
+
+    def find_edge_from_nodes(self, node_1, node_2):
+        for edge in self.__detailed_edges:
+            if (edge.get_detailed_node_1() == node_1 and edge.get_detailed_node_2() == node_2) or (edge.get_detailed_node_2() == node_1 and edge.get_detailed_node_1() == node_2):
+                return edge
