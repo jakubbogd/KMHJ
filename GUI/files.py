@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Apr 21 10:09:18 2021
-
 @author: jakub
 """
 
 import PySimpleGUI as sg
-import os.path
 import pandas as pd
 sg.theme('TealMono')
 
@@ -61,7 +59,7 @@ def read_solution(file4,file1):
         return False
     elif not all(data4["solution"].isin(data1["city_name"])):
         return False
-    elif len(data)==0:
+    elif len(data4)==0:
         return False
     else:
         return True
@@ -77,8 +75,10 @@ def ReadFiles(files):
         layout=[[sg.Text("Błędne dane w pliku nr 2")]]
     elif not read_worker_time(files[2]):
         layout=[[sg.Text("Błędne dane w pliku nr 3")]]
-    elif not read_solution(files[3],files[0]):
+    elif files[3]!="" and not read_solution(files[3],files[0]):
         layout=[[sg.Text("Błędne dane w pliku nr 4")]]
+    else:
+        return True
     layout.append([sg.Button("Spróbuj ponownie")])    
     window=sg.Window("Błąd",layout)
     while True:
@@ -95,9 +95,13 @@ def GUI1():
         if event == sg.WIN_CLOSED or event=="Exit":
             break
         elif event == "Gotowe":
-            files=[values["-IN-"],values["-IN2-"],values["-IN3-"],values["-IN4-"]]
+            files=[values["-IN-"],values["-IN2-"],values["-IN3-"]]
+            try:
+                files.append(values["-IN4-"])
+            except FileNotFoundError:
+                pass
             ReadFiles(files)
-    return files
-
-  
-files=GUI1()
+            break
+    if files[3]=="":
+        del files[3]
+    return [pd.read_csv(file) for file in files]
