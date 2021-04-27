@@ -78,7 +78,9 @@ def ReadFiles(files):
     elif files[3]!="" and not read_solution(files[3],files[0]):
         layout=[[sg.Text("Błędne dane w pliku nr 4")]]
     else:
-        return True
+        if files[3]=="":
+            del files[3]
+        return [pd.read_csv(file) for file in files]
     layout.append([sg.Button("Spróbuj ponownie")])    
     window=sg.Window("Błąd",layout)
     while True:
@@ -87,7 +89,7 @@ def ReadFiles(files):
             break
     window.close()
 
-def GUI1():
+def GUI():
     layout=[[sg.Text("Wybierz listę miast:   "),sg.Input(),sg.FileBrowse(key="-IN-")],[sg.Text("Wybierz listę dróg:     "),sg.Input(),sg.FileBrowse(key="-IN2-")],[sg.Text("Wybierz czas:           "),sg.Input(),sg.FileBrowse(key="-IN3-")],[sg.Text("Wybierz rozwiązanie: "),sg.Input(),sg.FileBrowse(key="-IN4-")],[sg.Button("Gotowe")]]
     window=sg.Window("KMHJ - Komiwojażer with GPS",layout,size=(700,350))
     while True:
@@ -102,6 +104,4 @@ def GUI1():
                 pass
             ReadFiles(files)
             break
-    if files[3]=="":
-        del files[3]
-    return [pd.read_csv(file) for file in files]
+    window.close()
