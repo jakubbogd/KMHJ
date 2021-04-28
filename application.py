@@ -23,7 +23,7 @@ if __name__ == "__main__":
     print("Get correct edges (should be true): " + str(graph.get_correct_edges()))"""
 
     # Przyklad ze rysowanie grafow dziala i że Dijkstra zwraca najdroższą ścieżkę (Jako wagi na razie przyjmuje czas)
-    """
+
     # Przyklad ze rysowanie grafow dziala
     vert_1 = DetailedNode("Marta", 1, 1, 20)
     vert_2 = DetailedNode("Kuba", 7, 7, 10)
