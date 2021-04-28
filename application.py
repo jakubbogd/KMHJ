@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     # Przyklad ze rysowanie grafow dziala i że Dijkstra zwraca najdroższą ścieżkę (Jako wagi na razie przyjmuje czas)
 
-    # Przyklad ze rysowanie grafow dziala
+    """"# Przyklad ze rysowanie grafow dziala
     vert_1 = DetailedNode("Marta", 1, 1, 20)
     vert_2 = DetailedNode("Kuba", 7, 7, 10)
     vert_3 = DetailedNode("Krzysio", 10, 12, 10)
