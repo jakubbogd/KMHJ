@@ -9,25 +9,19 @@ import matplotlib.pyplot as plt
 
 plt.style.use("ggplot")
 
+
 class Graph:
 
-    def __init__(self, nodes, detailed_nodes, edges, detailed_edges, worker_time, correct_edges):
-        self.__nodes = nodes
+    def __init__(self, detailed_nodes, detailed_edges, worker_time, correct_edges):
         self.__detailed_nodes = detailed_nodes
-        self.__edges = edges
         self.__detailed_edges = detailed_edges
         self.__worker_time = worker_time
         self.__correct_edges = correct_edges
 
     # uzupełnione gettery i settery
-    def get_nodes(self):
-        return self.__nodes
 
     def get_detailed_nodes(self):
         return self.__detailed_nodes
-
-    def get_edges(self):
-        return self.__edges
 
     def get_detailed_edges(self):
         return self.__detailed_edges
@@ -38,14 +32,8 @@ class Graph:
     def get_correct_edges(self):
         return self.__correct_edges
 
-    def set_nodes(self, nodes):
-        self.__nodes = nodes
-
     def set_detailed_nodes(self, detailed_nodes):
         self.__detailed_nodes = detailed_nodes
-
-    def set_edges(self, edges):
-        self.__edges = edges
 
     def set_detailed_edges(self, detailed_edges):
         self.__detailed_edges = detailed_edges
@@ -63,7 +51,22 @@ class Graph:
                 node = n
         return node
 
-    def check_correct_edges(self, edge_1, edge_2):
+    def set_correct_edges_with_conditions(self):
+        res = True
+        for edge_1 in self.get_detailed_edges():
+            for edge_2 in self.get_detailed_edges():
+                #node_in_edge_2 = [edge_2.get_detailed_node_1(), edge_2.get_detailed_node_()]
+                if edge_1 != edge_2:
+                    print("Checking edge " + edge_1.get_detailed_node_1().get_label() + " - " + edge_1.get_detailed_node_2().get_label() + " and edge " + edge_2.get_detailed_node_2().get_label() + " - " + edge_2.get_detailed_node_1().get_label())
+                    res = self.check_incorrect_edges(edge_1, edge_2)
+                    if res == True:
+                        print("crossing, end and set false")
+                        self.set_correct_edges(False)
+                        return 0
+                    print("now res = " + str(res))
+        self.set_correct_edges(True)
+
+    def check_incorrect_edges(self, edge_1, edge_2):
         """
 
         :param edge_1: krawedz z klasy DetailedEdge
@@ -85,14 +88,14 @@ class Graph:
         
         # przypadek gdy obie krawedzie sa pionowe
         if edge_1.get_detailed_node_1().get_x_coord() == edge_1.get_detailed_node_2().get_x_coord() and edge_2.get_detailed_node_1().get_x_coord() == edge_2.get_detailed_node_2().get_x_coord() :
-            if x1 == z1 and min(y2,v2) > max(y1,v1):
+            if x1 == z1 and min(y2, v2) > max(y1, v1):
                 return True
             else:
                 return False
         # przypadek gdy pierwsza krawedz jest "pionowa" 
         
-        if edge_1.get_detailed_node_1().get_x_coord() == edge_1.get_detailed_node_2().get_x_coord() :
-             if edge_2.get_detailed_node_1().get_y_coord() == edge_2.get_detailed_node_2().get_y_coord() :
+        if edge_1.get_detailed_node_1().get_x_coord() == edge_1.get_detailed_node_2().get_x_coord():
+             if edge_2.get_detailed_node_1().get_y_coord() == edge_2.get_detailed_node_2().get_y_coord():
                  a2=0
                  b2 = edge_2.get_detailed_node_1().get_y_coord()
              else:
@@ -100,7 +103,7 @@ class Graph:
                 b2 = edge_2.get_detailed_node_1().get_y_coord() - a2* edge_2.get_detailed_node_1().get_x_coord()
             
              x = edge_1.get_detailed_node_1().get_x_coord()
-             y = round(a2*x+b2,2)
+             y = round(a2*x+b2, 2)
 
 
              if  y > y1 and y < y2 and y>=v1 and y<=v2 :
@@ -153,25 +156,45 @@ class Graph:
         x = round((b2-b1)/(a1-a2) ,2)
         y = round(a2*x+b2,2)
                       
-        if   x > x1 and x < x2 and y > y1 and y < y2 and x >z1 and x<z2 and y>v1 and y<v2 :
+        if  x > x1 and x < x2 and y > y1 and y < y2 and x >z1 and x<z2 and y>v1 and y<v2 :
             print("Krawedzie  przecinaja sie w punkcie (",x,"," ,y,")")
             return True
         else:
             return False
 
-    def set_nodes_from_file(self, file):
+    def set_nodes_from_file(self, df):
         """
 
-        :param file: plik z ktorego tworzymy wierzcholki
+        :param file: df z ktorego tworzymy wierzcholki
         :return: chyba empty, bo ustawia odpowiednio wierzcholki
         """
+        records = df.values.tolist()
+        for element in records:
+            node = DetailedNode(element[0], element[1], element[2], element[3])
+            self.__detailed_nodes.append(node)
 
-    def set_edges_from_file(self, file):
+    def set_edges_from_file(self, df):
         """
 
-        :param file: plik z ktorego tworzymy krawedzie
+        :param df: plik z ktorego tworzymy krawedzie
         :return: chyba empty, bo ustawia odpowiednio wierzcholek
         """
+        records = df.values.tolist()
+        for element in records:
+            print("Start edge " + str(element))
+            node_1_index = self.find_detailed_node_index(element[0])
+            node_2_index = self.find_detailed_node_index(element[1])
+            node_1 = self.__detailed_nodes[node_1_index]
+            node_2 = self.__detailed_nodes[node_2_index]
+            travel_time = element[2]
+            edge = DetailedEdge(element[0], element[1], node_1, node_2, travel_time, node_1.get_products(), node_2.get_products(), 0, 0)
+            #waga ustawiona roboczo potem zmienic, to tylko tmp
+            self.__detailed_edges.append(edge)
+
+    def find_detailed_node_index(self, node_label):
+        for node in self.__detailed_nodes:
+            if node.get_label() == node_label:
+                return self.__detailed_nodes.index(node)
 
     def plot_graph(self, show):
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}

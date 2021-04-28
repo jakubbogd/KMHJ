@@ -4,17 +4,17 @@
 """
 from backend.classes.DetailedNode import DetailedNode
 
-
+# TODO usun node bez szczegolow i profity, no bo mamy detailed
 class DetailedEdge:
 
     def __init__(self, node_1, node_2, detailed_node_1, detailed_node_2, travel_time, profit_to_node_1, profit_to_node_2, weight_to_1, weight_to_2):
-        self.__node_1 = node_1
-        self.__node_2 = node_2
+        self.__node_1 = node_1 #rm
+        self.__node_2 = node_2 #rm
         self.__detailed_node_1 = detailed_node_1
         self.__detailed_node_2 = detailed_node_2
         self.__travel_time = travel_time
-        self.__profit_to_node_1 = profit_to_node_1
-        self.__profit_to_node_2 = profit_to_node_2
+        self.__profit_to_node_1 = profit_to_node_1 #rm
+        self.__profit_to_node_2 = profit_to_node_2 #rm
         self.__weight_to_1 = weight_to_1
         self.__weight_to_2 = weight_to_2
 

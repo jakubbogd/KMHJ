@@ -102,6 +102,7 @@ def GUI():
                 files.append(values["-IN4-"])
             except FileNotFoundError:
                 pass
-            ReadFiles(files)
+            dfs = ReadFiles(files)
             break
-    window.close()
+    return dfs
+

@@ -8,11 +8,11 @@ def dijkstra_algorithm(graph, start_node, end_node):
 
     :param graph: graf realizujacy mape
     :param start_node: miasto startowe
-    :param end_node: miastowe koncowe
+    :param end_node: miasto koncowe
     :return: najdrozsza sciezka miedzy start_node a end_node
     """
 
-    # -10 wystarcza bo wagi >0
+    # -1 wystarcza bo wagi >0
     distances = {node: -1 for node in graph.get_detailed_nodes()}
     previous = {node: None for node in graph.get_detailed_nodes()}
     not_visited = [node for node in graph.get_detailed_nodes()]
