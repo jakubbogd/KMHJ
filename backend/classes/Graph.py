@@ -227,8 +227,8 @@ class Graph:
         # zwrot te krawedzie, ktore zawieraja node w sobie
         edges_with_node = [edge for edge in self.__detailed_edges if node.get_label() in [edge.get_node_1(), edge.get_node_2()] ]
         # zwroc liste tych wierzcholkow, ktore tworza krawedzie z node
-        nodes_1 = {edge.get_detailed_node_1(): edge.get_travel_time() for edge in edges_with_node if node == edge.get_detailed_node_2()}
-        nodes_2 = {edge.get_detailed_node_2(): edge.get_travel_time() for edge in edges_with_node if node == edge.get_detailed_node_1()}
+        nodes_1 = {edge.get_detailed_node_1(): edge.get_weight_to_1() for edge in edges_with_node if node == edge.get_detailed_node_2()}
+        nodes_2 = {edge.get_detailed_node_2(): edge.get_weight_to_2() for edge in edges_with_node if node == edge.get_detailed_node_1()}
         return dict(list(nodes_1.items()) + list(nodes_2.items()))
 
     def find_edge_from_nodes(self, node_1, node_2):

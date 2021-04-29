@@ -8,7 +8,7 @@ from backend.classes.Graph import Graph
 from backend.MathFuncs.MathFunctions import solve_salesman_problem, dijkstra_algorithm
 
 if __name__ == "__main__":
-    """# Przyklad na wczytywanie plikow z GUI, utworzenie na ich podstawie grafu i narysowanie go i sprawdzenie że krawędzie spełniają warunek nieprzecinania
+    # Przyklad na wczytywanie plikow z GUI, utworzenie na ich podstawie grafu i narysowanie go i sprawdzenie że krawędzie spełniają warunek nieprzecinania
 
     list_of_dfs = GUI()
     graph = Graph([], [], None, None)
@@ -18,13 +18,14 @@ if __name__ == "__main__":
     graph.set_edges_from_file(list_of_dfs[1])
     graph.set_worker_time(list_of_dfs[2].values.tolist()[0][0])
     graph.plot_graph(True)
+    """
     #po rysunku widac ze krawedzie sa prawidlowe, ale sprawdzmy to
     graph.set_correct_edges_with_conditions()
     print("Get correct edges (should be true): " + str(graph.get_correct_edges()))"""
-
+    """
     # Przyklad ze rysowanie grafow dziala i że Dijkstra zwraca najdroższą ścieżkę (Jako wagi na razie przyjmuje czas)
 
-    """"# Przyklad ze rysowanie grafow dziala
+    # Przyklad ze rysowanie grafow dziala
     vert_1 = DetailedNode("Marta", 1, 1, 20)
     vert_2 = DetailedNode("Kuba", 7, 7, 10)
     vert_3 = DetailedNode("Krzysio", 10, 12, 10)
@@ -44,23 +45,23 @@ if __name__ == "__main__":
 
     graph = Graph(detailed_nodes, detailed_edges, 3049390, True)
     graph.plot_graph(True)
+    """
 
-    #next = input("Jeśli chcesz wyswietlic graf ze sciezka wcisnij litere a i kliknij enter. Jesli nie - wcisnij cokolwiek innego i zatwierdz")
-    """"""if next == "a":
-        #path = [edge_1, edge_2, edge_3]
+    next = input("Jeśli chcesz wyswietlic graf ze sciezka wcisnij litere a i kliknij enter. Jesli nie - wcisnij cokolwiek innego i zatwierdz \n")
+
+    if next == "a":
         path = solve_salesman_problem(graph)
-        graph.plot_graph_with_path(path)""""""
+        graph.plot_graph_with_path(path)
 
+    """
     #Sprawdzam czy dziala dijkstra na grafie
     #na przykladzie Legia -- Krzysio. Powinno zwrocic najdrozsza jaka jest czyli Legia -- Hubi -- Marta -- Krzysio
     # sorki Kuba
 
     path = dijkstra_algorithm(graph, vert_5, vert_3)
     graph.plot_graph_with_path(path)
-
-    # jeeeee bangla
-
     """
+
     """
     # Rysowanie grafu przykladowego gdzie krawedzie sie przecinaja i zwrocenie, ze warunek na correct edges jest False
     node_1 = DetailedNode("Wawa", 0, 0, 20)

@@ -34,6 +34,18 @@ class DetailedEdge:
     def get_travel_time(self):
         return self.__travel_time
 
+    def get_profit_to_node_1(self):
+        return self.__profit_to_node_1
+
+    def get_profit_to_node_2(self):
+        return self.__profit_to_node_2
+
+    def get_weight_to_1(self):
+        return self.__weight_to_1
+
+    def get_weight_to_2(self):
+        return self.__weight_to_2
+
     # Uzupelnic gettery i settery
 
     def count_weight(self, node_to, time_param, prod_param):
