@@ -2,28 +2,16 @@
 
 @author: HG
 """
-from backend.classes.DetailedNode import DetailedNode
+from KMHJ.backend.classes.DetailedNode import DetailedNode
 
-# TODO usun node bez szczegolow i profity, no bo mamy detailed
 class DetailedEdge:
 
-    def __init__(self, node_1, node_2, detailed_node_1, detailed_node_2, travel_time, profit_to_node_1, profit_to_node_2, weight_to_1, weight_to_2):
-        self.__node_1 = node_1 #rm
-        self.__node_2 = node_2 #rm
+    def __init__(self, detailed_node_1, detailed_node_2, travel_time, weight_to_1, weight_to_2):
         self.__detailed_node_1 = detailed_node_1
         self.__detailed_node_2 = detailed_node_2
         self.__travel_time = travel_time
-        self.__profit_to_node_1 = profit_to_node_1 #rm
-        self.__profit_to_node_2 = profit_to_node_2 #rm
-        self.__weight_to_1 = weight_to_1
-        self.__weight_to_2 = weight_to_2
-
-
-    def get_node_1(self):
-        return self.__node_1
-
-    def get_node_2(self):
-        return self.__node_2
+        self.__weight_to_1 = self.count_weight(self.__detailed_node_1, 0.5, 0.5)
+        self.__weight_to_2 = self.count_weight(self.__detailed_node_2, 0.5, 0.5)
 
     def get_detailed_node_1(self):
         return self.__detailed_node_1
@@ -34,17 +22,17 @@ class DetailedEdge:
     def get_travel_time(self):
         return self.__travel_time
 
-    def get_profit_to_node_1(self):
-        return self.__profit_to_node_1
-
-    def get_profit_to_node_2(self):
-        return self.__profit_to_node_2
-
     def get_weight_to_1(self):
         return self.__weight_to_1
 
     def get_weight_to_2(self):
         return self.__weight_to_2
+
+    def set_weight_to_1(self, weight_to_1):
+        self.__weight_to_1 = weight_to_1
+
+    def set_weight_to_2(self, weight_to_2):
+        self.__weight_to_2 = weight_to_2
 
     # Uzupelnic gettery i settery
 

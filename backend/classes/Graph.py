@@ -3,8 +3,12 @@
 @author: HG
 """
 
+"""
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.DetailedEdge import DetailedEdge
+"""
+from KMHJ.backend.classes.DetailedNode import DetailedNode
+from KMHJ.backend.classes.DetailedEdge import DetailedEdge
 import matplotlib.pyplot as plt
 
 plt.style.use("ggplot")
@@ -187,7 +191,7 @@ class Graph:
             node_1 = self.__detailed_nodes[node_1_index]
             node_2 = self.__detailed_nodes[node_2_index]
             travel_time = element[2]
-            edge = DetailedEdge(element[0], element[1], node_1, node_2, travel_time, node_1.get_products(), node_2.get_products(), 0, 0)
+            edge = DetailedEdge(node_1, node_2, travel_time, 0, 0)
             #waga ustawiona roboczo potem zmienic, to tylko tmp
             self.__detailed_edges.append(edge)
 
@@ -203,8 +207,8 @@ class Graph:
             plt.text(xs[node.get_label()], ys[node.get_label()], node.get_label(),fontsize=12, c="black")
             plt.plot(xs[node.get_label()], ys[node.get_label()], "bo")
         for edge in self.__detailed_edges:
-            plt.plot([xs[edge.get_node_1()], xs[edge.get_node_2()]],
-                     [ys[edge.get_node_1()], ys[edge.get_node_2()]], 'o--', color = "blue")
+            plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
+                     [ys[edge.get_detailed_node_1().get_label()], ys[edge.get_detailed_node_2().get_label()]], 'o--', color = "blue")
         plt.grid(True)
         if show:
             plt.show()
@@ -214,8 +218,8 @@ class Graph:
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         self.plot_graph(False)
         for edge in path:
-            plt.plot([xs[edge.get_node_1()], xs[edge.get_node_2()]],
-                 [ys[edge.get_node_1()], ys[edge.get_node_2()]], 'ro-')
+            plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
+                 [ys[edge.get_detailed_node_1().get_label()], ys[edge.get_detailed_node_2().get_label()]], 'ro-')
         plt.show()
 
     def get_neighbours(self, node):
@@ -225,11 +229,20 @@ class Graph:
         :return: neighbours of node
         """
         # zwrot te krawedzie, ktore zawieraja node w sobie
-        edges_with_node = [edge for edge in self.__detailed_edges if node.get_label() in [edge.get_node_1(), edge.get_node_2()] ]
+        edges_with_node = [edge for edge in self.__detailed_edges if node.get_label() in [edge.get_detailed_node_1().get_label(), edge.get_detailed_node_2().get_label()]]
         # zwroc liste tych wierzcholkow, ktore tworza krawedzie z node
         nodes_1 = {edge.get_detailed_node_1(): edge.get_weight_to_1() for edge in edges_with_node if node == edge.get_detailed_node_2()}
         nodes_2 = {edge.get_detailed_node_2(): edge.get_weight_to_2() for edge in edges_with_node if node == edge.get_detailed_node_1()}
         return dict(list(nodes_1.items()) + list(nodes_2.items()))
+
+    def get_edges_to_node(self, node):
+        """
+
+        :param node: wierzcholek, z ktorego wychodzace krawedzie chcemy znalezc
+        :return:
+        """
+        edges_to_node = [edge for edge in self.__detailed_edges if node.get_label() == edge.get_detailed_node_2().get_label()]
+        return edges_to_node
 
     def find_edge_from_nodes(self, node_1, node_2):
         for edge in self.__detailed_edges:

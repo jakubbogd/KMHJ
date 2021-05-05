@@ -81,21 +81,31 @@ def solve_salesman_problem(graph):
     # szukam maksymalnych sciezek, poki moge
     while found_any == 1:
         print("Miasto począktkowe aktualnego obrotu: " + start_node.get_label())
-        result = [res for res in algorithm_iteration(graph, start_node, time)]
+        result = [res for res in algorithm_iteration(graph, start_node, not_visited, time)]
         max_path = result[0]
         time = result[1]
         end_node = result[2]
         print("Do trasy dodaje krawedzie:")
         for edge in max_path:
             path.append(edge)
+            edges_to_node_1 = graph.get_edges_to_node(edge.get_detailed_node_1())
+            for edge_to_1 in edges_to_node_1:
+                edge_to_1.set_weight_to_1(0)
+                edge_to_1.set_weight_to_2(0)
+            edges_to_node_2 = graph.get_edges_to_node(edge.get_detailed_node_2())
+            for edge_to_2 in edges_to_node_2:
+                edge_to_2.set_weight_to_1(0)
+                edge_to_2.set_weight_to_2(0)
             if edge.get_detailed_node_1() in not_visited:
                 not_visited.remove(edge.get_detailed_node_1())
             if edge.get_detailed_node_2() in not_visited:
                 not_visited.remove(edge.get_detailed_node_2())
-            print(edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
         start_node = end_node
         if not max_path:
             found_any = 0
+        for edge in max_path:
+            print(edge.get_detailed_node_1().get_label() + ": " + str(edge.get_weight_to_1()) + "->" + edge.get_detailed_node_2().get_label() + ": " + str(edge.get_weight_to_2()))
+
 
     print("Zostało czasu: " + str(time))
     for node in not_visited:
@@ -103,13 +113,13 @@ def solve_salesman_problem(graph):
     # sprawdzam czy da sie jeszcze pojedyncze miasto dodac
     for node in not_visited:
         curr_edge_from_start = graph.find_edge_from_nodes(start_node, node)
-        print("istnieje krawedz: " + curr_edge_from_start.get_detailed_node_1().get_label())
         if curr_edge_from_start and curr_edge_from_start.get_travel_time() <= time:
             path.append(edge)
             start_node = node
             time = time - curr_edge_from_start.get_travel_time()
             if node in not_visited:
                 not_visited.remove(node)
+    for node in not_visited:
         curr_edge_from_end = graph.find_edge_from_nodes(end_node, node)
         if curr_edge_from_end and curr_edge_from_end.get_travel_time() <= time:
             path.append(edge)
@@ -121,28 +131,24 @@ def solve_salesman_problem(graph):
     return path
 
 
-def algorithm_iteration(graph, start_node, time):
+def algorithm_iteration(graph, start_node, not_visited, time):
     max_path = []
     max_time = 0
     max_prod = 0
     end_node = []
-    other_nodes = [node for node in graph.get_detailed_nodes()]
-    other_nodes.remove(start_node)
-    for node in other_nodes:
+    for node in not_visited:
         curr_path = dijkstra_algorithm(graph, start_node, node)
-        print("Kolejna ścieżka")
         curr_prod = 0
         curr_time = 0
         for edge in curr_path:
             curr_prod = curr_prod + edge.get_detailed_node_2().get_products()
             curr_time = curr_time + edge.get_travel_time()
-        print("towarow sprzedanych na trasie: " + str(curr_prod))
         if curr_prod > max_prod and curr_time <= time:
             max_prod = curr_prod
             max_path = curr_path
             max_time = curr_time
             end_node = node
     if end_node:
-        print("Wybrana trasa na ktorej sprzedano " + str(max_prod) + " towarow prowadzi do miasta " + end_node.get_label())
+        print("Wybrano trasa na ktorej sprzedano " + str(max_prod) + " towarow w czasie " + str(max_time) + " prowadzi do miasta " + end_node.get_label())
 
     return [max_path, time - max_time, end_node]
