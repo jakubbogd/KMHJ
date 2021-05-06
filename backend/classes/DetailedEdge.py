@@ -6,12 +6,12 @@ from KMHJ.backend.classes.DetailedNode import DetailedNode
 
 class DetailedEdge:
 
-    def __init__(self, detailed_node_1, detailed_node_2, travel_time, weight_to_1, weight_to_2):
+    def __init__(self, detailed_node_1, detailed_node_2, travel_time, time_param, prod_param):
         self.__detailed_node_1 = detailed_node_1
         self.__detailed_node_2 = detailed_node_2
         self.__travel_time = travel_time
-        self.__weight_to_1 = self.count_weight(self.__detailed_node_1, 0.5, 0.5)
-        self.__weight_to_2 = self.count_weight(self.__detailed_node_2, 0.5, 0.5)
+        self.__weight_to_1 = self.count_weight(self.__detailed_node_1, time_param, prod_param)
+        self.__weight_to_2 = self.count_weight(self.__detailed_node_2, time_param, prod_param)
 
     def get_detailed_node_1(self):
         return self.__detailed_node_1

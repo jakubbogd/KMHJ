@@ -191,8 +191,8 @@ class Graph:
             node_1 = self.__detailed_nodes[node_1_index]
             node_2 = self.__detailed_nodes[node_2_index]
             travel_time = element[2]
-            edge = DetailedEdge(node_1, node_2, travel_time, 0, 0)
-            #waga ustawiona roboczo potem zmienic, to tylko tmp
+            # time_param i prod_param to testów:
+            edge = DetailedEdge(node_1, node_2, travel_time, 0.5, 0.5)
             self.__detailed_edges.append(edge)
 
     def find_detailed_node_index(self, node_label):
