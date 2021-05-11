@@ -237,7 +237,7 @@ class Graph:
 
     def get_solution_from_path(self, path, end_node):
         path_to_file = []
-        last_node = self.get_starting_node()
+        last_node = end_node
         path_to_file.append(last_node.get_label())
         for edge in path:
             if edge.get_detailed_node_1() == last_node:

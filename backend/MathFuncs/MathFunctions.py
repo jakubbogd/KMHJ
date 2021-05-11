@@ -84,7 +84,8 @@ def solve_salesman_problem(graph):
         result = [res for res in algorithm_iteration(graph, start_node, not_visited, time)]
         max_path = result[0]
         time = result[1]
-        end_node = result[2]
+        if result[2]:
+            end_node = result[2]
         print("Do trasy dodaje krawedzie:")
         for edge in max_path:
             path.append(edge)
@@ -105,11 +106,12 @@ def solve_salesman_problem(graph):
             found_any = 0
         for edge in max_path:
             print(edge.get_detailed_node_1().get_label() + ": " + str(edge.get_weight_to_1()) + "->" + edge.get_detailed_node_2().get_label() + ": " + str(edge.get_weight_to_2()))
+
     print("Zostało czasu: " + str(time))
     for node in not_visited:
         print(node.get_label())
     # sprawdzam czy da sie jeszcze pojedyncze miasto dodac
-    # print("Koncowy: " + end_node.get_label())
+    print("Koncowy: " + end_node.get_label())
     for node in not_visited:
         curr_edge_from_end = graph.find_edge_from_nodes(end_node, node)
         if curr_edge_from_end and curr_edge_from_end.get_travel_time() <= time:
