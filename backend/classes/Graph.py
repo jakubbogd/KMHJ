@@ -153,8 +153,13 @@ class Graph:
              a2 = (edge_2.get_detailed_node_1().get_y_coord() - edge_2.get_detailed_node_2().get_y_coord()) / (edge_2.get_detailed_node_1().get_x_coord() - edge_2.get_detailed_node_2().get_x_coord() )
              b2 = edge_2.get_detailed_node_1().get_y_coord() - a2* edge_2.get_detailed_node_1().get_x_coord()
         
-        if abs(a1-a2)<0.0001 and abs(b1-b2)<0.0001: 
-            return True
+        if abs(a1-a2)<0.0001:
+            if abs(b1-b2) > 0.001:
+                return False
+            if x1 < z1 < x2 or z1<x1<z2:
+                return True
+            else:
+                return False
         
     #wspolrzedne punktu w ktorym sie proste przecinaja
         x = round((b2-b1)/(a1-a2) ,2)
@@ -214,14 +219,21 @@ class Graph:
             plt.show()
 
     def plot_graph_with_path(self, path):
+        time=self.get_worker_time()
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         self.plot_graph(False)
+        path_to_file=[]
+        minx =xs[min(xs.keys(), key=(lambda k: xs[k]))]
+        miny =ys[min(ys.keys(), key=(lambda k: ys[k]))]
         for edge in path:
             plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
                  [ys[edge.get_detailed_node_1().get_label()], ys[edge.get_detailed_node_2().get_label()]], 'ro-')
+            path_to_file.append(edge.get_detailed_node_1().get_label())
+        plt.plot(minx,miny,label="Rozwiązanie dla czasu "+str(time))
         plt.show()
-
+        return path_to_file
+    
     def get_neighbours(self, node):
         """
 
