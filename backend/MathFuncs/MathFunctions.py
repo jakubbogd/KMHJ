@@ -109,7 +109,7 @@ def solve_salesman_problem(graph):
     for node in not_visited:
         print(node.get_label())
     # sprawdzam czy da sie jeszcze pojedyncze miasto dodac
-    print("Koncowy: " + end_node.get_label())
+    # print("Koncowy: " + end_node.get_label())
     for node in not_visited:
         curr_edge_from_end = graph.find_edge_from_nodes(end_node, node)
         if curr_edge_from_end and curr_edge_from_end.get_travel_time() <= time:
