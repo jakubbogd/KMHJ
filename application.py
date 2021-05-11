@@ -50,9 +50,11 @@ if __name__ == "__main__":
     next = input("Jeśli chcesz wyswietlic graf ze sciezka wcisnij litere a i kliknij enter. Jesli nie - wcisnij cokolwiek innego i zatwierdz \n")
 
     if next == "a":
+        graph.set_correct_edges_with_conditions()
         path = solve_salesman_problem(graph)
-        graph.plot_graph_with_path(path)
-
+        result=graph.plot_graph_with_path(path)
+        result=DataFrame(result,columns=['Miasta'])
+        result.to_csv("solution.csv",index = False)
     """
     #Sprawdzam czy dziala dijkstra na grafie
     #na przykladzie Legia -- Krzysio. Powinno zwrocic najdrozsza jaka jest czyli Legia -- Hubi -- Marta -- Krzysio
