@@ -218,22 +218,36 @@ class Graph:
         if show:
             plt.show()
 
-    def plot_graph_with_path(self, path):
-        time=self.get_worker_time()
+    def plot_graph_with_path(self, solved):
+        path = solved[0]
+        end_node = solved[1]
+        time = self.get_worker_time()
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         self.plot_graph(False)
-        path_to_file=[]
-        minx =xs[min(xs.keys(), key=(lambda k: xs[k]))]-4
-        miny =ys[min(ys.keys(), key=(lambda k: ys[k]))]-2
+        path_to_file = self.get_solution_from_path(path, end_node)
+        maxx = xs[max(xs.keys(), key=(lambda k: xs[k]))] - 4
+        maxy = ys[max(ys.keys(), key=(lambda k: ys[k]))] - 2
         for edge in path:
             plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
-                 [ys[edge.get_detailed_node_1().get_label()], ys[edge.get_detailed_node_2().get_label()]], 'ro-')
-            path_to_file.append(edge.get_detailed_node_1().get_label())
-        plt.text(maxx, maxy,("Dla czasu: "+str(time)), size=15, color='purple')
+                     [ys[edge.get_detailed_node_1().get_label()], ys[edge.get_detailed_node_2().get_label()]], 'ro-')
+        plt.text(maxx, maxy, ("Dla czasu: " + str(time)), size=15, color='purple')
         plt.show()
         return path_to_file
-    
+
+    def get_solution_from_path(self, path, end_node):
+        path_to_file = []
+        last_node = self.get_starting_node()
+        path_to_file.append(last_node.get_label())
+        for edge in path:
+            if edge.get_detailed_node_1() == last_node:
+                path_to_file.append(edge.get_detailed_node_2().get_label())
+                last_node = edge.get_detailed_node_2()
+            else:
+                path_to_file.append(edge.get_detailed_node_1().get_label())
+                last_node = edge.get_detailed_node_1()
+        return path_to_file
+
     def get_neighbours(self, node):
         """
 
@@ -260,10 +274,11 @@ class Graph:
         for edge in self.__detailed_edges:
             if (edge.get_detailed_node_1() == node_1 and edge.get_detailed_node_2() == node_2) or (edge.get_detailed_node_2() == node_1 and edge.get_detailed_node_1() == node_2):
                 return edge
-   """
-    funkcja wyznaczajaca wspolczynnik k
-    oraz wfunkcja wyznaczajaca wierzcholek z najwiekszym wspolczynnikiem k
-   """
+
+        """
+        funkcja wyznaczajaca wspolczynnik k
+        oraz wfunkcja wyznaczajaca wierzcholek z najwiekszym wspolczynnikiem k
+        """
     def get_k_vaule_to_node(self,node):
          edges_list = self.get_edges_to_node(node)
          min_time=1000000
@@ -277,4 +292,4 @@ class Graph:
         for n in self.__detailed_nodes:
             if node.get_k_vaule_to_node() < n.get_k_vaule_to_node():
                 node = n
-        return node     
+        return node

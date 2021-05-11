@@ -1,6 +1,7 @@
 """
 Wersja testowa, tu musi byc GUI i cała apka
 """
+from pandas import DataFrame
 from GUI.files import GUI
 from backend.classes.DetailedEdge import DetailedEdge
 from backend.classes.DetailedNode import DetailedNode
@@ -51,10 +52,10 @@ if __name__ == "__main__":
 
     if next == "a":
         graph.set_correct_edges_with_conditions()
-        path = solve_salesman_problem(graph)
-        result=graph.plot_graph_with_path(path)
-        result=DataFrame(result,columns=['Miasta'])
-        result.to_csv("solution.csv",index = False)
+        solved = solve_salesman_problem(graph)
+        result = graph.plot_graph_with_path(solved)
+        result = DataFrame(result, columns=['Miasta'])
+        result.to_csv("solution.csv", index=False)
     """
     #Sprawdzam czy dziala dijkstra na grafie
     #na przykladzie Legia -- Krzysio. Powinno zwrocic najdrozsza jaka jest czyli Legia -- Hubi -- Marta -- Krzysio

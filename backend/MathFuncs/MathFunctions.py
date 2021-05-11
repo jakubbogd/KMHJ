@@ -105,20 +105,11 @@ def solve_salesman_problem(graph):
             found_any = 0
         for edge in max_path:
             print(edge.get_detailed_node_1().get_label() + ": " + str(edge.get_weight_to_1()) + "->" + edge.get_detailed_node_2().get_label() + ": " + str(edge.get_weight_to_2()))
-
-
     print("Zostało czasu: " + str(time))
     for node in not_visited:
         print(node.get_label())
     # sprawdzam czy da sie jeszcze pojedyncze miasto dodac
-    for node in not_visited:
-        curr_edge_from_start = graph.find_edge_from_nodes(start_node, node)
-        if curr_edge_from_start and curr_edge_from_start.get_travel_time() <= time:
-            path.append(edge)
-            start_node = node
-            time = time - curr_edge_from_start.get_travel_time()
-            if node in not_visited:
-                not_visited.remove(node)
+    print("Koncowy: " + end_node.get_label())
     for node in not_visited:
         curr_edge_from_end = graph.find_edge_from_nodes(end_node, node)
         if curr_edge_from_end and curr_edge_from_end.get_travel_time() <= time:
@@ -128,7 +119,7 @@ def solve_salesman_problem(graph):
             if node in not_visited:
                 not_visited.remove(node)
 
-    return path
+    return [path, end_node]
 
 
 def algorithm_iteration(graph, start_node, not_visited, time):
