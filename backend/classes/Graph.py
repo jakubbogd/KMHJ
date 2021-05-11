@@ -224,13 +224,13 @@ class Graph:
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         self.plot_graph(False)
         path_to_file=[]
-        minx =xs[min(xs.keys(), key=(lambda k: xs[k]))]
-        miny =ys[min(ys.keys(), key=(lambda k: ys[k]))]
+        minx =xs[min(xs.keys(), key=(lambda k: xs[k]))]-4
+        miny =ys[min(ys.keys(), key=(lambda k: ys[k]))]-2
         for edge in path:
             plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
                  [ys[edge.get_detailed_node_1().get_label()], ys[edge.get_detailed_node_2().get_label()]], 'ro-')
             path_to_file.append(edge.get_detailed_node_1().get_label())
-        plt.plot(minx,miny,label="Rozwiązanie dla czasu "+str(time))
+        plt.text(maxx, maxy,("Dla czasu: "+str(time)), size=15, color='purple')
         plt.show()
         return path_to_file
     
