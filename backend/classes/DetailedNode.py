@@ -11,6 +11,10 @@ class DetailedNode:
         self.__x_coord = x_coord
         self.__y_coord = y_coord
         self.__products = products
+        self.__entrance_products = products
+
+    def get_entrance_products(self):
+        return self.__entrance_products
 
     def get_label(self):
         return self.__label

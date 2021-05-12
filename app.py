@@ -23,14 +23,13 @@ if __name__ == "__main__":
             if not graph.get_correct_edges():
                 print("Warunek nieprzecinania niespełniony!")
                 Error("Co najmniej dwie z podanych dróg przecinają się.")
-            #TODO Tutaj potrzeba funkcji która wypisze użytkownikowi, że się zjebawsy @Kubuś - proszę
                 continue
             #TODO tutaj dodać czy graf jest spojny zweryfikowanie @Kto?
             graph.plot_graph(True)
         except Exception as ex:
             print("Nie udało się utworzyć grafu.")
-            Error("Nie udało sie utworzyć grafu. "+str(ex.getMessage()))
-            #TODO Okienko że nie udało się utworzyć grafu + ex.getMessage()? @Kuba - czy tak?
+            Error("Nie udało sie utworzyć grafu. ")
+            print(ex)
             continue
         if len(list_of_dfs) == 3:
             try:
@@ -41,32 +40,28 @@ if __name__ == "__main__":
             except:
                 print("Nie udało się rozwiązać problemu")
                 Error("Nie udało się rozwiązać problemu.")
-                #TODO okienko że nie udało się rozwiązać problemu - proszę
-                # muszę obsłużyć jeszcze żeby rozwiązywało się maks ileś czasu ale na betę chyba nie trzeba @Hubi
                 continue
             try:
-                #TODO okienko dla użytkownika, żeby podał gdzie chce zapisać plik @Kubuś i tam zapisać - proszę
                 Save(result)
                 continue
-                # TODO wyskakuje dla uztywkonika że zapisano rozwiązanie i gdy zamknie, to wyskakuje mu na nowo wszystko od nowa @Kubuś
             except:
                 print("Nie udało się zapisać pliku z rozwiązaniem.")
                 Error("Nie udało się zapisać pliku z rozwiązaniem.")
-                #TODO okienko dla użytkownika, że nie udało się zapisać pliku z rozwiązaniem @Kubuś - proszę
 
         elif len(list_of_dfs) == 4:  # co oznacza że wczytano wszystkie pliki i już niech bangla wczytane rozwiązanie
             try:
-                solution_data_list = graph.read_solution_from_file(list_of_dfs[3])
+                solution_data_list_tmp = graph.read_solution_from_file(list_of_dfs[3])
+                solution_data_list = list()
+                for i in range(len(solution_data_list_tmp)-1):
+                    solution_data_list.append(graph.find_edge_from_nodes(graph.get_node_from_label(solution_data_list_tmp[i]), graph.get_node_from_label(solution_data_list_tmp[i+1])))
                 solution_data = [solution_data_list, solution_data_list[-1]]
             except:
                 print("Nie udało się przeczytać rozwiązania.")
                 Error("Nie udało się przeczytać rozwiązania.")
-                # TODO wyskakuje dla uztywkonika że nie udalo sie przeczytac rozwiaznia i gdy zamknie, to wyskakuje mu na nowo wszystko od nowa @Kubuś
                 continue
             try:
                 result = graph.plot_graph_with_path(solution_data)
             except Exception as ex:
                 print("Nie udało się wyświetlić grafu z rozwiązaniem because of ")
                 print(ex)
-                Error("Nie udało sie wyświetlić grafu. "+str(ex.getMessage()))
-                # TODO Okienko dla usera z komunikatem - proszę
+                Error("Nie udało sie wyświetlić grafu. ")
