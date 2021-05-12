@@ -31,6 +31,68 @@ def return_test_graph_1():
 
     return graph1
 
+"""
+    Grafy do sprawdzania przecinania się krawedzi
+"""
+def return_test_graph_cross_edge_1():
+    
+    vert_1 = DetailedNode("Marta", 1, 1, 20)
+    vert_2 = DetailedNode("Kuba", 5, 5, 10)
+    vert_3 = DetailedNode("Krzysio", 1, 5, 10)
+    vert_4 = DetailedNode("Hubix", 5, 1, 10)
+    detailed_nodes = [vert_1, vert_2, vert_3, vert_4]
+    edge_1 = DetailedEdge(vert_1, vert_2, 25, 0.5, 0.5)
+    edge_2 = DetailedEdge(vert_3, vert_4, 20, 0.5, 0.5)
+    detailed_edges = [edge_1, edge_2]
+    graph1 = Graph(detailed_nodes, detailed_edges, 3049390, True)
+    return graph1    
+
+def return_test_graph_cross_edge_2():
+    
+    vert_1 = DetailedNode("Marta", 1, 5, 20)
+    vert_2 = DetailedNode("Kuba", 1, -5, 10)
+    vert_3 = DetailedNode("Krzysio", -2, 0, 10)
+    vert_4 = DetailedNode("Hubix", 2 , 0, 10)
+    detailed_nodes = [vert_1, vert_2, vert_3, vert_4]
+    edge_1 = DetailedEdge(vert_1, vert_2, 25, 0.5, 0.5)
+    edge_2 = DetailedEdge(vert_3, vert_4, 20, 0.5, 0.5)
+    detailed_edges = [edge_1, edge_2]
+    graph1 = Graph(detailed_nodes, detailed_edges, 3049390, True)         
+    return graph1
+
+def return_test_graph_cross_edge_3():
+    vert_1 = DetailedNode("Marta", 0, 0, 20)
+    vert_2 = DetailedNode("Kuba", 0, 5, 10)
+    vert_3 = DetailedNode("Krzysio", 0, 3, 10)
+    vert_4 = DetailedNode("Hubix", 0, 8, 10)
+    detailed_nodes = [vert_1, vert_2, vert_3, vert_4]
+    edge_1 = DetailedEdge(vert_1, vert_2, 25, 0.5, 0.5)
+    edge_2 = DetailedEdge(vert_3, vert_4, 20, 0.5, 0.5) 
+    detailed_edges = [edge_1, edge_2]
+    graph1 = Graph(detailed_nodes, detailed_edges, 3049390, True)       
+    return graph1
+def return_test_graph_cross_edge_4(): 
+    vert_1 = DetailedNode("Marta", 1, 1, 20)
+    vert_2 = DetailedNode("Kuba", 5, 5, 10)
+    vert_3 = DetailedNode("Krzysio", 3, 3, 10)
+    vert_4 = DetailedNode("Hubix", 7, 7, 10)
+    detailed_nodes = [vert_1, vert_2, vert_3, vert_4]
+    edge_1 = DetailedEdge(vert_1, vert_2, 25, 0.5, 0.5)
+    edge_2 = DetailedEdge(vert_3, vert_4, 20, 0.5, 0.5)   
+    detailed_edges = [edge_1, edge_2]
+    graph1 = Graph(detailed_nodes, detailed_edges, 3049390, True)     
+    return graph1
+def return_test_graph_cross_edge_5():
+    vert_1 = DetailedNode("Marta", 0, 0, 20)
+    vert_2 = DetailedNode("Kuba", 5, 0, 10)
+    vert_3 = DetailedNode("Krzysio", 3, 0, 10)
+    vert_4 = DetailedNode("Hubix", 7, 0, 10)
+    detailed_nodes = [vert_1, vert_2, vert_3, vert_4]
+    edge_1 = DetailedEdge(vert_1, vert_2, 25, 0.5, 0.5)
+    edge_2 = DetailedEdge(vert_3, vert_4, 20, 0.5, 0.5)             
+    detailed_edges = [edge_1, edge_2]
+    graph1 = Graph(detailed_nodes, detailed_edges, 3049390, True)                  
+    return graph1
 
 class GraphTest(unittest.TestCase):
 
@@ -64,7 +126,34 @@ class GraphTest(unittest.TestCase):
         verify = graph.get_detailed_nodes()[-1] # wierzchołek Legia ma dwóch sąsiadów
         self.assertTrue(len(graph.get_neighbours(verify).keys()) == 2)
 
+    """
+        Testy czy rozne rodzaje krawedzi ktore sie przecinaja to zwracane sa jako przecinajace sie krawedzie
+    """
+    def test_should_return_cross_edge1(self):
+        graph = return_test_graph_cross_edge_1()
+        verify = graph.set_correct_edges_with_conditions()
+        self.assertTrue(verify==0)
 
+    def test_should_return_cross_edge2(self):
+        graph = return_test_graph_cross_edge_2()
+        verify = graph.set_correct_edges_with_conditions()
+        self.assertTrue(verify==0)
+
+    def test_should_return_cross_edge3(self):
+        graph = return_test_graph_cross_edge_3()
+        verify = graph.set_correct_edges_with_conditions()
+        self.assertTrue(verify==0)
+
+    def test_should_return_cross_edge4(self):
+        graph = return_test_graph_cross_edge_4()
+        verify = graph.set_correct_edges_with_conditions()
+        self.assertTrue(verify==0)
+
+    def test_should_return_cross_edge5(self):
+        graph = return_test_graph_cross_edge_5()
+        verify = graph.set_correct_edges_with_conditions()
+        self.assertTrue(verify==0)  
+   
 
 if __name__ == '__main__':
     unittest.main()
