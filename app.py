@@ -9,7 +9,7 @@ if __name__ == "__main__":
         try:
             list_of_dfs = GUI()
         except:
-            print("Nie udało się przetworzenie GUI")
+            print("Koniec przetworzenia GUI")
             break
 
         try:
@@ -51,15 +51,17 @@ if __name__ == "__main__":
 
         elif len(list_of_dfs) == 4:  # co oznacza że wczytano wszystkie pliki i już niech bangla wczytane rozwiązanie
             try:
-                solution_data = graph.read_solution_from_file(list_of_dfs[3])
+                solution_data_list = graph.read_solution_from_file(list_of_dfs[3])
+                solution_data = [solution_data_list, solution_data_list[-1]]
             except:
                 print("Nie udało się przeczytać rozwiązania.")
                 # TODO wyskakuje dla uztywkonika że nie udalo sie przeczytac rozwiaznia i gdy zamknie, to wyskakuje mu na nowo wszystko od nowa @Kubuś
                 continue
             try:
                 result = graph.plot_graph_with_path(solution_data)
-            except:
-                print("Nie udało się wyświetlić grafu z rozwiązaniem")
+            except Exception as ex:
+                print("Nie udało się wyświetlić grafu z rozwiązaniem because of ")
+                print(ex)
                 # TODO Okienko dla usera z komunikatem
 
 

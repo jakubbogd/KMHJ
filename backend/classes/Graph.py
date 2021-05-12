@@ -210,6 +210,7 @@ class Graph:
         return None
 
     def plot_graph(self, show):
+        print("Start plot graph")
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         for node in self.__detailed_nodes:
@@ -219,10 +220,12 @@ class Graph:
             plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
                      [ys[edge.get_detailed_node_1().get_label()], ys[edge.get_detailed_node_2().get_label()]], 'o--', color = "blue")
         plt.grid(True)
+        print("end plot graph")
         if show:
             plt.show()
 
     def plot_graph_with_path(self, solved):
+        print("start plotting graph with path")
         path = solved[0]
         end_node = solved[1]
         time = self.get_worker_time()
@@ -233,6 +236,7 @@ class Graph:
         maxx = xs[max(xs.keys(), key=(lambda k: xs[k]))] - 4
         maxy = ys[max(ys.keys(), key=(lambda k: ys[k]))] - 2
         for edge in path:
+            print("start plotting edge " + edge)
             plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
                      [ys[edge.get_detailed_node_1().get_label()], ys[edge.get_detailed_node_2().get_label()]], 'ro-')
         plt.text(maxx, maxy, ("Dla czasu: " + str(time)), size=15, color='purple')
