@@ -35,3 +35,13 @@ class DetailedNode:
 
     def set_products(self, products):
         self.__products = products
+    
+    def get_k_vaule_to_node(self,graph):
+         edges_list = graph.get_edges_to_node(self)
+         min_time=min([edge.get_travel_time() for edge in edges_list])
+         """ 
+         for edge in edges_list:
+             if edge.get_travel_time()<min_time:
+                 min_time=edge.get_travel_time()
+         """
+         return self.get_products()/min_time       
