@@ -54,7 +54,7 @@ if __name__ == "__main__":
         graph.set_correct_edges_with_conditions()
         solved = solve_salesman_problem(graph)
         result = graph.plot_graph_with_path(solved)
-        result = DataFrame(result, columns=['Miasta'])
+        result = DataFrame(result, columns=['solution'])
         result.to_csv("solution.csv", index=False)
     """
     #Sprawdzam czy dziala dijkstra na grafie
