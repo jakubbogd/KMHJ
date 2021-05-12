@@ -104,5 +104,6 @@ def GUI():
                 pass
             dfs = ReadFiles(files)
             break
+    window.close()
     return dfs
 

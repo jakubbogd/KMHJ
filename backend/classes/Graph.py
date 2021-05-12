@@ -7,8 +7,11 @@
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.DetailedEdge import DetailedEdge
 """
-from KMHJ.backend.classes.DetailedNode import DetailedNode
-from KMHJ.backend.classes.DetailedEdge import DetailedEdge
+#from KMHJ.backend.classes.DetailedNode import DetailedNode
+#from KMHJ.backend.classes.DetailedEdge import DetailedEdge
+
+from backend.classes.DetailedNode import DetailedNode
+from backend.classes.DetailedEdge import DetailedEdge
 import matplotlib.pyplot as plt
 
 plt.style.use("ggplot")
@@ -293,3 +296,19 @@ class Graph:
             if node.get_k_vaule_to_node() < n.get_k_vaule_to_node():
                 node = n
         return node
+
+    def get_node_from_label(self, label):
+        for node in self.__detailed_nodes:
+            if node.get_label() == "label":
+                return node
+        return None
+
+    def read_solution_from_file(self, df):
+        records = df.values.tolist()
+        solution_path = []
+        for element in records:
+            node_label = element[0]
+            node = self.get_node_from_label(node_label)
+            soultion_path.append(node)
+        return solution_path
+

@@ -1,5 +1,5 @@
-from KMHJ.backend.classes.DetailedNode import DetailedNode
-
+#from KMHJ.backend.classes.DetailedNode import DetailedNode
+from backend.classes.DetailedNode import DetailedNode
 
 # TODO rozbic dijkstre na mniejsze funkcje
 
