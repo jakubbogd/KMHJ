@@ -1,4 +1,4 @@
-from GUI.files import GUI
+from GUI.files import GUI, Error, Save
 from backend.MathFuncs.MathFunctions import solve_salesman_problem
 from backend.classes.Graph import Graph
 import pandas as pd
@@ -22,13 +22,15 @@ if __name__ == "__main__":
             graph.set_correct_edges_with_conditions()
             if not graph.get_correct_edges():
                 print("Warunek nieprzecinania niespełniony!")
-            #TODO Tutaj potrzeba funkcji która wypisze użytkownikowi, że się zjebawsy @Kubuś
+                Error("Co najmniej dwie z podanych dróg przecinają się.")
+            #TODO Tutaj potrzeba funkcji która wypisze użytkownikowi, że się zjebawsy @Kubuś - proszę
                 continue
             #TODO tutaj dodać czy graf jest spojny zweryfikowanie @Kto?
             graph.plot_graph(True)
         except Exception as ex:
             print("Nie udało się utworzyć grafu.")
-            #TODO Okienko że nie udało się utworzyć grafu + ex.getMessage()? @Kuba
+            Error("Nie udało sie utworzyć grafu. "+str(ex.getMessage()))
+            #TODO Okienko że nie udało się utworzyć grafu + ex.getMessage()? @Kuba - czy tak?
             continue
         if len(list_of_dfs) == 3:
             try:
@@ -38,16 +40,19 @@ if __name__ == "__main__":
                 result = pd.DataFrame(result, columns=['Miasta'])
             except:
                 print("Nie udało się rozwiązać problemu")
-                #TODO okienko że nie udało się rozwiązać problemu
+                Error("Nie udało się rozwiązać problemu.")
+                #TODO okienko że nie udało się rozwiązać problemu - proszę
                 # muszę obsłużyć jeszcze żeby rozwiązywało się maks ileś czasu ale na betę chyba nie trzeba @Hubi
                 continue
             try:
-                #TODO okienko dla użytkownika, żeby podał gdzie chce zapisać plik @Kubuś i tam zapisać
-                result.to_csv("solution.csv", index=False)
+                #TODO okienko dla użytkownika, żeby podał gdzie chce zapisać plik @Kubuś i tam zapisać - proszę
+                Save(result)
+                continue
                 # TODO wyskakuje dla uztywkonika że zapisano rozwiązanie i gdy zamknie, to wyskakuje mu na nowo wszystko od nowa @Kubuś
             except:
                 print("Nie udało się zapisać pliku z rozwiązaniem.")
-                #TODO okienko dla użytkownika, że nie udało się zapisać pliku z rozwiązaniem @Kubuś
+                Error("Nie udało się zapisać pliku z rozwiązaniem.")
+                #TODO okienko dla użytkownika, że nie udało się zapisać pliku z rozwiązaniem @Kubuś - proszę
 
         elif len(list_of_dfs) == 4:  # co oznacza że wczytano wszystkie pliki i już niech bangla wczytane rozwiązanie
             try:
@@ -55,6 +60,7 @@ if __name__ == "__main__":
                 solution_data = [solution_data_list, solution_data_list[-1]]
             except:
                 print("Nie udało się przeczytać rozwiązania.")
+                Error("Nie udało się przeczytać rozwiązania.")
                 # TODO wyskakuje dla uztywkonika że nie udalo sie przeczytac rozwiaznia i gdy zamknie, to wyskakuje mu na nowo wszystko od nowa @Kubuś
                 continue
             try:
@@ -62,6 +68,5 @@ if __name__ == "__main__":
             except Exception as ex:
                 print("Nie udało się wyświetlić grafu z rozwiązaniem because of ")
                 print(ex)
-                # TODO Okienko dla usera z komunikatem
-
-
+                Error("Nie udało sie wyświetlić grafu. "+str(ex.getMessage()))
+                # TODO Okienko dla usera z komunikatem - proszę
