@@ -207,6 +207,7 @@ class Graph:
         for node in self.__detailed_nodes:
             if node.get_label() == node_label:
                 return self.__detailed_nodes.index(node)
+        return None
 
     def plot_graph(self, show):
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
@@ -257,6 +258,8 @@ class Graph:
         :param node: node which neighbours we are looking for
         :return: neighbours of node
         """
+        if node is None:
+            return dict()
         # zwrot te krawedzie, ktore zawieraja node w sobie
         edges_with_node = [edge for edge in self.__detailed_edges if node.get_label() in [edge.get_detailed_node_1().get_label(), edge.get_detailed_node_2().get_label()]]
         # zwroc liste tych wierzcholkow, ktore tworza krawedzie z node
@@ -299,7 +302,7 @@ class Graph:
 
     def get_node_from_label(self, label):
         for node in self.__detailed_nodes:
-            if node.get_label() == "label":
+            if node.get_label() == label:
                 return node
         return None
 
@@ -309,6 +312,6 @@ class Graph:
         for element in records:
             node_label = element[0]
             node = self.get_node_from_label(node_label)
-            soultion_path.append(node)
+            solution_path.append(node)
         return solution_path
 
