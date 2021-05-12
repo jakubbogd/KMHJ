@@ -6,7 +6,7 @@ from backend.classes.DetailedNode import DetailedNode
 
 def dijkstra_algorithm(graph, start_node, end_node):
     """
-
+    
     :param graph: graf realizujacy mape
     :param start_node: miasto startowe
     :param end_node: miasto koncowe
@@ -70,7 +70,7 @@ def solve_salesman_problem(graph):
     time = graph.get_worker_time()
     print("Calkowity czas sprzedawcy: " + str(time))
 
-    start_node = graph.get_starting_node()
+    start_node = graph.get_starting_node_with_max_k()
 
     not_visited = [node for node in graph.get_detailed_nodes()]
     not_visited.remove(start_node)
