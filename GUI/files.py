@@ -107,3 +107,25 @@ def GUI():
     window.close()
     return dfs
 
+
+def Error(text):
+    layout=[[sg.Text(text)],[sg.Button("OK")]]
+    window=sg.Window("KMHJ - Komiwojażer with GPS",layout,size=(350,125))
+    while True:
+        event, values = window.read()
+        if event == sg.WIN_CLOSED or event=="Exit" or event=="OK":
+            break
+    window.close()
+    
+def Save(result):
+    layout=[[sg.Text("Wybierz lokalizację dla rozwiązania"),sg.Input(),sg.FolderBrowse(key="-IN-")],[sg.Button("Gotowe")]]
+    window=sg.Window("KMHJ - Komiwojażer with GPS",layout,size=(700,200))
+    while True:
+        event, values = window.read()
+        if event == sg.WIN_CLOSED or event=="Exit":
+            break
+        elif event=="Gotowe":
+            path=values["-IN-"]
+            break
+    window.close()
+    result.to_csv(str(path)+"/solution.csv", index=False)
