@@ -37,7 +37,7 @@ if __name__ == "__main__":
                 graph.set_correct_edges_with_conditions()
                 solved = solve_salesman_problem(graph)
                 result = graph.plot_graph_with_path(solved)
-                result = pd.DataFrame(result, columns=['Miasta'])
+                result = pd.DataFrame(result, columns=['solution'])
             except:
                 print("Nie udało się rozwiązać problemu")
                 Error("Nie udało się rozwiązać problemu.")
