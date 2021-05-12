@@ -289,18 +289,11 @@ class Graph:
         funkcja wyznaczajaca wspolczynnik k
         oraz wfunkcja wyznaczajaca wierzcholek z najwiekszym wspolczynnikiem k
         """
-    def get_k_vaule_to_node(self,node):
-         edges_list = self.get_edges_to_node(node)
-         min_time=1000000
-         for edge in edges_list:
-             if edge.get_travel_time()<min_time:
-                 min_time=edge.get_travel_time()
-         return node.get_products()/min_time
      
     def get_starting_node_with_max_k(self):
         node = DetailedNode("Zero", 1, 1, 0)
         for n in self.__detailed_nodes:
-            if node.get_k_vaule_to_node() < n.get_k_vaule_to_node():
+            if node.get_k_vaule_to_node(self) < n.get_k_vaule_to_node(self):
                 node = n
         return node
 
