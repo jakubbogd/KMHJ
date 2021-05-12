@@ -70,7 +70,7 @@ def solve_salesman_problem(graph):
     time = graph.get_worker_time()
     print("Calkowity czas sprzedawcy: " + str(time))
 
-    start_node = graph.get_starting_node_with_max_k()
+    start_node = graph.get_starting_node()
 
     not_visited = [node for node in graph.get_detailed_nodes()]
     not_visited.remove(start_node)
