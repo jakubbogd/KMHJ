@@ -230,18 +230,17 @@ class Graph:
         if show:
             plt.show()
 
-    def plot_graph_with_path(self, solved):
+    def plot_graph_with_path(self, path):
         print("start plotting graph with path")
-        path = solved[0]
-        end_node = solved[1]
         time = self.get_worker_time()
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         self.plot_graph(False)
-        path_to_file = self.get_solution_from_path(path, end_node)
+        path_to_file = self.get_solution_from_path(path)
         maxx = xs[max(xs.keys(), key=(lambda k: xs[k]))] - 4
         maxy = ys[max(ys.keys(), key=(lambda k: ys[k]))] - 2
         for edge in path:
+            #print("start plotting edge " + edge)
             plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
                      [ys[edge.get_detailed_node_1().get_label()], ys[edge.get_detailed_node_2().get_label()]], 'ro-', label =str(edge.get_travel_time()))
             if (xs[edge.get_detailed_node_1().get_label()] == xs[edge.get_detailed_node_2().get_label()]):
@@ -261,17 +260,28 @@ class Graph:
         plt.show()
         return path_to_file
 
-    def get_solution_from_path(self, path, end_node):
+    def get_solution_from_path(self, path):
         path_to_file = []
-        last_node = end_node
-        path_to_file.append(last_node.get_label())
+        path_tmp = []
         for edge in path:
-            if edge.get_detailed_node_1() == last_node:
-                path_to_file.append(edge.get_detailed_node_2().get_label())
-                last_node = edge.get_detailed_node_2()
-            else:
-                path_to_file.append(edge.get_detailed_node_1().get_label())
-                last_node = edge.get_detailed_node_1()
+            path_tmp.append(edge)
+
+        last_node = self.get_starting_node()
+        path_to_file.append(last_node.get_label())
+
+        while path_tmp:
+            for edge in path_tmp:
+                if edge.get_detailed_node_1() == last_node:
+                    path_to_file.append(edge.get_detailed_node_2().get_label())
+                    path_tmp.remove(edge)
+                    last_node = edge.get_detailed_node_2()
+                    continue
+                if edge.get_detailed_node_2() == last_node:
+                    path_to_file.append(edge.get_detailed_node_1().get_label())
+                    path_tmp.remove(edge)
+                    last_node = edge.get_detailed_node_1()
+                    continue
+
         return path_to_file
 
     def get_neighbours(self, node):

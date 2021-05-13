@@ -1,5 +1,5 @@
-#from KMHJ.backend.classes.DetailedNode import DetailedNode
-from backend.classes.DetailedNode import DetailedNode
+from KMHJ.backend.classes.DetailedNode import DetailedNode
+#from backend.classes.DetailedNode import DetailedNode
 
 # TODO rozbic dijkstre na mniejsze funkcje
 
@@ -121,7 +121,7 @@ def solve_salesman_problem(graph):
             if node in not_visited:
                 not_visited.remove(node)
 
-    return [path, end_node]
+    return path
 
 
 def algorithm_iteration(graph, start_node, not_visited, time):
