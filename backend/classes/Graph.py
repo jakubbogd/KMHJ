@@ -266,7 +266,7 @@ class Graph:
         for edge in path:
             path_tmp.append(edge)
 
-        last_node = self.get_starting_node()
+        last_node = self.get_starting_node_with_max_k()
         path_to_file.append(last_node.get_label())
 
         while path_tmp:
@@ -305,7 +305,10 @@ class Graph:
         :param node: wierzcholek, z ktorego wychodzace krawedzie chcemy znalezc
         :return:
         """
-        edges_to_node = [edge for edge in self.__detailed_edges if node.get_label() == edge.get_detailed_node_2().get_label()]
+        edges_to_node = [edge for edge in self.__detailed_edges if node.get_label() == edge.get_detailed_node_2().get_label() or node.get_label() == edge.get_detailed_node_1().get_label()]
+        print("wierzchołka krawedzie: " + node.get_label())
+        print("krawedzi w grafie: " + str(len(self.__detailed_edges)))
+        print("długość listy: " + str(len(edges_to_node)))
         return edges_to_node
 
     def find_edge_from_nodes(self, node_1, node_2):
@@ -319,11 +322,13 @@ class Graph:
         """
      
     def get_starting_node_with_max_k(self):
-        node = DetailedNode("Zero", 1, 1, 0)
-        for n in self.__detailed_nodes:
-            if node.get_k_vaule_to_node(self) < n.get_k_vaule_to_node(self):
-                node = n
-        return node
+        # node = DetailedNode("Zero", 1, 1, 0)
+        node_max = max([node.get_k_value_to_node(self) for node in self.__detailed_nodes])
+        node = [x for x in self.__detailed_nodes if x.get_k_value_to_node(self) == node_max]
+        #for n in self.__detailed_nodes:
+        #    if node.get_k_value_to_node(self) < n.get_k_value_to_node(self):
+        #        node = n
+        return node[0]
 
     def get_node_from_label(self, label):
         for node in self.__detailed_nodes:
