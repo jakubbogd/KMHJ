@@ -90,14 +90,10 @@ def solve_salesman_problem(graph):
         print("Do trasy dodaje krawedzie:")
         for edge in max_path:
             path.append(edge)
-            edges_to_node_1 = graph.get_edges_to_node(edge.get_detailed_node_1())
-            for edge_to_1 in edges_to_node_1:
-                edge_to_1.set_weight_to_1(0)
-                edge_to_1.set_weight_to_2(0)
-            edges_to_node_2 = graph.get_edges_to_node(edge.get_detailed_node_2())
-            for edge_to_2 in edges_to_node_2:
-                edge_to_2.set_weight_to_1(0)
-                edge_to_2.set_weight_to_2(0)
+            edge.set_weight_to_1(0)
+            edge.set_weight_to_2(0)
+            edge.get_detailed_node_1().set_products(0)
+            edge.get_detailed_node_2().set_products(0)
             if edge.get_detailed_node_1() in not_visited:
                 not_visited.remove(edge.get_detailed_node_1())
             if edge.get_detailed_node_2() in not_visited:

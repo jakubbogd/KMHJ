@@ -266,7 +266,9 @@ class Graph:
         for edge in path:
             path_tmp.append(edge)
 
+        # last_node = self.get_starting_node()
         last_node = self.get_starting_node_with_max_k()
+
         path_to_file.append(last_node.get_label())
 
         while path_tmp:

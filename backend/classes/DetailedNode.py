@@ -51,4 +51,4 @@ class DetailedNode:
              if edge.get_travel_time()<min_time:
                  min_time=edge.get_travel_time()
          """
-         return self.get_products()/min_time       
+         return self.get_entrance_products()/min_time
