@@ -52,14 +52,17 @@ def read_worker_time(file):
     else:
         return True
 
-def read_solution(file4,file1):
+def read_solution(file4,file1,file2):
     data4=pd.read_csv(file4)
     data1=pd.read_csv(file1)
+    data2=pd.read_csv(file2)
     if list(data4.columns.values)!=['solution']:
         return False
     elif not all(data4["solution"].isin(data1["city_name"])):
         return False
     elif len(data4)==0:
+        return False
+    elif check_country_roads(data4,data2):
         return False
     else:
         return True
@@ -75,7 +78,7 @@ def ReadFiles(files):
         layout=[[sg.Text("Błędne dane w pliku nr 2")]]
     elif not read_worker_time(files[2]):
         layout=[[sg.Text("Błędne dane w pliku nr 3")]]
-    elif files[3]!="" and not read_solution(files[3],files[0]):
+    elif files[3]!="" and not read_solution(files[3],files[0],files[1]):
         layout=[[sg.Text("Błędne dane w pliku nr 4")]]
     else:
         if files[3]=="":
@@ -131,3 +134,9 @@ def Save(result):
             break
     window.close()
     result.to_csv(str(path)+"/solution.csv", index=False)
+    
+def check_country_roads(sol,roads):
+    roads=[[roads.loc[:,"city1"][i],roads.loc[:,"city2"][i]] for i in range(len(roads))]
+    roads_sol1=[[sol.loc[i,"solution"],sol.loc[i+1,"solution"]] for i in range(len(sol)-1)]
+    roads_sol2=[[sol.loc[i+1,"solution"],sol.loc[i,"solution"]] for i in range(len(sol)-1)]
+    return not all([roads_sol1[i] in roads or roads_sol2[i] in roads for i in range(len(roads_sol2))])
