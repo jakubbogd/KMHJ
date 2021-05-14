@@ -9,6 +9,11 @@ import pandas as pd
 sg.theme('TealMono')
 
 def read_cities(file):
+    """
+    
+    :param file: Ścieżka do pliku z listą miast
+    :return: True, jeśli dane poprawne. W przeciwnym wypadku False
+    """
     data=pd.read_csv(file)
     if list(data.columns.values)!=['city_name','x_coordinate','y_coordinate','commodity']:
         return False
@@ -24,6 +29,11 @@ def read_cities(file):
         return True
     
 def read_prod(file):
+    """
+    
+    :param file: Ścieżka do pliku z listą dróg
+    :return: True, jeśli dane poprawne. W przeciwnym wypadku False
+    """
     data=pd.read_csv(file)
     if list(data.columns.values)!=['city1','city2','travel_time']:
         return False
@@ -42,6 +52,11 @@ def read_prod(file):
     return True
 
 def read_worker_time(file):
+    """
+    
+    :param file: Ścieżka do pliku z czasem sprzedawcy
+    :return: True, jeśli dane poprawne. W przeciwnym wypadku False
+    """
     data=pd.read_csv(file)
     if list(data.columns.values)!=['time']:
         return False
@@ -53,6 +68,11 @@ def read_worker_time(file):
         return True
 
 def read_solution(file4,file1,file2):
+    """
+    
+    :param file: Ścieżka do pliku z rozwiązaniem
+    :return: True, jeśli dane poprawne. W przeciwnym wypadku False
+    """
     data4=pd.read_csv(file4)
     data1=pd.read_csv(file1)
     data2=pd.read_csv(file2)
@@ -68,6 +88,11 @@ def read_solution(file4,file1,file2):
         return True
     
 def ReadFiles(files):
+    """
+    
+    :param files: Ścieżki do plików pokolei z listą miast, listą dróg, czasem sprzedawcy i rozwiązaniem
+    :return: Jeśli dane są poprawne, zwraca listę złożoną z ramek danych z plików wejściowych. W przeciwnym wypadku zwraca false
+    """
     if files[3]!="" and (files[0]=="" or files[1]=="" or files[2]==""):
         layout=[[sg.Text("Wczytano tylko rozwiązanie bez pierwotnych plików!")]]
     elif len(list(filter(lambda x: x=="", files)))>1:
@@ -94,6 +119,10 @@ def ReadFiles(files):
     return False
 
 def GUI():
+    """
+    
+        :return: Ramki danych otrzymane z plików podanych przez użytkownika.
+    """
     layout=[[sg.Text("Wybierz listę miast:   "),sg.Input(),sg.FileBrowse(key="-IN-")],[sg.Text("Wybierz listę dróg:     "),sg.Input(),sg.FileBrowse(key="-IN2-")],[sg.Text("Wybierz czas:           "),sg.Input(),sg.FileBrowse(key="-IN3-")],[sg.Text("Wybierz rozwiązanie: "),sg.Input(),sg.FileBrowse(key="-IN4-")],[sg.Button("Gotowe")]]
     window=sg.Window("KMHJ - Komiwojażer with GPS",layout,size=(700,350))
     while True:
@@ -114,6 +143,10 @@ def GUI():
     return dfs
 
 def Error(text):
+    """
+    
+    :param text: Tekst z błędem do wyświetlenia
+    """
     layout=[[sg.Text(text)],[sg.Button("OK")]]
     window=sg.Window("KMHJ - Komiwojażer with GPS",layout,size=(350,125))
     while True:
@@ -123,6 +156,10 @@ def Error(text):
     window.close()
     
 def Save(result):
+    """
+    
+    :param result: Ramka danych z rozwiązaniem do zapisania
+    """
     layout=[[sg.Text("Wybierz lokalizację dla rozwiązania"),sg.Input(),sg.FolderBrowse(key="-IN-")],[sg.Button("Gotowe")]]
     window=sg.Window("KMHJ - Komiwojażer with GPS",layout,size=(700,200))
     while True:
@@ -136,6 +173,12 @@ def Save(result):
     result.to_csv(str(path)+"/solution.csv", index=False)
     
 def check_country_roads(sol,roads):
+    """
+    
+    :param sol: Ramka danych z rozwiązaniem
+    :param roads: Ramka danych z listą dróg
+    :return: False, jeśli wszystkie drogi z sol znajdują się w roads. True w przeciwnym wypadku
+    """
     roads=[[roads.loc[:,"city1"][i],roads.loc[:,"city2"][i]] for i in range(len(roads))]
     roads_sol1=[[sol.loc[i,"solution"],sol.loc[i+1,"solution"]] for i in range(len(sol)-1)]
     roads_sol2=[[sol.loc[i+1,"solution"],sol.loc[i,"solution"]] for i in range(len(sol)-1)]
