@@ -2,8 +2,8 @@
 
 @author: HG
 """
-from KMHJ.backend.classes.DetailedNode import DetailedNode
-# from backend.classes.DetailedNode import DetailedNode
+#from KMHJ.backend.classes.DetailedNode import DetailedNode
+from backend.classes.DetailedNode import DetailedNode
 
 class DetailedEdge:
 

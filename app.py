@@ -25,13 +25,15 @@ if __name__ == "__main__":
                 Error("Co najmniej dwie z podanych dróg przecinają się.")
                 continue
             #TODO tutaj dodać czy graf jest spojny zweryfikowanie @Kto?
-            graph.plot_graph(True)
-        except Exception as ex:
-            print("Nie udało się utworzyć grafu.")
-            Error("Nie udało sie utworzyć grafu. ")
-            print(ex)
-            continue
+        except:
+            print("Nie mogę utworzyć grafu.")
+
         if len(list_of_dfs) == 3:
+            try:
+                graph.plot_graph(True)
+            except Exception as ex:
+                print(ex)
+                print("Nie mogę wyświetlić grafu bez ścieżki.")
             try:
                 graph.set_correct_edges_with_conditions()
                 path = solve_salesman_problem(graph)
@@ -55,16 +57,17 @@ if __name__ == "__main__":
             try:
                 solution_data_list_tmp = graph.read_solution_from_file(list_of_dfs[3])
                 solution_data_list = list()
+                print(solution_data_list_tmp)
                 for i in range(len(solution_data_list_tmp)-1):
-                    solution_data_list.append(graph.find_edge_from_nodes(graph.get_node_from_label(solution_data_list_tmp[i]), graph.get_node_from_label(solution_data_list_tmp[i+1])))
-                # solution_data = [solution_data_list, solution_data_list[-1]]
-            except:
+                    solution_data_list.append(graph.find_edge_from_nodes(solution_data_list_tmp[i], solution_data_list_tmp[i+1]))
+            except Exception as ex:
                 print("Nie udało się przeczytać rozwiązania.")
                 Error("Nie udało się przeczytać rozwiązania.")
+                print(ex)
                 continue
             try:
                 result = graph.plot_graph_with_path(solution_data_list)
             except Exception as ex:
-                print("Nie udało się wyświetlić grafu z rozwiązaniem because of ")
+                print("Nie udało się wyświetlić grafu z rozwiązaniem ponieważ")
                 print(ex)
-                Error("Nie udało sie wyświetlić grafu. ")
+                Error("Nie udało sie wyświetlić grafu.")

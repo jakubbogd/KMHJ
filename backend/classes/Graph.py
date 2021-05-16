@@ -214,7 +214,7 @@ class Graph:
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         for node in self.__detailed_nodes:
-            plt.text(xs[node.get_label()], ys[node.get_label()], str(node.get_label()) + "(" + str(node.get_entrance_products()) + ")", fontsize=12, c="black")
+            plt.text(xs[node.get_label()], ys[node.get_label()], str(node.get_label()) + "(" + str(node.get_entrance_products()) + ")", fontsize=12, color="black")
             plt.plot(xs[node.get_label()], ys[node.get_label()], "bo")
         for edge in self.__detailed_edges:
             plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
@@ -226,9 +226,11 @@ class Graph:
             else:
                 plt.text(0.5*xs[edge.get_detailed_node_1().get_label()] + 0.5 * xs[edge.get_detailed_node_2().get_label()], 0.5*ys[edge.get_detailed_node_1().get_label()] + 0.5*ys[edge.get_detailed_node_2().get_label()], edge.get_travel_time())
         plt.grid(True)
-        print("end plot graph")
         if show:
+            print("Show plot = true")
             plt.show()
+            print("end plot graph fun")
+
 
     def plot_graph_with_path(self, path):
         print("start plotting graph with path")
