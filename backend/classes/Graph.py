@@ -59,6 +59,10 @@ class Graph:
         return node
 
     def set_correct_edges_with_conditions(self):
+        """
+        Funkcja, która zwraca, czy krawędzie są poprawne tj czy się nie przecinają w grafie
+        :return: 0 gdy się przecinają, nic wpp i ustawia correct_edges na True
+        """
         res = True
         for edge_1 in self.get_detailed_edges():
             for edge_2 in self.get_detailed_edges():
@@ -75,7 +79,7 @@ class Graph:
 
     def check_incorrect_edges(self, edge_1, edge_2):
         """
-
+        Funkcja, która sprawdza czy dwie krawędzie są niepoprawne w kontekście przecinania się
         :param edge_1: krawedz z klasy DetailedEdge
         :param edge_2: krawedz z klasy DetailedEdge
         :return: czy krawedzie spelniaja warunek nieprzecinania
@@ -176,9 +180,9 @@ class Graph:
 
     def set_nodes_from_file(self, df):
         """
-
+        Funkcja, która z data frame powstałego z pliku wejsciowego ustawia wierzcholki grafu
         :param file: df z ktorego tworzymy wierzcholki
-        :return: chyba empty, bo ustawia odpowiednio wierzcholki
+        :return: empty, bo ustawia odpowiednio wierzcholki
         """
         records = df.values.tolist()
         for element in records:
@@ -187,7 +191,7 @@ class Graph:
 
     def set_edges_from_file(self, df):
         """
-
+        Funkcja, która z data frame powstałego z pliku wejsciowego ustawia krawedzie grafu
         :param df: plik z ktorego tworzymy krawedzie
         :return: chyba empty, bo ustawia odpowiednio wierzcholek
         """
@@ -204,12 +208,22 @@ class Graph:
             self.__detailed_edges.append(edge)
 
     def find_detailed_node_index(self, node_label):
+        """
+        Funkcja, która dla danego oznaczenia wierchołka zwraca jego indeks na liście wierzcholkow grafu
+        :param node_label: oznaczenie node'a
+        :return: index jesli istnieje, None jeśli nie
+        """
         for node in self.__detailed_nodes:
             if node.get_label() == node_label:
                 return self.__detailed_nodes.index(node)
         return None
 
     def plot_graph(self, show):
+        """
+        Funkcja, która rysuje graf (bez ściezki zaznaczonej)
+        :param show: Parametr logiczny opisujący czy wyświetlić rysunek
+        :return: empty
+        """
         print("Start plot graph")
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
@@ -226,6 +240,7 @@ class Graph:
             else:
                 plt.text(0.5*xs[edge.get_detailed_node_1().get_label()] + 0.5 * xs[edge.get_detailed_node_2().get_label()], 0.5*ys[edge.get_detailed_node_1().get_label()] + 0.5*ys[edge.get_detailed_node_2().get_label()], edge.get_travel_time())
         plt.grid(True)
+        print("End plotting graph")
         if show:
             print("Show plot = true")
             plt.show()
@@ -233,14 +248,21 @@ class Graph:
 
 
     def plot_graph_with_path(self, path):
+        """
+        Funkcja, która rysuje graf z zaznaczoną ścieżką
+        :param path: ścieżka do zaznaczenia
+        :return: ścieżka do pliku
+        """
         print("start plotting graph with path")
         time = self.get_worker_time()
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         self.plot_graph(False)
+        print("Start path to file")
         path_to_file = self.get_solution_from_path(path)
         maxx = xs[max(xs.keys(), key=(lambda k: xs[k]))]/2
-        maxy = ys[max(ys.keys(), key=(lambda k: ys[k]))] 
+        maxy = ys[max(ys.keys(), key=(lambda k: ys[k]))]
+        print("Start plotting edge in path")
         for edge in path:
             #print("start plotting edge " + edge)
             plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
@@ -259,7 +281,9 @@ class Graph:
                     0.5 * ys[edge.get_detailed_node_1().get_label()] + 0.5 * ys[edge.get_detailed_node_2().get_label()],
                     edge.get_travel_time())
         plt.text(maxx, maxy, ("Dla czasu: " + str(time)), size=10, color='purple')
+        print("Napisałem dla czasu")
         plt.show()
+        print("Kończy działanie plot graph with path")
         return path_to_file
 
     def get_solution_from_path(self, path):
@@ -269,18 +293,22 @@ class Graph:
             path_tmp.append(edge)
 
         # last_node = self.get_starting_node()
+        print("Tworze last node")
         last_node = self.get_starting_node_with_max_k()
-
+        print("last node to " + last_node.get_label())
         path_to_file.append(last_node.get_label())
 
         while path_tmp:
+            #print("Jestem w petli path_tmp")
             for edge in path_tmp:
                 if edge.get_detailed_node_1() == last_node:
+                    print("Jestem w warunku, że node 1 == last node")
                     path_to_file.append(edge.get_detailed_node_2().get_label())
                     path_tmp.remove(edge)
                     last_node = edge.get_detailed_node_2()
                     continue
                 if edge.get_detailed_node_2() == last_node:
+                    print("Jestem w warunku, że node 2 == last node")
                     path_to_file.append(edge.get_detailed_node_1().get_label())
                     path_tmp.remove(edge)
                     last_node = edge.get_detailed_node_1()
@@ -290,9 +318,9 @@ class Graph:
 
     def get_neighbours(self, node):
         """
-
-        :param node: node which neighbours we are looking for
-        :return: neighbours of node
+        Funkcja która zwraca sąsiadów wierzchołka node i wagi do sąsiadów ze wzoru liczonego dla algorytmu
+        :param node: node, którego sąsiadów szukamy
+        :return: słownik sąsiedzi: wagi
         """
         if node is None:
             return dict()
@@ -316,6 +344,12 @@ class Graph:
         return edges_to_node
 
     def find_edge_from_nodes(self, node_1, node_2):
+        """
+        Funkcja znajdująca w grafie krawędź na podstawie wierzchołków
+        :param node_1: Wierzchołek z klasy Detailed Node
+        :param node_2: Wierzchołek z klasy Detailed Node
+        :return: Krawędź node_1 -- node_2 gdy istnieje, empty wpp
+        """
         for edge in self.__detailed_edges:
             if (edge.get_detailed_node_1() == node_1 and edge.get_detailed_node_2() == node_2) or (edge.get_detailed_node_2() == node_1 and edge.get_detailed_node_1() == node_2):
                 return edge
@@ -332,9 +366,15 @@ class Graph:
         #for n in self.__detailed_nodes:
         #    if node.get_k_value_to_node(self) < n.get_k_value_to_node(self):
         #        node = n
+        print("Dlugosc list node to ", str(len(node)))
         return node[0]
 
     def get_node_from_label(self, label):
+        """
+        Funkcja, która zwraca wierzchołek na podstawie labelki
+        :param label: oznaczenie wierzchołka
+        :return: Wierzchołek, gdy jego label == argument, None wpp
+        """
         for node in self.__detailed_nodes:
             if node.get_label() == label:
                 return node

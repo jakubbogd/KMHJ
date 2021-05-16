@@ -1,12 +1,11 @@
 #from KMHJ.backend.classes.DetailedNode import DetailedNode
 from backend.classes.DetailedNode import DetailedNode
-
-# TODO rozbic dijkstre na mniejsze funkcje
+from time import sleep
 
 
 def dijkstra_algorithm(graph, start_node, end_node):
     """
-    
+    Funkcja realizująca zmodyfikowany algorytm Dijkstry (zmodyfikowany bo zwraca najdroższą ścieżkę a nie najtańszą)
     :param graph: graf realizujacy mape
     :param start_node: miasto startowe
     :param end_node: miasto koncowe
@@ -60,10 +59,11 @@ def dijkstra_algorithm(graph, start_node, end_node):
     return result
 
 
-def solve_salesman_problem(graph):
+def solve_salesman_problem(graph, path_arg):
     """
 
     :param graph: graf realizujacy mapę
+    :param path_arg: sciezka zachowująca obecnie stan rozwiązania
     :return: sciezka rozwiazująca problem wedrownego sprzedawcy
     """
 
@@ -90,6 +90,7 @@ def solve_salesman_problem(graph):
         print("Do trasy dodaje krawedzie:")
         for edge in max_path:
             path.append(edge)
+            path_arg.append(edge)
             edge.set_weight_to_1(0)
             edge.set_weight_to_2(0)
             edge.get_detailed_node_1().set_products(0)
@@ -104,6 +105,7 @@ def solve_salesman_problem(graph):
         for edge in max_path:
             print(edge.get_detailed_node_1().get_label() + ": " + str(edge.get_weight_to_1()) + "->" + edge.get_detailed_node_2().get_label() + ": " + str(edge.get_weight_to_2()))
 
+    #sleep(35.5)
     print("Zostało czasu: " + str(time))
     for node in not_visited:
         print(node.get_label())
@@ -113,11 +115,13 @@ def solve_salesman_problem(graph):
         curr_edge_from_end = graph.find_edge_from_nodes(end_node, node)
         if curr_edge_from_end and curr_edge_from_end.get_travel_time() <= time:
             path.append(edge)
+            path_arg.append(edge)
             end_node = node
             time = time - curr_edge_from_end.get_travel_time()
             if node in not_visited:
                 not_visited.remove(node)
 
+    print("Funkcja solve_salesman_problem konczy dzialanie")
     return path
 
 

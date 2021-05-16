@@ -2,6 +2,10 @@ from GUI.files import GUI, Error, Save
 from backend.MathFuncs.MathFunctions import solve_salesman_problem
 from backend.classes.Graph import Graph
 import pandas as pd
+from multiprocessing import Process, Queue
+from func_timeout import func_timeout, FunctionTimedOut
+
+TIMEOUT_PARAM = 30
 
 if __name__ == "__main__":
 
@@ -35,10 +39,20 @@ if __name__ == "__main__":
                 print(ex)
                 print("Nie mogę wyświetlić grafu bez ścieżki.")
             try:
-                graph.set_correct_edges_with_conditions()
-                path = solve_salesman_problem(graph)
+                path_arg = []
+                path = func_timeout(30, solve_salesman_problem, args=(graph, path_arg))
+            except FunctionTimedOut:
+                print("Minęło 30 sekund - zwracam rozwiązanie przybliżone")
+                path = path_arg.copy()
+            except Exception as ex:
+                print(ex)
+                print("Nie mogłem utworzyć rozwiązania")
+            try:
                 for edge in path:
-                    print(edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
+                    print("Printing edges to plot")
+                    print(str(edge.get_detailed_node_1()) + "->" + str(edge.get_detailed_node_2()))
+                for node in graph.get_detailed_nodes():
+                    print(str(node))
                 result = graph.plot_graph_with_path(path)
                 result = pd.DataFrame(result, columns=['solution'])
             except Exception as ex:

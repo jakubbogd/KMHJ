@@ -38,4 +38,11 @@ class DetailedEdge:
     # Uzupelnic gettery i settery
 
     def count_weight(self, node_to, time_param, prod_param):
+        """
+        Metoda obliczająca wagę krawędzi na podstawie wierzchołka do któergo idziemy i parametrów
+        :param node_to: Wierzchołek, do którego idziemy
+        :param time_param: Parametr czasu do wagi
+        :param prod_param: Parametr produkcji do wagi
+        :return: Waga obliczona ze wzoru
+        """
         return time_param * self.__travel_time + prod_param * node_to.get_products()
