@@ -153,7 +153,11 @@ class GraphTest(unittest.TestCase):
         graph = return_test_graph_cross_edge_5()
         verify = graph.set_correct_edges_with_conditions()
         self.assertTrue(verify==0)  
-   
+        
+    def test_correct_k_value(self):
+        graph=return_test_graph_1()
+        verity = (graph.get_starting_node_with_max_k()).get_label()
+        self.assertTrue(verity=="Legia")   
 
 if __name__ == '__main__':
     unittest.main()
