@@ -41,6 +41,11 @@ class DetailedNode:
         self.__products = products
     
     def get_k_value_to_node(self, graph):
+        """
+        
+        :param graph: przyjmuje wejciowy graf
+        :return: zwraca k wartosc dla danego wierzchołka 
+        """        
          edges_list = graph.get_edges_to_node(self)
          for edge in edges_list:
             print (edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
