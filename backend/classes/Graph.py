@@ -259,8 +259,6 @@ class Graph:
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         self.plot_graph(False)
         print("Start path to file")
-        for edge in path:
-            print(edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
         path_to_file = self.get_solution_from_path(path)
         maxx = xs[max(xs.keys(), key=(lambda k: xs[k]))]/2
         maxy = ys[max(ys.keys(), key=(lambda k: ys[k]))]
@@ -289,6 +287,11 @@ class Graph:
         return path_to_file
 
     def get_solution_from_path(self, path):
+        """
+        Funkcja, która zwraca listę nazw wierzchołków na podstawie listy DetailedEdge
+        :param path: lista DetaileEdge, z której chcemy wyekstartować wierzchołki
+        :return: lista nazw wierzchołków z path w kojeności przejścia
+        """
         path_to_file = []
         path_tmp = []
         for edge in path:
@@ -321,6 +324,44 @@ class Graph:
                     break
 
         return path_to_file
+
+    def get_nodes_from_path(self, path, start_node):
+        """
+        Funkcja, która zwraca listę DetailedNode na podstawie listy DetailedEdge i pierwszego wierzchołka ścieżki
+        :param path: lista DetaileEdge, z której chcemy wyekstartować wierzchołki
+        :param start_node: wierzchołek, od ktorego scieżka się zaczyna
+        :return: lista DetailedNode
+        """
+        nodes = []
+        path_tmp = []
+        for edge in path:
+            path_tmp.append(edge)
+        # last_node = self.get_starting_node()
+        print("Ustalam last node")
+        last_node = start_node
+        print("last node to " + last_node.get_label())
+        nodes.append(last_node)
+
+        while path_tmp:
+            print("Jestem w petli path_tmp")
+            for edge in path_tmp:
+                print("W path_tmp zostało: ")
+                for edget in path_tmp:
+                    print(edget.get_detailed_node_1().get_label() + "->" + edget.get_detailed_node_2().get_label())
+                if edge.get_detailed_node_1() == last_node:
+                    print("Dodaje krawedz " + edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
+                    nodes.append(edge.get_detailed_node_2())
+                    path_tmp.remove(edge)
+                    last_node = edge.get_detailed_node_2()
+                    break
+                elif edge.get_detailed_node_2() == last_node:
+                    print("Dodaje krawedz " + edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
+                    print("W path_tmp zostało: " + str(len(path_tmp)))
+                    nodes.append(edge.get_detailed_node_1())
+                    path_tmp.remove(edge)
+                    last_node = edge.get_detailed_node_1()
+                    break
+        return nodes
 
     def get_neighbours(self, node):
         """

@@ -78,7 +78,7 @@ def solve_salesman_problem(graph, path_arg):
 
     path = []
     found_any = 1
-
+    prod_sold = 0
     # szukam maksymalnych sciezek, poki moge
     while found_any == 1:
         print("Miasto począktkowe aktualnego obrotu: " + start_node.get_label())
@@ -87,6 +87,7 @@ def solve_salesman_problem(graph, path_arg):
         time = result[1]
         if result[2]:
             end_node = result[2]
+        prod_sold = prod_sold + result[3]
         print("Do trasy dodaje krawedzie:")
         for edge in max_path:
             path.append(edge)
@@ -120,7 +121,10 @@ def solve_salesman_problem(graph, path_arg):
             time = time - curr_edge_from_end.get_travel_time()
             if node in not_visited:
                 not_visited.remove(node)
-
+    print("Rozwiazaniem jest scieżka:")
+    for edge in path:
+        print(edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
+    print("przebyta w czasie " + str(graph.get_worker_time()-time) + " podczas, której sprzedano " + str(prod_sold) + " towarów")
     print("Funkcja solve_salesman_problem konczy dzialanie")
     return path
 
@@ -132,11 +136,14 @@ def algorithm_iteration(graph, start_node, not_visited, time):
     end_node = []
     for node in not_visited:
         curr_path = dijkstra_algorithm(graph, start_node, node)
-        curr_prod = 0
         curr_time = 0
-        for edge in curr_path:
-            curr_prod = curr_prod + edge.get_detailed_node_2().get_products()
-            curr_time = curr_time + edge.get_travel_time()
+        for curr_edge in curr_path:
+            curr_time = curr_time + curr_edge.get_travel_time()
+        curr_prod = 0
+        curr_nodes = graph.get_nodes_from_path(curr_path,start_node)
+        for curr_node in curr_nodes:
+            curr_prod = curr_prod + curr_node.get_products()
+
         if curr_prod > max_prod and curr_time <= time:
             max_prod = curr_prod
             max_path = curr_path
@@ -145,4 +152,4 @@ def algorithm_iteration(graph, start_node, not_visited, time):
     if end_node:
         print("Wybrano trasa na ktorej sprzedano " + str(max_prod) + " towarow w czasie " + str(max_time) + " prowadzi do miasta " + end_node.get_label())
 
-    return [max_path, time - max_time, end_node]
+    return [max_path, time - max_time, end_node, max_prod]
