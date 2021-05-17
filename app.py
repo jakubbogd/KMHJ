@@ -2,8 +2,9 @@ from GUI.files import GUI, Error, Save
 from backend.MathFuncs.MathFunctions import solve_salesman_problem
 from backend.classes.Graph import Graph
 import pandas as pd
-from multiprocessing import Process, Queue
 from func_timeout import func_timeout, FunctionTimedOut
+import time
+
 
 TIMEOUT_PARAM = 30
 
@@ -41,7 +42,9 @@ if __name__ == "__main__":
                 print("Nie mogę wyświetlić grafu bez ścieżki.")
             try:
                 path_arg = []
+                start_time = time.time()
                 path = func_timeout(30, solve_salesman_problem, args=(graph, path_arg))
+                print("----------- Znalazłem rozwiązanie w: " + str(time.time()-start_time) + " sekund --------------")
             except FunctionTimedOut:
                 print("Minęło 30 sekund - zwracam rozwiązanie przybliżone")
                 path = path_arg.copy()
