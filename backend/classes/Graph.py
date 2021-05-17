@@ -7,11 +7,11 @@
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.DetailedEdge import DetailedEdge
 """
-#from KMHJ.backend.classes.DetailedNode import DetailedNode
-#from KMHJ.backend.classes.DetailedEdge import DetailedEdge
+from KMHJ.backend.classes.DetailedNode import DetailedNode
+from KMHJ.backend.classes.DetailedEdge import DetailedEdge
 
-from backend.classes.DetailedNode import DetailedNode
-from backend.classes.DetailedEdge import DetailedEdge
+#from backend.classes.DetailedNode import DetailedNode
+#from backend.classes.DetailedEdge import DetailedEdge
 import matplotlib.pyplot as plt
 
 plt.style.use("ggplot")
@@ -259,6 +259,8 @@ class Graph:
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         self.plot_graph(False)
         print("Start path to file")
+        for edge in path:
+            print(edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
         path_to_file = self.get_solution_from_path(path)
         maxx = xs[max(xs.keys(), key=(lambda k: xs[k]))]/2
         maxy = ys[max(ys.keys(), key=(lambda k: ys[k]))]
@@ -293,25 +295,28 @@ class Graph:
             path_tmp.append(edge)
 
         # last_node = self.get_starting_node()
-        print("Tworze last node")
+        print("Ustalam last node")
         last_node = self.get_starting_node_with_max_k()
         print("last node to " + last_node.get_label())
         path_to_file.append(last_node.get_label())
 
         while path_tmp:
-                # print("Jestem w petli path_tmp")
+            print("Jestem w petli path_tmp")
             for edge in path_tmp:
-                print(edge,"----",last_node)
+                print("W path_tmp zostało: ")
+                for edget in path_tmp:
+                    print(edget.get_detailed_node_1().get_label() + "->" + edget.get_detailed_node_2().get_label())
                 if edge.get_detailed_node_1() == last_node:
-                    print("Jestem w warunku, że node 1 == last node")
+                    print("Dodaje krawedz " + edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
                     path_to_file.append(edge.get_detailed_node_2().get_label())
-                    path_tmp = [x for x in path_tmp if x != edge]
+                    path_tmp.remove(edge)
                     last_node = edge.get_detailed_node_2()
                     break
                 elif edge.get_detailed_node_2() == last_node:
-                    print("Jestem w warunku, że node 2 == last node")
+                    print("Dodaje krawedz " + edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
+                    print("W path_tmp zostało: " + str(len(path_tmp)))
                     path_to_file.append(edge.get_detailed_node_1().get_label())
-                    path_tmp = [x for x in path_tmp if x != edge]
+                    path_tmp.remove(edge)
                     last_node = edge.get_detailed_node_1()
                     break
 
