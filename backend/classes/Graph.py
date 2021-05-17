@@ -360,6 +360,10 @@ class Graph:
         """
      
     def get_starting_node_with_max_k(self):
+        """
+        :return: zwraca wierzchołek z największym parametrem k
+
+        """
         # node = DetailedNode("Zero", 1, 1, 0)
         node_max = max([node.get_k_value_to_node(self) for node in self.__detailed_nodes])
         node = [x for x in self.__detailed_nodes if x.get_k_value_to_node(self) == node_max]
