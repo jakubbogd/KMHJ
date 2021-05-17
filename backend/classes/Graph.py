@@ -299,20 +299,21 @@ class Graph:
         path_to_file.append(last_node.get_label())
 
         while path_tmp:
-            #print("Jestem w petli path_tmp")
+                # print("Jestem w petli path_tmp")
             for edge in path_tmp:
+                print(edge,"----",last_node)
                 if edge.get_detailed_node_1() == last_node:
                     print("Jestem w warunku, że node 1 == last node")
                     path_to_file.append(edge.get_detailed_node_2().get_label())
-                    path_tmp.remove(edge)
+                    path_tmp = [x for x in path_tmp if x != edge]
                     last_node = edge.get_detailed_node_2()
-                    continue
-                if edge.get_detailed_node_2() == last_node:
+                    break
+                elif edge.get_detailed_node_2() == last_node:
                     print("Jestem w warunku, że node 2 == last node")
                     path_to_file.append(edge.get_detailed_node_1().get_label())
-                    path_tmp.remove(edge)
+                    path_tmp = [x for x in path_tmp if x != edge]
                     last_node = edge.get_detailed_node_1()
-                    continue
+                    break
 
         return path_to_file
 

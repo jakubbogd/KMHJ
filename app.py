@@ -29,7 +29,8 @@ if __name__ == "__main__":
                 Error("Co najmniej dwie z podanych dróg przecinają się.")
                 continue
             #TODO tutaj dodać czy graf jest spojny zweryfikowanie @Kto?
-        except:
+        except Exception as ex:
+            print(ex)
             print("Nie mogę utworzyć grafu.")
 
         if len(list_of_dfs) == 3:
