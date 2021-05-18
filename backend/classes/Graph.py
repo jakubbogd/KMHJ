@@ -117,7 +117,7 @@ class Graph:
              y = round(a2*x+b2, 2)
 
 
-             if  y > y1 and y < y2 and y>=v1 and y<=v2 :
+             if  y > y1 and y < y2 and x>=z1 and x<=z2 :
                  print("Krawedzie  przecinaja sie w punkcie (",x,"," ,y,")")
                  return True
              else:
@@ -136,7 +136,7 @@ class Graph:
             y = round(a1*x+b1,2)
        
 
-            if  y >= y1 and y <= y2 and y>v1 and y<v2 :
+            if  x >= x1 and x <= x2 and y>v1 and y<v2 :
                 print("Krawedzie  przecinaja sie w punkcie (",x,"," ,y,")")
                 return True
             else:
