@@ -1,5 +1,6 @@
 import unittest
 from KMHJ-main.GUI import files
+
 class TestFiles(unittest.TestCase):
     def test_read_cities_false_1(self):
         file="1.1.csv"
@@ -12,6 +13,9 @@ class TestFiles(unittest.TestCase):
         self.assertFalse(files.read_cities(file))
     def test_read_cities_false_4(self):
         file="1.4.csv"
+        self.assertFalse(files.read_cities(file))
+    def test_read_cities_false_5(self):
+        file="1.5.csv"
         self.assertFalse(files.read_cities(file))
     def test_read_cities_true(self):
         file="1.csv"
@@ -28,6 +32,9 @@ class TestFiles(unittest.TestCase):
     def test_read_prod_false_4(self):
         file="2.4.csv"
         self.assertFalse(files.read_prod(file))
+    def test_read_prod_false_5(self):
+        file="2.5.csv"
+        self.assertFalse(files.read_prod(file))        
     def test_read_prod_true(self):
         file="2.csv"
         self.assertTrue(files.read_prod(file))
@@ -55,6 +62,11 @@ class TestFiles(unittest.TestCase):
         self.assertFalse(files.read_solution(file,file1,file2))
     def test_read_solution_false_3(self):
         file="4.3.csv"
+        file1="1.csv"
+        file2="2.csv"
+        self.assertFalse(files.read_solution(file,file1,file2))
+    def test_read_solution_false_4(self):
+        file="4.4.csv"
         file1="1.csv"
         file2="2.csv"
         self.assertFalse(files.read_solution(file,file1,file2))
