@@ -42,7 +42,7 @@ class DetailedNode:
     
     def get_k_value_to_node(self, graph):
         """
-        
+        Funkcja zwraca k-wartosc dla danego wierzcholka, czyli produkcja/min czasu podróży do sąsiadów
         :param graph: przyjmuje wejciowy graf
         :return: zwraca k wartosc dla danego wierzchołka 
         """        
