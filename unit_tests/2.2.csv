@@ -1,6 +1,6 @@
 ﻿city1,city2,travel_time
 a,b,4
-"a,c,""ahoj"""
+a,c,ahoj
 b,c,1
 c,i,3
 a,d,4
