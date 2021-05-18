@@ -25,6 +25,11 @@ if __name__ == "__main__":
             graph.set_edges_from_file(list_of_dfs[1])
             graph.set_worker_time(list_of_dfs[2].values.tolist()[0][0])
             graph.set_correct_edges_with_conditions()
+            
+            if not graph.check():
+                print("Graf nie jest spojny!!!")
+                Error("Graf nie jest spojny!!!")
+                continue               
             if not graph.get_correct_edges():
                 print("Warunek nieprzecinania niespełniony!")
                 Error("Co najmniej dwie z podanych dróg przecinają się.")
