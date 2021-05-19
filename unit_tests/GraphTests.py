@@ -157,7 +157,12 @@ class GraphTest(unittest.TestCase):
     def test_correct_k_value(self):
         graph=return_test_graph_1()
         verity = (graph.get_starting_node_with_max_k()).get_label()
-        self.assertTrue(verity=="Legia")   
-
+        self.assertTrue(verity=="Legia")  
+        
+    def test_correct_k_value_for_node(self):
+        graph=return_test_graph_1()
+        verity = (graph.get_detailed_nodes()[0]).get_k_value_to_node(graph)
+       
+        self.assertTrue(verity==20/20)  
 if __name__ == '__main__':
     unittest.main()
