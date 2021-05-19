@@ -58,7 +58,7 @@ if __name__ == "__main__":
                 print("Nie mogłem utworzyć rozwiązania")
             try:
                 for edge in path:
-                    print("Printing edges to plot")
+                    print("Wypisuję krawędzie w ścieżce: ")
                     print(str(edge.get_detailed_node_1()) + "->" + str(edge.get_detailed_node_2()))
                 for node in graph.get_detailed_nodes():
                     print(str(node))

@@ -71,10 +71,10 @@ class Graph:
                     print("Checking edge " + edge_1.get_detailed_node_1().get_label() + " - " + edge_1.get_detailed_node_2().get_label() + " and edge " + edge_2.get_detailed_node_2().get_label() + " - " + edge_2.get_detailed_node_1().get_label())
                     res = self.check_incorrect_edges(edge_1, edge_2)
                     if res == True:
-                        print("crossing, end and set false")
+                        print("Przecinają się krawędzie")
                         self.set_correct_edges(False)
                         return 0
-                    print("now res = " + str(res))
+                    print("res = " + str(res))
         self.set_correct_edges(True)
 
     def check_incorrect_edges(self, edge_1, edge_2):
@@ -240,11 +240,11 @@ class Graph:
             else:
                 plt.text(0.5*xs[edge.get_detailed_node_1().get_label()] + 0.5 * xs[edge.get_detailed_node_2().get_label()], 0.5*ys[edge.get_detailed_node_1().get_label()] + 0.5*ys[edge.get_detailed_node_2().get_label()], edge.get_travel_time())
         plt.grid(True)
-        print("End plotting graph")
+        print("Kończę rysować graf")
         if show:
-            print("Show plot = true")
+            print("Pokaż graf = true")
             plt.show()
-            print("end plot graph fun")
+            print("Koniec funkcji plot graph")
 
 
     def plot_graph_with_path(self, path):
@@ -253,7 +253,7 @@ class Graph:
         :param path: ścieżka do zaznaczenia
         :return: ścieżka do pliku
         """
-        print("start plotting graph with path")
+        print("start rysowania grafu ze ścieżką")
         time = self.get_worker_time()
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
@@ -262,7 +262,7 @@ class Graph:
         path_to_file = self.get_solution_from_path(path)
         maxx = xs[max(xs.keys(), key=(lambda k: xs[k]))]/2
         maxy = ys[max(ys.keys(), key=(lambda k: ys[k]))]
-        print("Start plotting edge in path")
+        print("Start rysowania krawędzi w ścieżce")
         for edge in path:
             #print("start plotting edge " + edge)
             plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],

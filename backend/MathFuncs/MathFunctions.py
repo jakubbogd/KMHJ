@@ -18,17 +18,14 @@ def dijkstra_algorithm(graph, start_node, end_node):
     not_visited = [node for node in graph.get_detailed_nodes()]
 
     distances[start_node] = 0
-    while len(not_visited) != 0:
+    while len(not_visited) != 0: #dopoki są jeszcze nieodwiedzeni
         tmp_dist = {}
         for el in distances:
-            if el in not_visited:
-                #print(el.get_label() + " is not visited, set tmp_dist = " + str(distances[el]))
+            if el in not_visited: #gdy coś jest nieodwiedzone doloz do tabeli distances z dijkstry
                 tmp_dist[el] = distances[el]
 
-        u = max(tmp_dist, key=tmp_dist.get)
-        #print("set next_vert = " + u.get_label())
+        u = max(tmp_dist, key=tmp_dist.get) #weź maksymalną wartośc
         not_visited.remove(u)
-        #print("now not_visited is " + str([node.get_label() for node in not_visited]))
         neighbours_u = graph.get_neighbours(u)
 
         # dla sasiadow u:
@@ -37,7 +34,7 @@ def dijkstra_algorithm(graph, start_node, end_node):
                 #print(element.get_label() + " is member of neighbours")
                 #print("cost to " + element.get_label() + " is " + str(neighbours_u[element]))
                 #print("element is" + element.get_label())
-                if distances[element] < distances[u] + neighbours_u[element]:
+                if distances[element] < distances[u] + neighbours_u[element]: # gdy wieksza odleglosc to podmien odleglosci - bo najwieksza sciezka
                     #print("change element in path")
                     distances[element] = distances[u] + neighbours_u[element]
                     #print("distances of " + element.get_label() + " is now = " + str(distances[element]))
@@ -47,13 +44,13 @@ def dijkstra_algorithm(graph, start_node, end_node):
     vertices_in_result = []
     node_to_append = end_node
     #print("end node is " + end_node.get_label())
-    while node_to_append is not None:
+    while node_to_append is not None: #bierzemy wierzcholki do dodania juz do sciezki
         #print("append node " + node_to_append.get_label())
         vertices_in_result.append(node_to_append)
         node_to_append = previous[node_to_append]
 
     result = []
-    for i in range(len(vertices_in_result) - 1):
+    for i in range(len(vertices_in_result) - 1): #bierzemy z wierzcholkow z rozwiazania tworzymy krawedzie
         result.append(graph.find_edge_from_nodes(vertices_in_result[i], vertices_in_result[i + 1]))
 
     return result
