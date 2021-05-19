@@ -163,6 +163,17 @@ class GraphTest(unittest.TestCase):
         graph=return_test_graph_1()
         verity = (graph.get_detailed_nodes()[0]).get_k_value_to_node(graph)
        
-        self.assertTrue(verity==20/20)  
+        self.assertTrue(verity==20/20)
+        
+    def test_should_return_unconnected_graph(self):
+        graph=return_test_graph_cross_edge_1()
+        verity=graph.check()
+        self.assertTrue(not verity)
+        
+    def test_should_return_connected_graph(self):
+        graph=return_test_graph_1()
+        verity=graph.check()
+        self.assertTrue( verity)      
+        
 if __name__ == '__main__':
     unittest.main()
