@@ -46,7 +46,7 @@ class DetailedNode:
         :param graph: przyjmuje wejciowy graf
         :return: zwraca k wartosc dla danego wierzchołka 
         """        
-        edges_list = graph.get_edges_to_node(self)
+        edges_list = graph.get_edges_from_node(self)
         for edge in edges_list:
             print(edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
         print("Tworzę min_time w get_k_value_to_node")

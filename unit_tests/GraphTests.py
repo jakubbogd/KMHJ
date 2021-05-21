@@ -179,6 +179,76 @@ class GraphTest(unittest.TestCase):
         graph=return_test_graph_1()
         verity=graph.check()
         self.assertTrue( verity)      
-        
+
+    """
+        Testy pozostałych funkcji z klasy Graph
+    """
+
+    def test_should_set_start_node(self):
+        graph1 = return_test_graph_1()
+        graph1.set_start_node()
+        self.assertEqual(graph1.get_start_node().get_label(), "Legia")
+
+    def test_should_find_solution(self):
+        graph1 = return_test_graph_1()
+        graph1.set_start_node()
+
+        edges = graph1.get_detailed_edges()
+        path = [edges[1], edges[4], edges[3], edges[5]]
+        solution = ["Legia", "Hubix", "Marta", "Krzysio", "Kuba"]
+
+        self.assertEqual(graph1.get_solution_from_path(path), solution)
+
+    def test_should_not_find_solution(self):
+        graph1 = return_test_graph_1()
+        graph1.set_start_node()
+
+        edges = graph1.get_detailed_edges()
+        path = [edges[2], edges[5], edges[4], edges[6]]
+
+        self.assertEqual(graph1.get_solution_from_path(path), [])
+
+    def test_should_find_nodes(self):
+        graph1 = return_test_graph_1()
+        graph1.set_start_node()
+
+        edges = graph1.get_detailed_edges()
+        path = [edges[1], edges[4], edges[3], edges[5]]
+
+        nodes = graph1.get_detailed_nodes()
+        solution = [nodes[4], nodes[3], nodes[0], nodes[2], nodes[1]]
+
+        self.assertEqual(graph1.get_nodes_from_path(path, nodes[4]), solution)
+
+    def test_should_not_find_nodes_1(self):
+        graph1 = return_test_graph_1()
+        graph1.set_start_node()
+
+        edges = graph1.get_detailed_edges()
+        path = [edges[1], edges[4], edges[3], edges[5]]
+
+        nodes = graph1.get_detailed_nodes()
+
+        self.assertEqual(graph1.get_nodes_from_path(path, nodes[2]), [])
+
+    def test_should_not_find_nodes_2(self):
+        graph1 = return_test_graph_1()
+        graph1.set_start_node()
+
+        edges = graph1.get_detailed_edges()
+        path = [edges[0], edges[2]]
+
+        nodes = graph1.get_detailed_nodes()
+
+        self.assertEqual(graph1.get_nodes_from_path(path, nodes[0]), [])
+
+    def test_should_get_edges_from_node(self):
+        graph1 = return_test_graph_1()
+        graph1.set_start_node()
+
+        nodes = graph1.get_detailed_nodes()
+
+        self.assertEqual(len(graph1.get_edges_from_node(nodes[0])), 3)
+
 if __name__ == '__main__':
     unittest.main()

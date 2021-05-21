@@ -56,6 +56,10 @@ class Graph:
         self.__correct_edges = correct_edges
 
     def set_start_node(self):
+        """
+        Funkcja ustalająca wierzchołek początkowy algorytmu na podstawie parametru k
+        :return: None
+        """
         self.__start_node = self.get_starting_node_with_max_k()
 
     def set_correct_edges_with_conditions(self):
@@ -290,7 +294,7 @@ class Graph:
         :param path: lista DetaileEdge, z której chcemy wyekstartować wierzchołki
         :return: lista nazw wierzchołków z path w kojeności przejścia
         """
-        path_to_file = []
+        path_to_csv = []
         path_tmp = []
         for edge in path:
             path_tmp.append(edge)
@@ -299,29 +303,34 @@ class Graph:
         print("Ustalam last node")
         last_node = self.get_start_node()
         print("last node to " + last_node.get_label())
-        path_to_file.append(last_node.get_label())
+        path_to_csv.append(last_node.get_label())
         print("W path_tmp zostało: ")
         for edget in path_tmp:
             print(edget.get_detailed_node_1().get_label() + "->" + edget.get_detailed_node_2().get_label())
 
         while path_tmp:
             print("Jestem w petli path_tmp")
+            len_path_tmp = len(path_tmp)
             for edge in path_tmp:
                 if edge.get_detailed_node_1() == last_node:
                     print("Dodaje krawedz " + edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
-                    path_to_file.append(edge.get_detailed_node_2().get_label())
+                    path_to_csv.append(edge.get_detailed_node_2().get_label())
                     path_tmp.remove(edge)
                     last_node = edge.get_detailed_node_2()
                     break
                 elif edge.get_detailed_node_2() == last_node:
                     print("Dodaje krawedz " + edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
                     print("W path_tmp zostało: " + str(len(path_tmp)))
-                    path_to_file.append(edge.get_detailed_node_1().get_label())
+                    path_to_csv.append(edge.get_detailed_node_1().get_label())
                     path_tmp.remove(edge)
                     last_node = edge.get_detailed_node_1()
                     break
+            if len(path_tmp) == len_path_tmp:
+                print("Nie można wyznaczyć rozwiązania")
+                path_to_csv = []
+                break
 
-        return path_to_file
+        return path_to_csv
 
     def get_nodes_from_path(self, path, start_node):
         """
@@ -345,6 +354,7 @@ class Graph:
 
         while path_tmp:
             print("Jestem w petli path_tmp")
+            len_path_tmp = len(path_tmp)
             for edge in path_tmp:
                 if edge.get_detailed_node_1() == last_node:
                     print("Dodaje krawedz " + edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
@@ -359,6 +369,10 @@ class Graph:
                     path_tmp.remove(edge)
                     last_node = edge.get_detailed_node_1()
                     break
+            if len(path_tmp) == len_path_tmp:
+                print("Nie można wyznaczyć wierzchołków")
+                nodes = []
+                break
         return nodes
 
     def get_neighbours(self, node):
@@ -376,16 +390,14 @@ class Graph:
         nodes_2 = {edge.get_detailed_node_2(): edge.get_weight_to_2() for edge in edges_with_node if node == edge.get_detailed_node_1()}
         return dict(list(nodes_1.items()) + list(nodes_2.items()))
 
-    def get_edges_to_node(self, node):
+    def get_edges_from_node(self, node):
         """
         Funkcja zwracająca wszytstkie krawędzie zawierajace wskazany wierzchołek.
         :param node: wierzcholek na podstawie którego chcemy znaleźć krawędzie
         :return: lista krawędzi zawierajacych wskazany wierzchołek
         """
         edges_to_node = [edge for edge in self.__detailed_edges if node.get_label() == edge.get_detailed_node_2().get_label() or node.get_label() == edge.get_detailed_node_1().get_label()]
-        print("wierzchołka krawedzie: " + node.get_label())
-        print("krawedzi w grafie: " + str(len(self.__detailed_edges)))
-        print("długość listy: " + str(len(edges_to_node)))
+        print("Krawędzi wierzchołka " + node.get_label() + " jest " + str(len(edges_to_node)))
         return edges_to_node
 
     def find_edge_from_nodes(self, node_1, node_2):
