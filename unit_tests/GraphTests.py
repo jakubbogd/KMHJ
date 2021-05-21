@@ -1,9 +1,14 @@
 import unittest
 import pandas as pd
-
+"""
 from backend.classes.DetailedEdge import DetailedEdge
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.Graph import Graph
+"""
+
+from KMHJ.backend.classes.DetailedEdge import DetailedEdge
+from KMHJ.backend.classes.DetailedNode import DetailedNode
+from KMHJ.backend.classes.Graph import Graph
 
 """
     Testowanie klasy Graph

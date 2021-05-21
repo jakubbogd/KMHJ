@@ -25,7 +25,8 @@ if __name__ == "__main__":
             graph.set_edges_from_file(list_of_dfs[1])
             graph.set_worker_time(list_of_dfs[2].values.tolist()[0][0])
             graph.set_correct_edges_with_conditions()
-            
+            graph.set_start_node()
+
             if not graph.check():
                 print("Graf nie jest spojny!!!")
                 Error("Graf nie jest spojny!!!")
@@ -48,7 +49,7 @@ if __name__ == "__main__":
             try:
                 path_arg = []
                 start_time = time.time()
-                path = func_timeout(30, solve_salesman_problem, args=(graph, path_arg))
+                path = func_timeout(TIMEOUT_PARAM, solve_salesman_problem, args=(graph, path_arg))
                 print("----------- Znalazłem rozwiązanie w: " + str(time.time()-start_time) + " sekund --------------")
             except FunctionTimedOut:
                 print("Minęło 30 sekund - zwracam rozwiązanie przybliżone")

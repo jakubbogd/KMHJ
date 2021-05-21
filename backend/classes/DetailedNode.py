@@ -49,12 +49,6 @@ class DetailedNode:
         edges_list = graph.get_edges_to_node(self)
         for edge in edges_list:
             print(edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
-
         print("Tworzę min_time w get_k_value_to_node")
         min_time = min([edge.get_travel_time() for edge in edges_list])
-        """ 
-         for edge in edges_list:
-             if edge.get_travel_time()<min_time:
-                 min_time=edge.get_travel_time()
-        """
         return self.get_entrance_products()/min_time

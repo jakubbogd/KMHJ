@@ -2,8 +2,8 @@
 
 @author: HG
 """
-#from KMHJ.backend.classes.DetailedNode import DetailedNode
-from backend.classes.DetailedNode import DetailedNode
+from KMHJ.backend.classes.DetailedNode import DetailedNode
+# from backend.classes.DetailedNode import DetailedNode
 
 class DetailedEdge:
 
@@ -13,8 +13,10 @@ class DetailedEdge:
         self.__travel_time = travel_time
         self.__weight_to_1 = self.count_weight(self.__detailed_node_1, time_param, prod_param)
         self.__weight_to_2 = self.count_weight(self.__detailed_node_2, time_param, prod_param)
+
     def __repr__(self):
         return str(self.__detailed_node_1)+":"+str(self.__detailed_node_2)
+
     def get_detailed_node_1(self):
         return self.__detailed_node_1
 
@@ -35,8 +37,6 @@ class DetailedEdge:
 
     def set_weight_to_2(self, weight_to_2):
         self.__weight_to_2 = weight_to_2
-
-    # Uzupelnic gettery i settery
 
     def count_weight(self, node_to, time_param, prod_param):
         """

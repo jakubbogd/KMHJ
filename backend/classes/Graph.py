@@ -24,6 +24,7 @@ class Graph:
         self.__detailed_edges = detailed_edges
         self.__worker_time = worker_time
         self.__correct_edges = correct_edges
+        self.__start_node = None
 
     # uzupełnione gettery i settery
 
@@ -39,6 +40,9 @@ class Graph:
     def get_correct_edges(self):
         return self.__correct_edges
 
+    def get_start_node(self):
+        return self.__start_node
+
     def set_detailed_nodes(self, detailed_nodes):
         self.__detailed_nodes = detailed_nodes
 
@@ -51,12 +55,8 @@ class Graph:
     def set_correct_edges(self, correct_edges):
         self.__correct_edges = correct_edges
 
-    def get_starting_node(self):
-        node = DetailedNode("Zero", 1, 1, 0)
-        for n in self.__detailed_nodes:
-            if node.get_products() < n.get_products():
-                node = n
-        return node
+    def set_start_node(self):
+        self.__start_node = self.get_starting_node_with_max_k()
 
     def set_correct_edges_with_conditions(self):
         """
@@ -84,7 +84,6 @@ class Graph:
         :param edge_2: krawedz z klasy DetailedEdge
         :return: czy krawedzie spelniaja warunek nieprzecinania
         zwraca True jesli krawedzie sie przecinaja i False jesli krawedzie sie nie przecinaja
-       
         """
         # przydaja mi sie takie rzeczy wiec na poczatek rzucilem 
         x1 = min(edge_1.get_detailed_node_1().get_x_coord(), edge_1.get_detailed_node_2().get_x_coord() )
@@ -123,7 +122,7 @@ class Graph:
              else:
                  return False            
         
-       # przypadek gdy druga krawedz jest "pionowa" 
+        # przypadek gdy druga krawedz jest "pionowa"
         if edge_2.get_detailed_node_1().get_x_coord() == edge_2.get_detailed_node_2().get_x_coord() :
             if edge_1.get_detailed_node_1().get_y_coord() == edge_1.get_detailed_node_2().get_y_coord() :
                  a1=0
@@ -142,7 +141,7 @@ class Graph:
             else:
                  return False
     
-       # dla pozostalych przypadkow 
+        # dla pozostalych przypadkow
            
         "wspolczynniki na prosta przechodzaca przez edge1"
         if edge_1.get_detailed_node_1().get_y_coord() == edge_1.get_detailed_node_2().get_y_coord() :
@@ -181,7 +180,7 @@ class Graph:
     def set_nodes_from_file(self, df):
         """
         Funkcja, która z data frame powstałego z pliku wejsciowego ustawia wierzcholki grafu
-        :param file: df z ktorego tworzymy wierzcholki
+        :param df: df z ktorego tworzymy wierzcholki
         :return: empty, bo ustawia odpowiednio wierzcholki
         """
         records = df.values.tolist()
@@ -246,25 +245,24 @@ class Graph:
             plt.show()
             print("Koniec funkcji plot graph")
 
-
     def plot_graph_with_path(self, path):
         """
         Funkcja, która rysuje graf z zaznaczoną ścieżką
         :param path: ścieżka do zaznaczenia
-        :return: ścieżka do pliku
+        :return: lista nazw miast odwiedzonych na ścieżce
         """
         print("start rysowania grafu ze ścieżką")
         time = self.get_worker_time()
         xs = {node.get_label(): node.get_x_coord() for node in self.__detailed_nodes}
         ys = {node.get_label(): node.get_y_coord() for node in self.__detailed_nodes}
         self.plot_graph(False)
-        print("Start path to file")
-        path_to_file = self.get_solution_from_path(path)
+        print("Start path to csv")
+        path_to_csv = self.get_solution_from_path(path)
         maxx = xs[max(xs.keys(), key=(lambda k: xs[k]))]/2
         maxy = ys[max(ys.keys(), key=(lambda k: ys[k]))]
         print("Start rysowania krawędzi w ścieżce")
         for edge in path:
-            #print("start plotting edge " + edge)
+            # print("start plotting edge " + edge)
             plt.plot([xs[edge.get_detailed_node_1().get_label()], xs[edge.get_detailed_node_2().get_label()]],
                      [ys[edge.get_detailed_node_1().get_label()], ys[edge.get_detailed_node_2().get_label()]], 'ro-', label =str(edge.get_travel_time()))
             if (xs[edge.get_detailed_node_1().get_label()] == xs[edge.get_detailed_node_2().get_label()]):
@@ -284,7 +282,7 @@ class Graph:
         print("Napisałem dla czasu")
         plt.show()
         print("Kończy działanie plot graph with path")
-        return path_to_file
+        return path_to_csv
 
     def get_solution_from_path(self, path):
         """
@@ -299,16 +297,16 @@ class Graph:
 
         # last_node = self.get_starting_node()
         print("Ustalam last node")
-        last_node = self.get_starting_node_with_max_k()
+        last_node = self.get_start_node()
         print("last node to " + last_node.get_label())
         path_to_file.append(last_node.get_label())
+        print("W path_tmp zostało: ")
+        for edget in path_tmp:
+            print(edget.get_detailed_node_1().get_label() + "->" + edget.get_detailed_node_2().get_label())
 
         while path_tmp:
             print("Jestem w petli path_tmp")
             for edge in path_tmp:
-                print("W path_tmp zostało: ")
-                for edget in path_tmp:
-                    print(edget.get_detailed_node_1().get_label() + "->" + edget.get_detailed_node_2().get_label())
                 if edge.get_detailed_node_1() == last_node:
                     print("Dodaje krawedz " + edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
                     path_to_file.append(edge.get_detailed_node_2().get_label())
@@ -341,13 +339,13 @@ class Graph:
         last_node = start_node
         print("last node to " + last_node.get_label())
         nodes.append(last_node)
+        print("W path_tmp zostało: ")
+        for edget in path_tmp:
+            print(edget.get_detailed_node_1().get_label() + "->" + edget.get_detailed_node_2().get_label())
 
         while path_tmp:
             print("Jestem w petli path_tmp")
             for edge in path_tmp:
-                print("W path_tmp zostało: ")
-                for edget in path_tmp:
-                    print(edget.get_detailed_node_1().get_label() + "->" + edget.get_detailed_node_2().get_label())
                 if edge.get_detailed_node_1() == last_node:
                     print("Dodaje krawedz " + edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
                     nodes.append(edge.get_detailed_node_2())
@@ -380,9 +378,9 @@ class Graph:
 
     def get_edges_to_node(self, node):
         """
-
-        :param node: wierzcholek, z ktorego wychodzace krawedzie chcemy znalezc
-        :return:
+        Funkcja zwracająca wszytstkie krawędzie zawierajace wskazany wierzchołek.
+        :param node: wierzcholek na podstawie którego chcemy znaleźć krawędzie
+        :return: lista krawędzi zawierajacych wskazany wierzchołek
         """
         edges_to_node = [edge for edge in self.__detailed_edges if node.get_label() == edge.get_detailed_node_2().get_label() or node.get_label() == edge.get_detailed_node_1().get_label()]
         print("wierzchołka krawedzie: " + node.get_label())
@@ -456,9 +454,9 @@ class Graph:
                 x[0]=True
                 print(visited)
                 break
-       # print("odwiedzilem: " + v.get_label())
-         # do for every edge `v —> u`
-       # print("sasiedzi "+ v.get_label() + str(self.get_neighbours(v)))
+        # print("odwiedzilem: " + v.get_label())
+        # do for every edge `v —> u`
+        # print("sasiedzi "+ v.get_label() + str(self.get_neighbours(v)))
         for u in self.get_neighbours(v):
             # `u` is not visited
             for x in visited:
@@ -472,21 +470,17 @@ class Graph:
         :return: zwraca True jesli graf jest spojny
                 wpp zwraca False
         """
-
-
     # do for every vertex
-       # print("wierzcholki mi wyswietl " + self.get_detailed_nodes())
+        # print("wierzcholki mi wyswietl " + self.get_detailed_nodes())
         for i in self.get_detailed_nodes():
- 
-        # to keep track of whether a vertex is visited or not
+            # to keep track of whether a vertex is visited or not
             visited = [[False,x.get_label()] for x in self.get_detailed_nodes()]
-            print(visited)
-         # start DFS from the first vertex
+            # print(visited)
+            # start DFS from the first vertex
             self.DFS(i, visited) 
-        # If DFS traversal doesn't visit all vertices,
-        # then the graph is not strongly connected
+            # If DFS traversal doesn't visit all vertices,
+            # then the graph is not strongly connected
             for b in visited:
                 if not b[0]:
                     return False 
         return True
- 

@@ -1,5 +1,5 @@
-#from KMHJ.backend.classes.DetailedNode import DetailedNode
-from backend.classes.DetailedNode import DetailedNode
+from KMHJ.backend.classes.DetailedNode import DetailedNode
+# from backend.classes.DetailedNode import DetailedNode
 from time import sleep
 
 
@@ -31,26 +31,26 @@ def dijkstra_algorithm(graph, start_node, end_node):
         # dla sasiadow u:
         for element in neighbours_u:
             if element in not_visited:
-                #print(element.get_label() + " is member of neighbours")
-                #print("cost to " + element.get_label() + " is " + str(neighbours_u[element]))
-                #print("element is" + element.get_label())
+                # print(element.get_label() + " is member of neighbours")
+                # print("cost to " + element.get_label() + " is " + str(neighbours_u[element]))
+                # print("element is" + element.get_label())
                 if distances[element] < distances[u] + neighbours_u[element]: # gdy wieksza odleglosc to podmien odleglosci - bo najwieksza sciezka
-                    #print("change element in path")
+                    # print("change element in path")
                     distances[element] = distances[u] + neighbours_u[element]
-                    #print("distances of " + element.get_label() + " is now = " + str(distances[element]))
+                    # print("distances of " + element.get_label() + " is now = " + str(distances[element]))
                     previous[element] = u
-                    #print("previous of " + element.get_label() + " is now = " + str(u.get_label()))
+                    # print("previous of " + element.get_label() + " is now = " + str(u.get_label()))
 
     vertices_in_result = []
     node_to_append = end_node
-    #print("end node is " + end_node.get_label())
-    while node_to_append is not None: #bierzemy wierzcholki do dodania juz do sciezki
-        #print("append node " + node_to_append.get_label())
+    # print("end node is " + end_node.get_label())
+    while node_to_append is not None: # bierzemy wierzcholki do dodania juz do sciezki
+        # print("append node " + node_to_append.get_label())
         vertices_in_result.append(node_to_append)
         node_to_append = previous[node_to_append]
 
     result = []
-    for i in range(len(vertices_in_result) - 1): #bierzemy z wierzcholkow z rozwiazania tworzymy krawedzie
+    for i in range(len(vertices_in_result) - 1): # bierzemy z wierzcholkow z rozwiazania tworzymy krawedzie
         result.append(graph.find_edge_from_nodes(vertices_in_result[i], vertices_in_result[i + 1]))
 
     return result
@@ -58,10 +58,10 @@ def dijkstra_algorithm(graph, start_node, end_node):
 
 def solve_salesman_problem(graph, path_arg):
     """
-
+    Funkcja zwracająca ścieżkę rozwiązującą problem wędrownego sprzedawcy zgodnie z opracowanych algorytmem.
     :param graph: graf realizujacy mapę
-    :param path_arg: sciezka zachowująca obecnie stan rozwiązania
-    :return: sciezka rozwiazująca problem wedrownego sprzedawcy
+    :param path_arg: scieżka zachowująca obecnie stan rozwiązania
+    :return: scieąka rozwiązująca problem wędrownego sprzedawcy
     """
 
     time = graph.get_worker_time()
@@ -112,8 +112,9 @@ def solve_salesman_problem(graph, path_arg):
     for node in not_visited:
         curr_edge_from_end = graph.find_edge_from_nodes(end_node, node)
         if curr_edge_from_end and curr_edge_from_end.get_travel_time() <= time:
-            path.append(edge)
-            path_arg.append(edge)
+            print("Do rozwiazania dodano krawedz: " + curr_edge_from_end.get_detailed_node_1().get_label() + "->" + curr_edge_from_end.get_detailed_node_2().get_label())
+            path.append(curr_edge_from_end)
+            path_arg.append(curr_edge_from_end)
             end_node = node
             time = time - curr_edge_from_end.get_travel_time()
             if node in not_visited:
@@ -127,6 +128,17 @@ def solve_salesman_problem(graph, path_arg):
 
 
 def algorithm_iteration(graph, start_node, not_visited, time):
+    """
+    Funkcja wykonująca jedną iterację algorytmu rozwiazujacego problem wędrownego sprzedawcy. Dla wskazanego wierzchołka
+    początkowego konstruuje ścieżki o największych wagach do wszystkich nieodwiedzonych jeszcze wierzchołków i wybiera z
+    nich tę o największej ilosciu produktów na niej sprzedanych.
+    :param graph: graf realizujący mapę
+    :param start_node: wierzchołek, z którego startuje obecna iteracja algorytmu
+    :param not_visited: nieodwiedzone wierzchołki
+    :param time: pozostały czas
+    :return: lista składająca się ze scieżki będącej wynikiem jednej iteracji algorytmu, czasu pozostałego po jej
+    przejściu, wierzchołka końcowego tej ścieżki i produktów podczas niej sprzedanych.
+    """
     max_path = []
     max_time = 0
     max_prod = 0
@@ -137,7 +149,7 @@ def algorithm_iteration(graph, start_node, not_visited, time):
         for curr_edge in curr_path:
             curr_time = curr_time + curr_edge.get_travel_time()
         curr_prod = 0
-        curr_nodes = graph.get_nodes_from_path(curr_path,start_node)
+        curr_nodes = graph.get_nodes_from_path(curr_path, start_node)
         for curr_node in curr_nodes:
             curr_prod = curr_prod + curr_node.get_products()
 
