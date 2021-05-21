@@ -1,6 +1,8 @@
 import unittest
 import pandas as pd
 
+from KMHJ.GUI.files import ReadFiles
+
 """
 from backend.classes.DetailedEdge import DetailedEdge
 from backend.classes.DetailedNode import DetailedNode
@@ -87,6 +89,28 @@ class MathFunctionsTest(unittest.TestCase):
         path = [edge_ab, edge_ac, edge_cd, edge_bc]
 
         self.assertEqual(solve_salesman_problem(graph1, []), path)
+
+    def test_should_find_solution_4(self):
+        file1 = "1huge.csv"
+        file2 = "2huge.csv"
+        file3 = "3huge.csv"
+
+        dfs = ReadFiles([file1, file2, file3,""])
+
+        graph = Graph([], [], None, None)
+        graph.set_nodes_from_file(dfs[0])
+        for node in graph.get_detailed_nodes():
+            print(node.get_label())
+        graph.set_edges_from_file(dfs[1])
+        graph.set_worker_time(dfs[2].values.tolist()[0][0])
+        graph.set_correct_edges_with_conditions()
+        graph.set_start_node()
+
+        edges = graph.get_detailed_edges()
+
+        path = [edges[53], edges[41], edges[39], edges[36], edges[38], edges[43], edges[87], edges[68], edges[70], edges[76], edges[81], edges[86], edges[13]]
+
+        self.assertEqual(solve_salesman_problem(graph, []), path)
 
     """
     Testowanie funkcji algorithm_iteration

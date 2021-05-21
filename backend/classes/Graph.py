@@ -452,7 +452,7 @@ class Graph:
         for x in visited :
             if x[1]==v.get_label() :
                 x[0]=True
-                print(visited)
+                # print(visited)
                 break
         # print("odwiedzilem: " + v.get_label())
         # do for every edge `v —> u`
@@ -474,7 +474,7 @@ class Graph:
         # print("wierzcholki mi wyswietl " + self.get_detailed_nodes())
         for i in self.get_detailed_nodes():
             # to keep track of whether a vertex is visited or not
-            visited = [[False,x.get_label()] for x in self.get_detailed_nodes()]
+            visited = [[False, x.get_label()] for x in self.get_detailed_nodes()]
             # print(visited)
             # start DFS from the first vertex
             self.DFS(i, visited) 
