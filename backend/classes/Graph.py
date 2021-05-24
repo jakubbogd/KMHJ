@@ -442,6 +442,11 @@ class Graph:
         return None
 
     def read_solution_from_file(self, df):
+    """
+        funkcja wczytuje rozwiązanie z pliki
+        :param df: ramka danych - lista miast z rozwiązania
+        :return: zwraca ścieżkę utworzoną z podanych miast
+    """
         records = df.values.tolist()
         solution_path = []
         for element in records:
