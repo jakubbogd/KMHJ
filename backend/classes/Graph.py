@@ -465,38 +465,32 @@ class Graph:
             :param visited: tablica tablic mowiaca ktore wierzcholki zostaly juz odwiedzone
         """
        
-        # mark current node as visited
         for x in visited :
             if x[1]==v.get_label() :
                 x[0]=True
                 # print(visited)
                 break
-        # print("odwiedzilem: " + v.get_label())
-        # do for every edge `v —> u`
-        # print("sasiedzi "+ v.get_label() + str(self.get_neighbours(v)))
+
         for u in self.get_neighbours(v):
-            # `u` is not visited
+            
             for x in visited:
                 if u.get_label()==x[1] and not x[0]:
                     self.DFS(u, visited)
  
  
-# Check if the graph is strongly connected or not
+
     def check(self):
         """
         :return: zwraca True jesli graf jest spojny
                 wpp zwraca False
         """
-    # do for every vertex
-        # print("wierzcholki mi wyswietl " + self.get_detailed_nodes())
+
         for i in self.get_detailed_nodes():
-            # to keep track of whether a vertex is visited or not
+
             visited = [[False, x.get_label()] for x in self.get_detailed_nodes()]
-            # print(visited)
-            # start DFS from the first vertex
+
             self.DFS(i, visited) 
-            # If DFS traversal doesn't visit all vertices,
-            # then the graph is not strongly connected
+
             for b in visited:
                 if not b[0]:
                     return False 
