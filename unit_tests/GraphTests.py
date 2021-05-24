@@ -1,17 +1,18 @@
 import unittest
 import pandas as pd
-"""
+
 from backend.classes.DetailedEdge import DetailedEdge
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.Graph import Graph
-"""
 
+"""
 from KMHJ.backend.classes.DetailedEdge import DetailedEdge
 from KMHJ.backend.classes.DetailedNode import DetailedNode
 from KMHJ.backend.classes.Graph import Graph
+"""
 
 """
-    Testowanie klasy Graph
+    Testowanie klasy Graph i metody obliczającej wagę krawędzi z DetailedEdge
 """
 
 
@@ -249,6 +250,36 @@ class GraphTest(unittest.TestCase):
         nodes = graph1.get_detailed_nodes()
 
         self.assertEqual(len(graph1.get_edges_from_node(nodes[0])), 3)
+
+    def test_should_find_edge_from_nodes_correct(self):
+        graph_1 = return_test_graph_1()
+        nodes = graph_1.get_detailed_nodes()
+
+        node_1 = nodes[2]
+        node_2 = nodes[3]
+        result = graph_1.find_edge_from_nodes(node_1, node_2)
+
+        self.assertTrue(result is not None)
+
+    def test_should_find_edge_from_nodes_none(self):
+        graph_1 = return_test_graph_1()
+        nodes = graph_1.get_detailed_nodes()
+
+        node_1 = nodes[0]
+        node_2 = nodes[4]
+        result = graph_1.find_edge_from_nodes(node_1, node_2)
+
+        self.assertFalse(result is not None)
+
+    def test_should_count_weight_in_edge_correct(self):
+        graph_1 = return_test_graph_1()
+        edges = graph_1.get_detailed_edges()
+        nodes = graph_1.get_detailed_nodes()
+
+        edge = edges[0]
+        node_to = nodes[1]
+        weight = edge.count_weight(node_to, 0.4, 0.6) # 0.4 * 25 + 0.6 * 10 = 10+6 = 16
+        self.assertEqual(weight, 16)
 
 if __name__ == '__main__':
     unittest.main()

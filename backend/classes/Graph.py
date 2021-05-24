@@ -3,13 +3,14 @@
 @author: HG
 """
 
-"""
+
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.DetailedEdge import DetailedEdge
+
 """
 from KMHJ.backend.classes.DetailedNode import DetailedNode
 from KMHJ.backend.classes.DetailedEdge import DetailedEdge
-
+"""
 #from backend.classes.DetailedNode import DetailedNode
 #from backend.classes.DetailedEdge import DetailedEdge
 import matplotlib.pyplot as plt
@@ -80,6 +81,7 @@ class Graph:
                         return 0
                     print("res = " + str(res))
         self.set_correct_edges(True)
+
 
     def check_incorrect_edges(self, edge_1, edge_2):
         """
@@ -410,6 +412,7 @@ class Graph:
         for edge in self.__detailed_edges:
             if (edge.get_detailed_node_1() == node_1 and edge.get_detailed_node_2() == node_2) or (edge.get_detailed_node_2() == node_1 and edge.get_detailed_node_1() == node_2):
                 return edge
+        return None
 
         """
         funkcja wyznaczajaca wspolczynnik k
@@ -442,7 +445,7 @@ class Graph:
         return None
 
     def read_solution_from_file(self, df):
-    """
+        """
         funkcja wczytuje rozwiązanie z pliki
         :param df: ramka danych - lista miast z rozwiązania
         :return: zwraca ścieżkę utworzoną z podanych miast

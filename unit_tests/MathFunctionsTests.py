@@ -1,17 +1,25 @@
 import unittest
 import pandas as pd
 
-from KMHJ.GUI.files import ReadFiles
+# from KMHJ.GUI.files import ReadFiles
+from GUI.files import ReadFiles
 
 """
 from backend.classes.DetailedEdge import DetailedEdge
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.Graph import Graph
 """
+
+"""
 from KMHJ.backend.classes.DetailedEdge import DetailedEdge
 from KMHJ.backend.classes.DetailedNode import DetailedNode
 from KMHJ.backend.classes.Graph import Graph
 from KMHJ.backend.MathFuncs.MathFunctions import solve_salesman_problem, algorithm_iteration, dijkstra_algorithm
+"""
+from backend.classes.DetailedEdge import DetailedEdge
+from backend.classes.DetailedNode import DetailedNode
+from backend.classes.Graph import Graph
+from backend.MathFuncs.MathFunctions import solve_salesman_problem, algorithm_iteration, dijkstra_algorithm
 
 """
     Testowanie klasy MathFunctions
@@ -22,6 +30,57 @@ class MathFunctionsTest(unittest.TestCase):
     # using objects
 
     # tests
+    """
+    Testy dla algorytmy Dijkstry
+    """
+
+    def test_should_return_correct_path_1(self):
+        #pamietajmy ze wagami krawedzi są te obliczone wg naszego algorytmu
+        #A zatem dla ułatwienia weźmy time_param = 1 i prod_param = 0 i będziemy mieli jako wagę po prostu długość trasy (waga będzie teraz symetryczna)
+        #nie zmienia to merytoryki sprawdzania, a ułatwia rozumowanie
+        vert_1 = DetailedNode("Marta", 1, 1, 20)
+        vert_2 = DetailedNode("Kuba", 7, 7, 10)
+        vert_3 = DetailedNode("Krzysio", 10, 12, 10)
+        vert_4 = DetailedNode("Hubix", -5, 2, 10)
+        vert_5 = DetailedNode("Legia", -5, 7, 22)
+        detailed_nodes = [vert_1, vert_2, vert_3, vert_4, vert_5]
+        edge_1 = DetailedEdge(vert_1, vert_2, 25, 1, 0)
+        edge_2 = DetailedEdge(vert_2, vert_3, 20, 1, 0)
+        edge_3 = DetailedEdge(vert_3, vert_4, 10, 1, 0)
+        edge_4 = DetailedEdge(vert_4, vert_1, 20, 1, 0)
+        edge_5 = DetailedEdge(vert_1, vert_3, 50, 1, 0)
+        edge_6 = DetailedEdge(vert_5, vert_4, 20, 1, 0)
+        edge_7 = DetailedEdge(vert_5, vert_3, 2, 1, 0)
+
+        detailed_edges = [edge_1, edge_2, edge_3, edge_4, edge_5, edge_6, edge_7]
+
+        graph_1 = Graph(detailed_nodes, detailed_edges, 10000, True)
+
+        result = dijkstra_algorithm(graph_1, vert_2, vert_5) #ścieżka powinna być 2-1-3-4-5, sprawdzone recznie
+        self.assertEqual(set(result), set([edge_1, edge_5, edge_3, edge_6]))
+
+    def test_should_return_correct_path_2(self):
+        #analogicznie 1-0 jak we wcześniejszym przykladzie
+        vert_1 = DetailedNode("Marta", 1, 1, 20)
+        vert_2 = DetailedNode("Kuba", 7, 7, 10)
+        vert_3 = DetailedNode("Krzysio", 10, 12, 10)
+        vert_4 = DetailedNode("Hubix", -5, 2, 10)
+        vert_5 = DetailedNode("Legia", -5, 7, 22)
+        detailed_nodes = [vert_1, vert_2, vert_3, vert_4, vert_5]
+        edge_1 = DetailedEdge(vert_1, vert_2, 25, 1, 0)
+        edge_2 = DetailedEdge(vert_2, vert_3, 20, 1, 0)
+        edge_3 = DetailedEdge(vert_3, vert_4, 10, 1, 0)
+        edge_4 = DetailedEdge(vert_4, vert_1, 20, 1, 0)
+        edge_5 = DetailedEdge(vert_1, vert_3, 50, 1, 0)
+        edge_6 = DetailedEdge(vert_5, vert_4, 20, 1, 0)
+        edge_7 = DetailedEdge(vert_5, vert_3, 2, 1, 0)
+
+        detailed_edges = [edge_1, edge_2, edge_3, edge_4, edge_5, edge_6, edge_7]
+
+        graph_1 = Graph(detailed_nodes, detailed_edges, 10000, True)
+        result = dijkstra_algorithm(graph_1, vert_1, vert_3)  # ścieżka powinna być 1-3, to po prostu krawedz, sprawdzone recznie
+        self.assertEqual(set(result), set([edge_5]))
+
     """
     Testowanie funkcji solve_salesman_problem
     """
