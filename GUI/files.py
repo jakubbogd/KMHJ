@@ -35,6 +35,7 @@ def read_prod(file,file1):
     :return: True, jeśli dane poprawne. W przeciwnym wypadku False
     """
     data=pd.read_csv(file)
+    data1=pd.read_csv(file1)
     if list(data.columns.values)!=['city1','city2','travel_time']:
         return False
     elif data["travel_time"].dtype!="float64" and data["travel_time"].dtype!="int64":
@@ -45,7 +46,7 @@ def read_prod(file,file1):
         return False
     elif len(data)==0:
         return False
-    elif not check_cities(file,file1):
+    elif not check_cities(data,data1):
         return False
     else:
         for index, row in data.iterrows():
