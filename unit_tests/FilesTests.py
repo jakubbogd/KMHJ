@@ -22,22 +22,32 @@ class TestFiles(unittest.TestCase):
         self.assertTrue(files.read_cities(file))
     def test_read_prod_false_1(self):
         file="2.1.csv"
-        self.assertFalse(files.read_prod(file))
+        file1="1.csv"
+        self.assertFalse(files.read_prod(file,file1))
     def test_read_prod_false_2(self):
         file="2.2.csv"
-        self.assertFalse(files.read_prod(file))
+        file1="1.csv"
+        self.assertFalse(files.read_prod(file,file1))
     def test_read_prod_false_3(self):
         file="2.3.csv"
-        self.assertFalse(files.read_prod(file))
+        file1="1.csv"
+        self.assertFalse(files.read_prod(file,file1))
     def test_read_prod_false_4(self):
         file="2.4.csv"
-        self.assertFalse(files.read_prod(file))
+        file1="1.csv"
+        self.assertFalse(files.read_prod(file,file1))
     def test_read_prod_false_5(self):
         file="2.5.csv"
-        self.assertFalse(files.read_prod(file))        
+        file1="1.csv"
+        self.assertFalse(files.read_prod(file,file1))       
+    def test_read_prod_false_6(self):
+        file="2.6.csv"
+        file1="1.csv"
+        self.assertFalse(files.read_prod(file,file1))       
     def test_read_prod_true(self):
         file="2.csv"
-        self.assertTrue(files.read_prod(file))
+        file1="1.csv"
+        self.assertTrue(files.read_prod(file,file1))
     def test_read_worker_time_false_1(self):
         file="3.1.csv"
         self.assertFalse(files.read_worker_time(file))
