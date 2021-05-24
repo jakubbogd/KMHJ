@@ -28,7 +28,7 @@ def read_cities(file):
     else:
         return True
     
-def read_prod(file):
+def read_prod(file,file1):
     """
     
     :param file: Ścieżka do pliku z listą dróg
@@ -44,6 +44,8 @@ def read_prod(file):
     elif any(data.duplicated(subset=["city1","city2"])):
         return False
     elif len(data)==0:
+        return False
+    elif not check_cities(file,file1):
         return False
     else:
         for index, row in data.iterrows():
@@ -99,7 +101,7 @@ def ReadFiles(files):
         layout=[[sg.Text("Nie wczytano wszystkich plików!")]]
     elif not read_cities(files[0]):
         layout=[[sg.Text("Błędne dane w pliku nr 1")]]
-    elif not read_prod(files[1]):
+    elif not read_prod(files[1],files[0]):
         layout=[[sg.Text("Błędne dane w pliku nr 2")]]
     elif not read_worker_time(files[2]):
         layout=[[sg.Text("Błędne dane w pliku nr 3")]]
@@ -183,3 +185,21 @@ def check_country_roads(sol,roads):
     roads_sol1=[[sol.loc[i,"solution"],sol.loc[i+1,"solution"]] for i in range(len(sol)-1)]
     roads_sol2=[[sol.loc[i+1,"solution"],sol.loc[i,"solution"]] for i in range(len(sol)-1)]
     return not all([roads_sol1[i] in roads or roads_sol2[i] in roads for i in range(len(roads_sol2))])
+
+
+def check_cities(roads,cities):
+    """
+    
+    :param roads: Ramka danych z listą dróg
+    :param cities: Ramka danych z listą miast
+    :return : True, jeśl w roads są miasta tylko z cities. WPP False
+    """
+    roads1=[roads.loc[:,"city1"][i] for i in range(len(roads))]
+    roads2=[roads.loc[:,"city2"][i] for i in range(len(roads))]
+    cities=[cities.loc[:,"city_name"][i] for i in range(len(cities))]
+    if len([el for el in roads1 if el not in cities])>0:
+        return False
+    elif len([el for el in roads2 if el not in cities])>0:
+        return False
+    else:
+        return True
