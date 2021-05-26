@@ -1,15 +1,21 @@
-# from KMHJ.backend.classes.DetailedNode import DetailedNode
-from backend.classes.DetailedNode import DetailedNode
+"""
+MathFunctions.py
+==================
+Moduł zawierający definicje funkcji matematycznych.
+"""
+from KMHJ.backend.classes.DetailedNode import DetailedNode
+# from backend.classes.DetailedNode import DetailedNode
 from time import sleep
 
 
 def dijkstra_algorithm(graph, start_node, end_node):
     """
-    Funkcja realizująca zmodyfikowany algorytm Dijkstry (zmodyfikowany bo zwraca najdroższą ścieżkę a nie najtańszą)
+    Funkcja realizująca zmodyfikowany algorytm Dijkstry (zmodyfikowany bo zwraca najdroższą ścieżkę a nie najtańszą).
+
     :param graph: graf realizujacy mape
     :param start_node: miasto startowe
     :param end_node: miasto koncowe
-    :return: najdrozsza sciezka miedzy start_node a end_node
+    :return: najdrozsza scieżka miedzy start_node a end_node
     """
 
     # -1 wystarcza bo wagi >0
@@ -59,9 +65,10 @@ def dijkstra_algorithm(graph, start_node, end_node):
 def solve_salesman_problem(graph, path_arg):
     """
     Funkcja zwracająca ścieżkę rozwiązującą problem wędrownego sprzedawcy zgodnie z opracowanych algorytmem.
+
     :param graph: graf realizujacy mapę
     :param path_arg: scieżka zachowująca obecnie stan rozwiązania
-    :return: scieąka rozwiązująca problem wędrownego sprzedawcy
+    :return: scieżka rozwiązująca problem wędrownego sprzedawcy
     """
 
     time = graph.get_worker_time()
@@ -108,7 +115,7 @@ def solve_salesman_problem(graph, path_arg):
     for node in not_visited:
         print(node.get_label())
     # sprawdzam czy da sie jeszcze pojedyncze miasto dodac
-    print("Koncowy: " + end_node.get_label())
+    print("Wierzchołek koncowy: " + end_node.get_label())
     for node in not_visited:
         curr_edge_from_end = graph.find_edge_from_nodes(end_node, node)
         if curr_edge_from_end and curr_edge_from_end.get_travel_time() <= time:
@@ -129,15 +136,14 @@ def solve_salesman_problem(graph, path_arg):
 
 def algorithm_iteration(graph, start_node, not_visited, time):
     """
-    Funkcja wykonująca jedną iterację algorytmu rozwiazujacego problem wędrownego sprzedawcy. Dla wskazanego wierzchołka
-    początkowego konstruuje ścieżki o największych wagach do wszystkich nieodwiedzonych jeszcze wierzchołków i wybiera z
-    nich tę o największej ilosciu produktów na niej sprzedanych.
+    Funkcja wykonująca jedną iterację algorytmu rozwiazujacego problem wędrownego sprzedawcy.
+    Dla wskazanego wierzchołka początkowego konstruuje ścieżki o największych wagach do wszystkich nieodwiedzonych jeszcze wierzchołków i wybiera z nich tę o największej ilosciu produktów na niej sprzedanych.
+
     :param graph: graf realizujący mapę
     :param start_node: wierzchołek, z którego startuje obecna iteracja algorytmu
     :param not_visited: nieodwiedzone wierzchołki
     :param time: pozostały czas
-    :return: lista składająca się ze scieżki będącej wynikiem jednej iteracji algorytmu, czasu pozostałego po jej
-    przejściu, wierzchołka końcowego tej ścieżki i produktów podczas niej sprzedanych.
+    :return: lista składająca się ze scieżki będącej wynikiem jednej iteracji algorytmu, czasu pozostałego po jej przejściu, wierzchołka końcowego tej ścieżki i produktów podczas niej sprzedanych.
     """
     max_path = []
     max_time = 0

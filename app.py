@@ -6,7 +6,7 @@ from func_timeout import func_timeout, FunctionTimedOut
 import time
 
 
-TIMEOUT_PARAM = 30
+TIMEOUT_PARAM = 300000000000000
 
 if __name__ == "__main__":
 

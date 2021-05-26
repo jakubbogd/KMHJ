@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Apr 21 10:09:18 2021
-@author: jakub
+files.py
+==========
+Moduł odpowiedzialny za interfejs graficzny.
 """
 
 import PySimpleGUI as sg
@@ -124,7 +125,7 @@ def ReadFiles(files):
 def GUI():
     """
     
-        :return: Ramki danych otrzymane z plików podanych przez użytkownika.
+    :return: Ramki danych otrzymane z plików podanych przez użytkownika.
     """
     layout=[[sg.Text("Wybierz listę miast:   "),sg.Input(),sg.FileBrowse(key="-IN-")],[sg.Text("Wybierz listę dróg:     "),sg.Input(),sg.FileBrowse(key="-IN2-")],[sg.Text("Wybierz czas:           "),sg.Input(),sg.FileBrowse(key="-IN3-")],[sg.Text("Wybierz rozwiązanie: "),sg.Input(),sg.FileBrowse(key="-IN4-")],[sg.Button("Gotowe")]]
     window=sg.Window("KMHJ - Komiwojażer with GPS",layout,size=(700,350))
@@ -188,12 +189,13 @@ def check_country_roads(sol,roads):
     return not all([roads_sol1[i] in roads or roads_sol2[i] in roads for i in range(len(roads_sol2))])
 
 
-def check_cities(roads,cities):
+def check_cities(roads, cities):
     """
-    
+    Sprawdzanie poprawności miast.
+
     :param roads: Ramka danych z listą dróg
     :param cities: Ramka danych z listą miast
-    :return : True, jeśl w roads są miasta tylko z cities. WPP False
+    :return: True, jeśl w roads są miasta tylko z cities. WPP False
     """
     roads1=[roads.loc[:,"city1"][i] for i in range(len(roads))]
     roads2=[roads.loc[:,"city2"][i] for i in range(len(roads))]

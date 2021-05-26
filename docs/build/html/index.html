@@ -1,0 +1,612 @@
+
+<!DOCTYPE html>
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Welcome to KMHJ’s documentation! &#8212; KMHJ 0.0.1 - dokumentacja</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Indeks" href="genindex.html" />
+    <link rel="search" title="Szukaj" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-KMHJ.backend.classes.Graph">
+<span id="welcome-to-kmhj-s-documentation"></span><h1>Welcome to KMHJ’s documentation!<a class="headerlink" href="#module-KMHJ.backend.classes.Graph" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<section id="graph-py">
+<h2>Graph.py<a class="headerlink" href="#graph-py" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Moduł reprezentujący graf.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">KMHJ.backend.classes.Graph.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">detailed_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detailed_edges</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">worker_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correct_edges</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.DFS">
+<span class="sig-name descname"><span class="pre">DFS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visited</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.DFS" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja przeszukuje graf w glab i zaznacza ktore wierzcholki zostaly odwiedzone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> – obecnie sprawdzany wierzchołek</p></li>
+<li><p><strong>visited</strong> – tablica tablic mowiaca ktore wierzcholki zostaly juz odwiedzone</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.check">
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.check" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Sprawdza czy graf jest spójny.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Zwraca</dt>
+<dd class="field-odd"><p>zwraca True jesli graf jest spojny wpp zwraca False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.check_incorrect_edges">
+<span class="sig-name descname"><span class="pre">check_incorrect_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.check_incorrect_edges" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja, która sprawdza czy dwie krawędzie są niepoprawne w kontekście przecinania się.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edge_1</strong> – krawedz z klasy DetailedEdge</p></li>
+<li><p><strong>edge_2</strong> – krawedz z klasy DetailedEdge</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>czy krawedzie spelniaja warunek nieprzecinania zwraca True jesli krawedzie sie przecinaja i False jesli krawedzie sie nie przecinaja</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.find_detailed_node_index">
+<span class="sig-name descname"><span class="pre">find_detailed_node_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.find_detailed_node_index" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja, która dla danego oznaczenia wierchołka zwraca jego indeks na liście wierzcholkow grafu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>node_label</strong> – oznaczenie node’a</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>index jesli istnieje, None jeśli nie</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.find_edge_from_nodes">
+<span class="sig-name descname"><span class="pre">find_edge_from_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.find_edge_from_nodes" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja znajdująca w grafie krawędź na podstawie wierzchołków.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_1</strong> – Wierzchołek z klasy Detailed Node</p></li>
+<li><p><strong>node_2</strong> – Wierzchołek z klasy Detailed Node</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>Krawędź node_1 – node_2 gdy istnieje, empty wpp</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.get_edges_from_node">
+<span class="sig-name descname"><span class="pre">get_edges_from_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.get_edges_from_node" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja zwracająca wszytstkie krawędzie zawierajace wskazany wierzchołek.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>node</strong> – wierzcholek na podstawie którego chcemy znaleźć krawędzie</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>lista krawędzi zawierajacych wskazany wierzchołek</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.get_neighbours">
+<span class="sig-name descname"><span class="pre">get_neighbours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.get_neighbours" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja która zwraca sąsiadów wierzchołka node i wagi do sąsiadów ze wzoru liczonego dla algorytmu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>node</strong> – node, którego sąsiadów szukamy</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>słownik sąsiedzi: wagi</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.get_node_from_label">
+<span class="sig-name descname"><span class="pre">get_node_from_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.get_node_from_label" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja, która zwraca wierzchołek na podstawie nazwy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>label</strong> – oznaczenie wierzchołka</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>Wierzchołek, gdy jego label == argument, None wpp</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.get_nodes_from_path">
+<span class="sig-name descname"><span class="pre">get_nodes_from_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.get_nodes_from_path" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja, która zwraca listę DetailedNode na podstawie listy DetailedEdge i pierwszego wierzchołka ścieżki.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – lista DetaileEdge, z której chcemy wyekstartować wierzchołki</p></li>
+<li><p><strong>start_node</strong> – wierzchołek, od ktorego scieżka się zaczyna</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>lista DetailedNode</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.get_solution_from_path">
+<span class="sig-name descname"><span class="pre">get_solution_from_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.get_solution_from_path" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja, która zwraca listę nazw wierzchołków na podstawie listy DetailedEdge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>path</strong> – lista DetaileEdge, z której chcemy wyekstartować wierzchołki</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>lista nazw wierzchołków z path w kojeności przejścia</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.get_starting_node_with_max_k">
+<span class="sig-name descname"><span class="pre">get_starting_node_with_max_k</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.get_starting_node_with_max_k" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja wyznaczajaca wspolczynnik k
+oraz wfunkcja wyznaczajaca wierzcholek z najwiekszym wspolczynnikiem k.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Zwraca</dt>
+<dd class="field-odd"><p>zwraca wierzchołek z największym parametrem k</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.plot_graph">
+<span class="sig-name descname"><span class="pre">plot_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.plot_graph" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja, która rysuje graf (bez ściezki zaznaczonej).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>show</strong> – Parametr logiczny opisujący czy wyświetlić rysunek</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>empty</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.plot_graph_with_path">
+<span class="sig-name descname"><span class="pre">plot_graph_with_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.plot_graph_with_path" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja, która rysuje graf z zaznaczoną ścieżką.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>path</strong> – ścieżka do zaznaczenia</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>lista nazw miast odwiedzonych na ścieżce</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.read_solution_from_file">
+<span class="sig-name descname"><span class="pre">read_solution_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.read_solution_from_file" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>funkcja wczytuje rozwiązanie z pliki.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>df</strong> – ramka danych - lista miast z rozwiązania</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>zwraca ścieżkę utworzoną z podanych miast</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.set_correct_edges_with_conditions">
+<span class="sig-name descname"><span class="pre">set_correct_edges_with_conditions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.set_correct_edges_with_conditions" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja, która zwraca, czy krawędzie są poprawne tj czy się nie przecinają w grafie.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Zwraca</dt>
+<dd class="field-odd"><p>0 gdy się przecinają, nic wpp i ustawia correct_edges na True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.set_edges_from_file">
+<span class="sig-name descname"><span class="pre">set_edges_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.set_edges_from_file" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja, która z data frame powstałego z pliku wejsciowego ustawia krawedzie grafu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>df</strong> – plik z ktorego tworzymy krawedzie</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>chyba empty, bo ustawia odpowiednio wierzcholek</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.set_nodes_from_file">
+<span class="sig-name descname"><span class="pre">set_nodes_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.set_nodes_from_file" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja, która z data frame powstałego z pliku wejsciowego ustawia wierzcholki grafu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>df</strong> – df z ktorego tworzymy wierzcholki</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>empty, bo ustawia odpowiednio wierzcholki</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.Graph.Graph.set_start_node">
+<span class="sig-name descname"><span class="pre">set_start_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.Graph.Graph.set_start_node" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja ustalająca wierzchołek początkowy algorytmu na podstawie parametru k.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Zwraca</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-KMHJ.backend.classes.DetailedNode"></span><section id="detailednode-py">
+<h2>DetailedNode.py<a class="headerlink" href="#detailednode-py" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Moduł reprezentujacy Szczegółowy wierzchołek.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.DetailedNode.DetailedNode">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">KMHJ.backend.classes.DetailedNode.</span></span><span class="sig-name descname"><span class="pre">DetailedNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_coord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_coord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">products</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.DetailedNode.DetailedNode" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.DetailedNode.DetailedNode.get_k_value_to_node">
+<span class="sig-name descname"><span class="pre">get_k_value_to_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.DetailedNode.DetailedNode.get_k_value_to_node" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja zwraca k-wartosc dla danego wierzcholka, czyli produkcja/min czasu podróży do sąsiadów.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>graph</strong> – przyjmuje wejciowy graf</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>zwraca k wartosc dla danego wierzchołka</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-KMHJ.backend.classes.DetailedEdge"></span><section id="detailededge-py">
+<h2>DetailedEdge.py<a class="headerlink" href="#detailededge-py" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>moduł reprezentujący szczegółową krawędź.</p>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.DetailedEdge.DetailedEdge">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">KMHJ.backend.classes.DetailedEdge.</span></span><span class="sig-name descname"><span class="pre">DetailedEdge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">detailed_node_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detailed_node_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">travel_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prod_param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.DetailedEdge.DetailedEdge" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="KMHJ.backend.classes.DetailedEdge.DetailedEdge.count_weight">
+<span class="sig-name descname"><span class="pre">count_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_to</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prod_param</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.classes.DetailedEdge.DetailedEdge.count_weight" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Metoda obliczająca wagę krawędzi na podstawie wierzchołka do któergo idziemy i parametrów.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_to</strong> – Wierzchołek, do którego idziemy</p></li>
+<li><p><strong>time_param</strong> – Parametr czasu do wagi</p></li>
+<li><p><strong>prod_param</strong> – Parametr produkcji do wagi</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>Waga obliczona ze wzoru</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-KMHJ.backend.MathFuncs.MathFunctions"></span><section id="mathfunctions-py">
+<h2>MathFunctions.py<a class="headerlink" href="#mathfunctions-py" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Moduł zawierający definicje funkcji matematycznych.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.backend.MathFuncs.MathFunctions.algorithm_iteration">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.backend.MathFuncs.MathFunctions.</span></span><span class="sig-name descname"><span class="pre">algorithm_iteration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_visited</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.MathFuncs.MathFunctions.algorithm_iteration" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja wykonująca jedną iterację algorytmu rozwiazujacego problem wędrownego sprzedawcy.
+Dla wskazanego wierzchołka początkowego konstruuje ścieżki o największych wagach do wszystkich nieodwiedzonych jeszcze wierzchołków i wybiera z nich tę o największej ilosciu produktów na niej sprzedanych.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – graf realizujący mapę</p></li>
+<li><p><strong>start_node</strong> – wierzchołek, z którego startuje obecna iteracja algorytmu</p></li>
+<li><p><strong>not_visited</strong> – nieodwiedzone wierzchołki</p></li>
+<li><p><strong>time</strong> – pozostały czas</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>lista składająca się ze scieżki będącej wynikiem jednej iteracji algorytmu, czasu pozostałego po jej przejściu, wierzchołka końcowego tej ścieżki i produktów podczas niej sprzedanych.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.backend.MathFuncs.MathFunctions.dijkstra_algorithm">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.backend.MathFuncs.MathFunctions.</span></span><span class="sig-name descname"><span class="pre">dijkstra_algorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.MathFuncs.MathFunctions.dijkstra_algorithm" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja realizująca zmodyfikowany algorytm Dijkstry (zmodyfikowany bo zwraca najdroższą ścieżkę a nie najtańszą).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – graf realizujacy mape</p></li>
+<li><p><strong>start_node</strong> – miasto startowe</p></li>
+<li><p><strong>end_node</strong> – miasto koncowe</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>najdrozsza scieżka miedzy start_node a end_node</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.backend.MathFuncs.MathFunctions.solve_salesman_problem">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.backend.MathFuncs.MathFunctions.</span></span><span class="sig-name descname"><span class="pre">solve_salesman_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_arg</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.backend.MathFuncs.MathFunctions.solve_salesman_problem" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Funkcja zwracająca ścieżkę rozwiązującą problem wędrownego sprzedawcy zgodnie z opracowanych algorytmem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> – graf realizujacy mapę</p></li>
+<li><p><strong>path_arg</strong> – scieżka zachowująca obecnie stan rozwiązania</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>scieżka rozwiązująca problem wędrownego sprzedawcy</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<span class="target" id="module-KMHJ.GUI.files"></span><section id="files-py">
+<h2>files.py<a class="headerlink" href="#files-py" title="Stały odnośnik do tego nagłówka">¶</a></h2>
+<p>Moduł odpowiedzialny za interfejs graficzny.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.GUI.files.Error">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.GUI.files.</span></span><span class="sig-name descname"><span class="pre">Error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.GUI.files.Error" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>text</strong> – Tekst z błędem do wyświetlenia</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.GUI.files.GUI">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.GUI.files.</span></span><span class="sig-name descname"><span class="pre">GUI</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.GUI.files.GUI" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Zwraca</dt>
+<dd class="field-odd"><p>Ramki danych otrzymane z plików podanych przez użytkownika.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.GUI.files.ReadFiles">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.GUI.files.</span></span><span class="sig-name descname"><span class="pre">ReadFiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.GUI.files.ReadFiles" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>files</strong> – Ścieżki do plików pokolei z listą miast, listą dróg, czasem sprzedawcy i rozwiązaniem</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>Jeśli dane są poprawne, zwraca listę złożoną z ramek danych z plików wejściowych. W przeciwnym wypadku zwraca false</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.GUI.files.Save">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.GUI.files.</span></span><span class="sig-name descname"><span class="pre">Save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.GUI.files.Save" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>result</strong> – Ramka danych z rozwiązaniem do zapisania</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.GUI.files.check_cities">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.GUI.files.</span></span><span class="sig-name descname"><span class="pre">check_cities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">roads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cities</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.GUI.files.check_cities" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><p>Sprawdzanie poprawności miast.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>roads</strong> – Ramka danych z listą dróg</p></li>
+<li><p><strong>cities</strong> – Ramka danych z listą miast</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>True, jeśl w roads są miasta tylko z cities. WPP False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.GUI.files.check_country_roads">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.GUI.files.</span></span><span class="sig-name descname"><span class="pre">check_country_roads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roads</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.GUI.files.check_country_roads" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sol</strong> – Ramka danych z rozwiązaniem</p></li>
+<li><p><strong>roads</strong> – Ramka danych z listą dróg</p></li>
+</ul>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>False, jeśli wszystkie drogi z sol znajdują się w roads. True w przeciwnym wypadku</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.GUI.files.read_cities">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.GUI.files.</span></span><span class="sig-name descname"><span class="pre">read_cities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.GUI.files.read_cities" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>file</strong> – Ścieżka do pliku z listą miast</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>True, jeśli dane poprawne. W przeciwnym wypadku False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.GUI.files.read_prod">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.GUI.files.</span></span><span class="sig-name descname"><span class="pre">read_prod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.GUI.files.read_prod" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>file</strong> – Ścieżka do pliku z listą dróg</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>True, jeśli dane poprawne. W przeciwnym wypadku False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.GUI.files.read_solution">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.GUI.files.</span></span><span class="sig-name descname"><span class="pre">read_solution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.GUI.files.read_solution" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>file</strong> – Ścieżka do pliku z rozwiązaniem</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>True, jeśli dane poprawne. W przeciwnym wypadku False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="KMHJ.GUI.files.read_worker_time">
+<span class="sig-prename descclassname"><span class="pre">KMHJ.GUI.files.</span></span><span class="sig-name descname"><span class="pre">read_worker_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#KMHJ.GUI.files.read_worker_time" title="Stały odnośnik do tej definicji">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parametry</dt>
+<dd class="field-odd"><p><strong>file</strong> – Ścieżka do pliku z czasem sprzedawcy</p>
+</dd>
+<dt class="field-even">Zwraca</dt>
+<dd class="field-even"><p>True, jeśli dane poprawne. W przeciwnym wypadku False</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Stały odnośnik do tego nagłówka">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Indeks</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Indeks modułów</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Wyszukiwanie</span></a></p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">KMHJ</a></h1>
+
+
+
+
+
+
+
+
+<h3>Nawigacja</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Szybkie wyszukiwanie</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Szukaj" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Krzysztof Bolen, Marta Brzezinska, Hubert Grochowski, Jakub Bogdanski.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

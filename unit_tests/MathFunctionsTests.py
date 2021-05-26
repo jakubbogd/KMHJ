@@ -25,6 +25,7 @@ from backend.MathFuncs.MathFunctions import solve_salesman_problem, algorithm_it
     Testowanie klasy MathFunctions
 """
 
+
 class MathFunctionsTest(unittest.TestCase):
 
     # using objects
@@ -154,7 +155,7 @@ class MathFunctionsTest(unittest.TestCase):
         file2 = "2huge.csv"
         file3 = "3huge.csv"
 
-        dfs = ReadFiles([file1, file2, file3,""])
+        dfs = ReadFiles([file1, file2, file3, ""])
 
         graph = Graph([], [], None, None)
         graph.set_nodes_from_file(dfs[0])

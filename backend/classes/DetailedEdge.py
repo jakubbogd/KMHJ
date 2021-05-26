@@ -1,6 +1,7 @@
 """
-
-@author: HG
+DetailedEdge.py
+=====================
+moduł reprezentujący szczegółową krawędź.
 """
 # from KMHJ.backend.classes.DetailedNode import DetailedNode
 from backend.classes.DetailedNode import DetailedNode
@@ -40,7 +41,8 @@ class DetailedEdge:
 
     def count_weight(self, node_to, time_param, prod_param):
         """
-        Metoda obliczająca wagę krawędzi na podstawie wierzchołka do któergo idziemy i parametrów
+        Metoda obliczająca wagę krawędzi na podstawie wierzchołka do któergo idziemy i parametrów.
+
         :param node_to: Wierzchołek, do którego idziemy
         :param time_param: Parametr czasu do wagi
         :param prod_param: Parametr produkcji do wagi

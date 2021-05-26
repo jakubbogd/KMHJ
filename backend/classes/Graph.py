@@ -1,18 +1,18 @@
 """
-
-@author: HG
+Graph.py
+================
+Moduł reprezentujący graf.
 """
 
-
+"""
 from backend.classes.DetailedNode import DetailedNode
 from backend.classes.DetailedEdge import DetailedEdge
-
 """
 from KMHJ.backend.classes.DetailedNode import DetailedNode
 from KMHJ.backend.classes.DetailedEdge import DetailedEdge
-"""
-#from backend.classes.DetailedNode import DetailedNode
-#from backend.classes.DetailedEdge import DetailedEdge
+
+# from backend.classes.DetailedNode import DetailedNode
+# from backend.classes.DetailedEdge import DetailedEdge
 import matplotlib.pyplot as plt
 
 plt.style.use("ggplot")
@@ -58,14 +58,16 @@ class Graph:
 
     def set_start_node(self):
         """
-        Funkcja ustalająca wierzchołek początkowy algorytmu na podstawie parametru k
+        Funkcja ustalająca wierzchołek początkowy algorytmu na podstawie parametru k.
+
         :return: None
         """
         self.__start_node = self.get_starting_node_with_max_k()
 
     def set_correct_edges_with_conditions(self):
         """
-        Funkcja, która zwraca, czy krawędzie są poprawne tj czy się nie przecinają w grafie
+        Funkcja, która zwraca, czy krawędzie są poprawne tj czy się nie przecinają w grafie.
+
         :return: 0 gdy się przecinają, nic wpp i ustawia correct_edges na True
         """
         res = True
@@ -82,14 +84,13 @@ class Graph:
                     print("res = " + str(res))
         self.set_correct_edges(True)
 
-
     def check_incorrect_edges(self, edge_1, edge_2):
         """
-        Funkcja, która sprawdza czy dwie krawędzie są niepoprawne w kontekście przecinania się
+        Funkcja, która sprawdza czy dwie krawędzie są niepoprawne w kontekście przecinania się.
+
         :param edge_1: krawedz z klasy DetailedEdge
         :param edge_2: krawedz z klasy DetailedEdge
-        :return: czy krawedzie spelniaja warunek nieprzecinania
-        zwraca True jesli krawedzie sie przecinaja i False jesli krawedzie sie nie przecinaja
+        :return: czy krawedzie spelniaja warunek nieprzecinania zwraca True jesli krawedzie sie przecinaja i False jesli krawedzie sie nie przecinaja
         """
         # przydaja mi sie takie rzeczy wiec na poczatek rzucilem 
         x1 = min(edge_1.get_detailed_node_1().get_x_coord(), edge_1.get_detailed_node_2().get_x_coord() )
@@ -112,8 +113,8 @@ class Graph:
         
         if edge_1.get_detailed_node_1().get_x_coord() == edge_1.get_detailed_node_2().get_x_coord():
              if edge_2.get_detailed_node_1().get_y_coord() == edge_2.get_detailed_node_2().get_y_coord():
-                 a2=0
-                 b2 = edge_2.get_detailed_node_1().get_y_coord()
+                  a2=0
+                  b2 = edge_2.get_detailed_node_1().get_y_coord()
              else:
                 a2 = (edge_2.get_detailed_node_1().get_y_coord() - edge_2.get_detailed_node_2().get_y_coord() ) / (edge_2.get_detailed_node_1().get_x_coord() - edge_2.get_detailed_node_2().get_x_coord() )
                 b2 = edge_2.get_detailed_node_1().get_y_coord() - a2* edge_2.get_detailed_node_1().get_x_coord()
@@ -131,7 +132,7 @@ class Graph:
         # przypadek gdy druga krawedz jest "pionowa"
         if edge_2.get_detailed_node_1().get_x_coord() == edge_2.get_detailed_node_2().get_x_coord() :
             if edge_1.get_detailed_node_1().get_y_coord() == edge_1.get_detailed_node_2().get_y_coord() :
-                 a1=0
+                 a1 = 0
                  b1 = edge_1.get_detailed_node_1().get_y_coord()
             else:
                 a1 = (edge_1.get_detailed_node_1().get_y_coord() - edge_1.get_detailed_node_2().get_y_coord() ) / (edge_1.get_detailed_node_1().get_x_coord() - edge_1.get_detailed_node_2().get_x_coord() )
@@ -185,7 +186,8 @@ class Graph:
 
     def set_nodes_from_file(self, df):
         """
-        Funkcja, która z data frame powstałego z pliku wejsciowego ustawia wierzcholki grafu
+        Funkcja, która z data frame powstałego z pliku wejsciowego ustawia wierzcholki grafu.
+
         :param df: df z ktorego tworzymy wierzcholki
         :return: empty, bo ustawia odpowiednio wierzcholki
         """
@@ -196,7 +198,8 @@ class Graph:
 
     def set_edges_from_file(self, df):
         """
-        Funkcja, która z data frame powstałego z pliku wejsciowego ustawia krawedzie grafu
+        Funkcja, która z data frame powstałego z pliku wejsciowego ustawia krawedzie grafu.
+
         :param df: plik z ktorego tworzymy krawedzie
         :return: chyba empty, bo ustawia odpowiednio wierzcholek
         """
@@ -214,7 +217,8 @@ class Graph:
 
     def find_detailed_node_index(self, node_label):
         """
-        Funkcja, która dla danego oznaczenia wierchołka zwraca jego indeks na liście wierzcholkow grafu
+        Funkcja, która dla danego oznaczenia wierchołka zwraca jego indeks na liście wierzcholkow grafu.
+
         :param node_label: oznaczenie node'a
         :return: index jesli istnieje, None jeśli nie
         """
@@ -225,7 +229,8 @@ class Graph:
 
     def plot_graph(self, show):
         """
-        Funkcja, która rysuje graf (bez ściezki zaznaczonej)
+        Funkcja, która rysuje graf (bez ściezki zaznaczonej).
+
         :param show: Parametr logiczny opisujący czy wyświetlić rysunek
         :return: empty
         """
@@ -253,7 +258,8 @@ class Graph:
 
     def plot_graph_with_path(self, path):
         """
-        Funkcja, która rysuje graf z zaznaczoną ścieżką
+        Funkcja, która rysuje graf z zaznaczoną ścieżką.
+
         :param path: ścieżka do zaznaczenia
         :return: lista nazw miast odwiedzonych na ścieżce
         """
@@ -292,7 +298,8 @@ class Graph:
 
     def get_solution_from_path(self, path):
         """
-        Funkcja, która zwraca listę nazw wierzchołków na podstawie listy DetailedEdge
+        Funkcja, która zwraca listę nazw wierzchołków na podstawie listy DetailedEdge.
+
         :param path: lista DetaileEdge, z której chcemy wyekstartować wierzchołki
         :return: lista nazw wierzchołków z path w kojeności przejścia
         """
@@ -336,7 +343,8 @@ class Graph:
 
     def get_nodes_from_path(self, path, start_node):
         """
-        Funkcja, która zwraca listę DetailedNode na podstawie listy DetailedEdge i pierwszego wierzchołka ścieżki
+        Funkcja, która zwraca listę DetailedNode na podstawie listy DetailedEdge i pierwszego wierzchołka ścieżki.
+
         :param path: lista DetaileEdge, z której chcemy wyekstartować wierzchołki
         :param start_node: wierzchołek, od ktorego scieżka się zaczyna
         :return: lista DetailedNode
@@ -379,7 +387,8 @@ class Graph:
 
     def get_neighbours(self, node):
         """
-        Funkcja która zwraca sąsiadów wierzchołka node i wagi do sąsiadów ze wzoru liczonego dla algorytmu
+        Funkcja która zwraca sąsiadów wierzchołka node i wagi do sąsiadów ze wzoru liczonego dla algorytmu.
+
         :param node: node, którego sąsiadów szukamy
         :return: słownik sąsiedzi: wagi
         """
@@ -395,6 +404,7 @@ class Graph:
     def get_edges_from_node(self, node):
         """
         Funkcja zwracająca wszytstkie krawędzie zawierajace wskazany wierzchołek.
+
         :param node: wierzcholek na podstawie którego chcemy znaleźć krawędzie
         :return: lista krawędzi zawierajacych wskazany wierzchołek
         """
@@ -404,7 +414,8 @@ class Graph:
 
     def find_edge_from_nodes(self, node_1, node_2):
         """
-        Funkcja znajdująca w grafie krawędź na podstawie wierzchołków
+        Funkcja znajdująca w grafie krawędź na podstawie wierzchołków.
+
         :param node_1: Wierzchołek z klasy Detailed Node
         :param node_2: Wierzchołek z klasy Detailed Node
         :return: Krawędź node_1 -- node_2 gdy istnieje, empty wpp
@@ -414,15 +425,12 @@ class Graph:
                 return edge
         return None
 
-        """
-        funkcja wyznaczajaca wspolczynnik k
-        oraz wfunkcja wyznaczajaca wierzcholek z najwiekszym wspolczynnikiem k
-        """
-     
     def get_starting_node_with_max_k(self):
         """
-        :return: zwraca wierzchołek z największym parametrem k
+        Funkcja wyznaczajaca wspolczynnik k
+        oraz wfunkcja wyznaczajaca wierzcholek z najwiekszym wspolczynnikiem k.
 
+        :return: zwraca wierzchołek z największym parametrem k
         """
         # node = DetailedNode("Zero", 1, 1, 0)
         node_max = max([node.get_k_value_to_node(self) for node in self.__detailed_nodes])
@@ -435,7 +443,8 @@ class Graph:
 
     def get_node_from_label(self, label):
         """
-        Funkcja, która zwraca wierzchołek na podstawie labelki
+        Funkcja, która zwraca wierzchołek na podstawie nazwy.
+
         :param label: oznaczenie wierzchołka
         :return: Wierzchołek, gdy jego label == argument, None wpp
         """
@@ -446,10 +455,11 @@ class Graph:
 
     def read_solution_from_file(self, df):
         """
-        funkcja wczytuje rozwiązanie z pliki
+        funkcja wczytuje rozwiązanie z pliki.
+
         :param df: ramka danych - lista miast z rozwiązania
         :return: zwraca ścieżkę utworzoną z podanych miast
-    """
+        """
         records = df.values.tolist()
         solution_path = []
         for element in records:
@@ -463,7 +473,8 @@ class Graph:
     """
     def DFS(self, v, visited):
         """
-            funkcja przeszukuje graf w glab i zaznacza ktore wierzcholki zostaly odwiedzone
+            Funkcja przeszukuje graf w glab i zaznacza ktore wierzcholki zostaly odwiedzone.
+
             :param v: obecnie sprawdzany wierzchołek
             :param visited: tablica tablic mowiaca ktore wierzcholki zostaly juz odwiedzone
         """
@@ -479,13 +490,12 @@ class Graph:
             for x in visited:
                 if u.get_label()==x[1] and not x[0]:
                     self.DFS(u, visited)
- 
- 
 
     def check(self):
         """
-        :return: zwraca True jesli graf jest spojny
-                wpp zwraca False
+        Sprawdza czy graf jest spójny.
+
+        :return: zwraca True jesli graf jest spojny wpp zwraca False
         """
 
         for i in self.get_detailed_nodes():
