@@ -8,7 +8,3 @@ r. ak. 2020/2021 na studiach magisterskich kierunku Matematyka na wydziale MiNI 
 - Jakub Bogdański
 - Krzysztof Boleń
 - Hubert Grochowski
-
-Dzień dobry gąski zmieniłem readme trochę pa
-
-
