@@ -12,6 +12,7 @@ sg.theme('TealMono')
 def read_cities(file):
     """
     Funkcja sprawdza poprawność pliku z listą miast.
+
     :param file: Ścieżka do pliku z listą miast
     :return: True, jeśli dane poprawne. W przeciwnym wypadku False
     """
@@ -32,6 +33,7 @@ def read_cities(file):
 def read_prod(file,file1):
     """
     Funkcja sprawdza poprawność pliku z listą dróg.
+
     :param file: Ścieżka do pliku z listą dróg
     :return: True, jeśli dane poprawne. W przeciwnym wypadku False
     """
@@ -58,6 +60,7 @@ def read_prod(file,file1):
 def read_worker_time(file):
     """
     Funkcja sprawdza poprawność pliku z czasem sprzedawcy.
+
     :param file: Ścieżka do pliku z czasem sprzedawcy
     :return: True, jeśli dane poprawne. W przeciwnym wypadku False
     """
@@ -74,6 +77,7 @@ def read_worker_time(file):
 def read_solution(file4,file1,file2):
     """
     Funkcja sprawdza poprawność pliku z rozwiązaniem.
+
     :param file: Ścieżka do pliku z rozwiązaniem
     :return: True, jeśli dane poprawne. W przeciwnym wypadku False
     """
@@ -94,6 +98,7 @@ def read_solution(file4,file1,file2):
 def ReadFiles(files):
     """
     Funkcja sprawdza poprawność podanych plików. Pokazuje komunikat w razie błędnego pliku.
+
     :param files: Ścieżki do plików pokolei z listą miast, listą dróg, czasem sprzedawcy i rozwiązaniem
     :return: Jeśli dane są poprawne, zwraca listę złożoną z ramek danych z plików wejściowych. W przeciwnym wypadku zwraca false
     """
@@ -125,6 +130,7 @@ def ReadFiles(files):
 def GUI():
     """
     Funkcja umożliwia interakcje użytkownika z aplikacją. Umożliwia także ponowne wprowadzenie danych.
+
     :return: Ramki danych otrzymane z plików podanych przez użytkownika.
     """
     layout=[[sg.Text("Wybierz listę miast:   "),sg.Input(),sg.FileBrowse(key="-IN-")],[sg.Text("Wybierz listę dróg:     "),sg.Input(),sg.FileBrowse(key="-IN2-")],[sg.Text("Wybierz czas:           "),sg.Input(),sg.FileBrowse(key="-IN3-")],[sg.Text("Wybierz rozwiązanie: "),sg.Input(),sg.FileBrowse(key="-IN4-")],[sg.Button("Gotowe")]]
@@ -149,6 +155,7 @@ def GUI():
 def Error(text):
     """
     Funkcja tworząca komunikat z daną treścią o błędzie.
+
     :param text: Tekst z błędem do wyświetlenia
     """
     layout=[[sg.Text(text)],[sg.Button("OK")]]
@@ -162,6 +169,7 @@ def Error(text):
 def Save(result):
     """
     Funkcja zapisująca rozwiązanie problemu do pliku csv.
+
     :param result: Ramka danych z rozwiązaniem do zapisania
     """
     layout=[[sg.Text("Wybierz lokalizację dla rozwiązania"),sg.Input(),sg.FolderBrowse(key="-IN-")],[sg.Button("Gotowe")]]
@@ -179,6 +187,7 @@ def Save(result):
 def check_country_roads(sol,roads):
     """
     Funkcja sprawdzająca czy w pliku z rozwiązaniem są tylko odpowiednie miasta.
+
     :param sol: Ramka danych z rozwiązaniem
     :param roads: Ramka danych z listą dróg
     :return: False, jeśli wszystkie drogi z sol znajdują się w roads. True w przeciwnym wypadku
@@ -192,6 +201,7 @@ def check_country_roads(sol,roads):
 def check_cities(roads, cities):
     """
     Funkcja sprawdzająca czy w pliku z rozwiązaniem są tylko odpowiednie miasta.
+
     :param roads: Ramka danych z listą dróg
     :param cities: Ramka danych z listą miast
     :return: True, jeśl w roads są miasta tylko z cities. WPP False

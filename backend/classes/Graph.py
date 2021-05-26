@@ -4,10 +4,6 @@ Graph.py
 Moduł reprezentujący graf.
 """
 
-"""
-from backend.classes.DetailedNode import DetailedNode
-from backend.classes.DetailedEdge import DetailedEdge
-"""
 from KMHJ.backend.classes.DetailedNode import DetailedNode
 from KMHJ.backend.classes.DetailedEdge import DetailedEdge
 
