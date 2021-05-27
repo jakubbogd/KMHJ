@@ -4,11 +4,11 @@ Graph.py
 Moduł reprezentujący graf.
 """
 
-# from KMHJ.backend.classes.DetailedNode import DetailedNode
-# from KMHJ.backend.classes.DetailedEdge import DetailedEdge
+from KMHJ.backend.classes.DetailedNode import DetailedNode
+from KMHJ.backend.classes.DetailedEdge import DetailedEdge
 
-from backend.classes.DetailedNode import DetailedNode
-from backend.classes.DetailedEdge import DetailedEdge
+# from backend.classes.DetailedNode import DetailedNode
+# from backend.classes.DetailedEdge import DetailedEdge
 import matplotlib.pyplot as plt
 
 plt.style.use("ggplot")

@@ -124,6 +124,7 @@ def solve_salesman_problem(graph, path_arg):
             path_arg.append(curr_edge_from_end)
             end_node = node
             time = time - curr_edge_from_end.get_travel_time()
+            prod_sold = prod_sold + node.get_products()
             if node in not_visited:
                 not_visited.remove(node)
     print("Rozwiazaniem jest scieżka:")
