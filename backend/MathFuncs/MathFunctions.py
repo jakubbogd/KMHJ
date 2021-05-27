@@ -3,8 +3,8 @@ MathFunctions.py
 ==================
 Moduł zawierający definicje funkcji matematycznych.
 """
-# from KMHJ.backend.classes.DetailedNode import DetailedNode
-from backend.classes.DetailedNode import DetailedNode
+from KMHJ.backend.classes.DetailedNode import DetailedNode
+# from backend.classes.DetailedNode import DetailedNode
 from time import sleep
 
 
@@ -68,7 +68,7 @@ def solve_salesman_problem(graph, path_arg):
 
     :param graph: graf realizujacy mapę
     :param path_arg: scieżka zachowująca obecnie stan rozwiązania
-    :return: scieżka rozwiązująca problem wędrownego sprzedawcy
+    :return: lista składajaca się ze scieżki rozwiązująca problem wędrownego sprzedawcy, pozostałego czau i liczby sprzedanych towarów.
     """
 
     time = graph.get_worker_time()
@@ -127,12 +127,8 @@ def solve_salesman_problem(graph, path_arg):
             prod_sold = prod_sold + node.get_products()
             if node in not_visited:
                 not_visited.remove(node)
-    print("Rozwiazaniem jest scieżka:")
-    for edge in path:
-        print(edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
-    print("przebyta w czasie " + str(graph.get_worker_time()-time) + " podczas, której sprzedano " + str(prod_sold) + " towarów")
     print("Funkcja solve_salesman_problem konczy dzialanie")
-    return path
+    return [path, time, prod_sold]
 
 
 def algorithm_iteration(graph, start_node, not_visited, time):

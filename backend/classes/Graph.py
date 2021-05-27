@@ -286,8 +286,8 @@ class Graph:
                     0.5 * xs[edge.get_detailed_node_1().get_label()] + 0.5 * xs[edge.get_detailed_node_2().get_label()],
                     0.5 * ys[edge.get_detailed_node_1().get_label()] + 0.5 * ys[edge.get_detailed_node_2().get_label()],
                     edge.get_travel_time())
-        plt.text(maxx, maxy, ("Dla czasu: " + str(time)), size=10, color='purple')
-        print("Napisałem dla czasu")
+        plt.text(maxx, maxy + 2, ("Czas sprzedawcy: " + str(time)), size=10, color='purple')
+        print("Napisałem czas sprzedawcy")
         plt.show()
         print("Kończy działanie plot graph with path")
         return path_to_csv

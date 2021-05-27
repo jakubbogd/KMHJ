@@ -49,20 +49,23 @@ if __name__ == "__main__":
             try:
                 path_arg = []
                 start_time = time.time()
-                path = func_timeout(TIMEOUT_PARAM, solve_salesman_problem, args=(graph, path_arg))
+                [path, time_left, prod_sold] = func_timeout(TIMEOUT_PARAM, solve_salesman_problem, args=(graph, path_arg))
                 print("----------- Znalazłem rozwiązanie w: " + str(time.time()-start_time) + " sekund --------------")
             except FunctionTimedOut:
-                print("Minęło 30 sekund - zwracam rozwiązanie przybliżone")
+                print("Mineło " + str(TIMEOUT_PARAM) + " sekund - zwracam rozwiązanie przybliżone")
                 path = path_arg.copy()
+
             except Exception as ex:
                 print(ex)
                 print("Nie mogłem utworzyć rozwiązania")
             try:
+                print("Wypisuję krawędzie w ścieżce: ")
                 for edge in path:
-                    print("Wypisuję krawędzie w ścieżce: ")
-                    print(str(edge.get_detailed_node_1()) + "->" + str(edge.get_detailed_node_2()))
+                    print(edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
+                print("Wypisuję wierzchołki w grafie:")
                 for node in graph.get_detailed_nodes():
-                    print(str(node))
+                    print(str(node.get_label()))
+                print("Scieżka została przebyta w czasie " + str(graph.get_worker_time() - time_left) + " podczas, której sprzedano " + str(prod_sold) + " towarów")
                 result = graph.plot_graph_with_path(path)
                 result = pd.DataFrame(result, columns=['solution'])
             except Exception as ex:
