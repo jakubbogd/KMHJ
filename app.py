@@ -1,6 +1,6 @@
 from GUI.files import GUI, Error, Save
-from backend.MathFuncs.MathFunctions import solve_salesman_problem
-from backend.classes.Graph import Graph, calculate_result
+from KMHJ.backend.MathFuncs.MathFunctions import solve_salesman_problem
+from KMHJ.backend.classes.Graph import Graph
 import pandas as pd
 from func_timeout import func_timeout, FunctionTimedOut
 import time
@@ -54,8 +54,7 @@ if __name__ == "__main__":
             except FunctionTimedOut:
                 print("Mineło " + str(TIMEOUT_PARAM) + " sekund - zwracam rozwiązanie przybliżone")
                 path = path_arg.copy()
-                (timeee,moneyee)=calculate_result(path)
-                Error("Czas sprzedawcy: " + str(graph.get_worker_time())+"\n Wykorzystano czas: "+str(timeee)+"\n Sprzedano produktów: "+str(moneyee))
+                [time_left, prod_sold] = graph.calculate_result(path)
             except Exception as ex:
                 print(ex)
                 print("Nie mogłem utworzyć rozwiązania")
@@ -63,11 +62,9 @@ if __name__ == "__main__":
                 print("Wypisuję krawędzie w ścieżce: ")
                 for edge in path:
                     print(edge.get_detailed_node_1().get_label() + "->" + edge.get_detailed_node_2().get_label())
-                print("Wypisuję wierzchołki w grafie:")
-                for node in graph.get_detailed_nodes():
-                    print(str(node.get_label()))
                 print("Scieżka została przebyta w czasie " + str(graph.get_worker_time() - time_left) + " podczas, której sprzedano " + str(prod_sold) + " towarów")
-                result = graph.plot_graph_with_path(path)
+                result = graph.plot_graph_with_path(path, time_left, prod_sold)
+                Error("Czas sprzedawcy: " + str(graph.get_worker_time()) + "\nScieżka została przebyta w czasie: " + str(graph.get_worker_time() - time_left) + "\nSprzedanych towarów: " + str(prod_sold))
                 result = pd.DataFrame(result, columns=['solution'])
             except Exception as ex:
                 print("Nie udało się rozwiązać problemu")

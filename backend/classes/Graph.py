@@ -252,7 +252,7 @@ class Graph:
             plt.show()
             print("Koniec funkcji plot graph")
 
-    def plot_graph_with_path(self, path):
+    def plot_graph_with_path(self, path, time_left, prod_sold):
         """
         Funkcja, która rysuje graf z zaznaczoną ścieżką.
 
@@ -286,8 +286,10 @@ class Graph:
                     0.5 * xs[edge.get_detailed_node_1().get_label()] + 0.5 * xs[edge.get_detailed_node_2().get_label()],
                     0.5 * ys[edge.get_detailed_node_1().get_label()] + 0.5 * ys[edge.get_detailed_node_2().get_label()],
                     edge.get_travel_time())
-        plt.text(maxx, maxy + 2, ("Czas sprzedawcy: " + str(time)), size=10, color='purple')
-        print("Napisałem czas sprzedawcy")
+        plt.text(maxx, maxy + 3, ("Czas sprzedawcy: " + str(time)), size=10, color='purple')
+        plt.text(maxx, maxy + 2, ("Czas przejścia ścieżki: " + str(time - time_left)), size=10, color='purple')
+        plt.text(maxx, maxy + 1, ("Sprzedane produkty: " + str(prod_sold)), size=10, color='purple')
+        print("Statystyki wyświetlone")
         plt.show()
         print("Kończy działanie plot graph with path")
         return path_to_csv
@@ -505,13 +507,16 @@ class Graph:
                     return False 
         return True
 
-   def calculate_result(path):
+    def calculate_result(self, path):
         """
         Na podstawie scieżki oblicza wykorzystany czas i sprzedane produkty
         :return: Para uporządkowana (Wykorzystany czas, sprzedane produkty)
         """
-        timeee=sum(i.get_travel_time() for i in path)
-        moneyee=path[0].get_detailed_node_1().get_products()
-        for i in path:
-            moneyee+=i.get_detailed_node_2().get_products()
-        return (timeee,moneyee)
+        nodes = self.get_nodes_from_path(path, self.get_start_node())
+        prod_sold = 0
+
+        time_left = self.get_worker_time() - sum(edge.get_travel_time() for edge in path)
+        for node in nodes:
+            prod_sold += node.get_entrance_products()
+
+        return [time_left, prod_sold]
