@@ -54,7 +54,8 @@ if __name__ == "__main__":
             except FunctionTimedOut:
                 print("Mineło " + str(TIMEOUT_PARAM) + " sekund - zwracam rozwiązanie przybliżone")
                 path = path_arg.copy()
-
+                (timeee,moneyee)=calculate_result(path)
+                Error("Czas sprzedawcy: " + str(graph.get_worker_time())+"\n Wykorzystano czas: "+str(timeee)+"\n Sprzedano produktów: "+str(moneyee))
             except Exception as ex:
                 print(ex)
                 print("Nie mogłem utworzyć rozwiązania")
