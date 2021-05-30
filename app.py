@@ -1,6 +1,6 @@
 from GUI.files import GUI, Error, Save
 from backend.MathFuncs.MathFunctions import solve_salesman_problem
-from backend.classes.Graph import Graph
+from backend.classes.Graph import Graph, calculate_result
 import pandas as pd
 from func_timeout import func_timeout, FunctionTimedOut
 import time
