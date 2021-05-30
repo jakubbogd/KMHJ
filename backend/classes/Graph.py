@@ -504,3 +504,14 @@ class Graph:
                 if not b[0]:
                     return False 
         return True
+
+   def calculate_result(path):
+        """
+        Na podstawie scieżki oblicza wykorzystany czas i sprzedane produkty
+        :return: Para uporządkowana (Wykorzystany czas, sprzedane produkty)
+        """
+        timeee=sum(i.get_travel_time() for i in path)
+        moneyee=path[0].get_detailed_node_1().get_products()
+        for i in path:
+            moneyee+=i.get_detailed_node_2().get_products()
+        return (timeee,moneyee)
